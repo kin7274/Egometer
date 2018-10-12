@@ -26,11 +26,33 @@
             android:textStyle="normal" />
     </android.support.v7.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/txt_device_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txt_device_address"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/txt_device_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/add_device"
+        android:layout_alignParentStart="true" />
     <Button
         android:id="@+id/add_device"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/pairing_device"
         android:layout_alignParentStart="true"
         android:text="장치 추가" />
+
+
+    <Button
+        android:id="@+id/pairing_device"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="연결" />
 </RelativeLayout>

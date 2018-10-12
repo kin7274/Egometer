@@ -3,6 +3,7 @@
     package="com.example.elab_yang.egometer">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -33,7 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DeviceScanActivity" />
+        <activity
+            android:name=".DeviceScanActivity"
+            android:theme="@android:style/Theme.Holo.Light" />
     </application>
 
 </manifest>
