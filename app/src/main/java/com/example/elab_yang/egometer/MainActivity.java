@@ -3,11 +3,17 @@ package com.example.elab_yang.egometer;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     // 객체 생성
-    public void set(){
+    public void set() {
         // 장치 추가 버튼
         Button add_device = (Button) findViewById(R.id.add_device);
         add_device.setOnClickListener(this);
@@ -45,10 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // 클릭 이벤트
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             // 장치 추가하러 ㄱㄱ
             case R.id.add_device:
-                startActivity(new Intent(MainActivity.this, DeviceChooseActivity.class));
+                startActivity(new Intent(MainActivity.this, DeviceScanActivity.class));
                 break;
         }
     }
