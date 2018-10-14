@@ -13,6 +13,7 @@ import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,7 +26,9 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -43,7 +46,7 @@ public class DeviceScanActivity extends AppCompatActivity {
     BluetoothAdapter bluetoothAdapter;
     BluetoothLeScanner bluetoothLeScanner;
     //
-    Button button;
+    Button button, button1;
     RecyclerView recyclerView;
     //
     Handler handler;
@@ -52,6 +55,8 @@ public class DeviceScanActivity extends AppCompatActivity {
     ArrayList<BluetoothDevice> bleDeviceList;
     //
     boolean mScanning;
+    //
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,17 +65,33 @@ public class DeviceScanActivity extends AppCompatActivity {
         //
         bleDeviceList = new ArrayList<>();
         handler = new Handler();
-        //
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
+        // 다음에 할게요
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener((View v) -> {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("activity_executed", true);
+            editor.apply();
+            startActivity(new Intent(DeviceScanActivity.this, MainActivity.class));
+            finish();
+        });
+
+        // 스캔버튼
+        button1 = (Button) findViewById(R.id.button1);
+        button1.setOnClickListener(v -> {
+            if (!mScanning) {
+                button1.setText("STOP");
+                bleDeviceList.clear();
+                adapter.notifyDataSetChanged();
+                scanLeDevice(true);
+
+            } else {
+                button1.setText("SCAN");
+                scanLeDevice(false);
             }
         });
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        //
         checkScanPermission();
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -203,7 +224,7 @@ public class DeviceScanActivity extends AppCompatActivity {
             adapter = new DeviceScanAdapter(bleDeviceList, this);
             recyclerView.setAdapter(adapter);
             scanLeDevice(true);
-            button.setText("STOP");
+            button1.setText("STOP");
         }
     }
 
