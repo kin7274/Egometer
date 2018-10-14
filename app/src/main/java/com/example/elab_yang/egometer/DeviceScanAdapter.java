@@ -86,12 +86,12 @@ public class DeviceScanAdapter extends RecyclerView.Adapter<DeviceScanViewHolder
                 deviceDatabase.add(new Device(deviceName, deviceAddress));
                 Paper.book("device").write("user_device", deviceDatabase);
 
+                // 장치 선택하면 메인으로 이동
                 Intent intent = new Intent(context, MainActivity.class);
 //                intent.putExtra(IntentConst.EXTRAS_DEVICE_NAME, deviceName);
 //                intent.putExtra(IntentConst.EXTRAS_DEVICE_ADDRESS, deviceAddress);
                 context.startActivity(intent);
                 ((Activity)context).finish();
-
             });
             builder.show();
         });
