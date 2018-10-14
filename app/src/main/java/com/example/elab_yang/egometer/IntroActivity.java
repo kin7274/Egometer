@@ -14,13 +14,10 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         Button next_btn = (Button) findViewById(R.id.next_btn);
-        next_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 시작하기
-                Intent intent = new Intent(IntroActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        next_btn.setOnClickListener(v -> {
+            // 시작하기
+            Intent intent = new Intent(IntroActivity.this, DeviceScanActivity.class);
+            startActivity(intent);
         });
     }
 }

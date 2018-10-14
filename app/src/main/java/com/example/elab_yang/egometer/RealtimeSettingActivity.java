@@ -22,7 +22,6 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
     @BindView(R.id.start_fitness_button)
     Button startFitnessButton;
 
-
     @BindView(R.id.ctv)
     CircleTimerView circleTimerView;
 

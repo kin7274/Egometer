@@ -189,7 +189,6 @@ public class DeviceScanActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_ENABLE_BT && resultCode == Activity.RESULT_CANCELED) {
             finish();
         }
@@ -223,7 +222,6 @@ public class DeviceScanActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void startNEWBTLEDiscovery() {
-        // Only use new API when user uses Lollipop+ device
         if (bluetoothLeScanner == null) {
             getBluetoothAdapter();
         } else {
