@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import butterknife.BindView;
 import io.paperdb.Paper;
 
 // 메인이야
@@ -42,12 +44,17 @@ public class MainActivity extends AppCompatActivity {
         Button add_device = (Button) findViewById(R.id.add_device);
         add_device.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, MachineScanActivity.class)));
         //
+        LinearLayout emptyLayout = (LinearLayout) findViewById(R.id.empty_layout);
+        LinearLayout deviceLayout = (LinearLayout) findViewById(R.id.device_layout);
+        //
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         deviceDatabase = Paper.book("device").read("user_device");
         if (deviceDatabase != null) {
             if (deviceDatabase.size() != 0) {
+                emptyLayout.setVisibility(View.GONE);
+                deviceLayout.setVisibility(View.VISIBLE);
                 deviceArrayList = new ArrayList<>(deviceDatabase);
                 deviceAdapter = new DeviceAdapter(this, deviceArrayList);
                 recyclerView.setAdapter(deviceAdapter);
@@ -58,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             Log.e(TAG, "onCreate: " + "등록된 장비 없음");
+            emptyLayout.setVisibility(View.VISIBLE);
+            deviceLayout.setVisibility(View.GONE);
         }
     }
 }
