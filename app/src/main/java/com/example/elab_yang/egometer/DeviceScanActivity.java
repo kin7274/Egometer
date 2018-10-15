@@ -63,6 +63,8 @@ public class DeviceScanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_scan);
         //
+        preferences = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
+        //
         bleDeviceList = new ArrayList<>();
         handler = new Handler();
 
