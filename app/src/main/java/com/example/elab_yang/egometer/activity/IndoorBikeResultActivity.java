@@ -1,14 +1,20 @@
 package com.example.elab_yang.egometer.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
 
-public class IndoorBikeResultActivity extends AppCompatActivity {
+public class IndoorBikeResultActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "IndoorBikeResultActivity";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,34 +30,55 @@ public class IndoorBikeResultActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
     }
 
-    // 객체 생성
     public void set() {
-        // 날짜
-        TextView txt_now = (TextView) findViewById(R.id.txt_now);
-//        txt_now.setText(str);
+        // 인텐트 리시브
+        Intent intent = getIntent();
+        String EI = getIntent().getExtras().getString("EI");  // 운동강도
+        Log.d(TAG, "EI =" + EI);
+        int time = intent.getExtras().getInt("result_time");
+        String extra = intent.getExtras().getString("result_extra");
+        String[] arr_data = extra.split("&");
 
-        // 시간
+        // 객체 생성
         TextView txt_time = (TextView) findViewById(R.id.txt_time);
-//        txt_time.setText(str);
-
-        // 운동강도
         TextView txt_EI = (TextView) findViewById(R.id.txt_EI);
-//        txt_EI.setText(str);
-
-        // 평균속도
         TextView txt_AvgSpeed = (TextView) findViewById(R.id.txt_AvgSpeed);
-//        txt_AvgSpeed.setText(str);
-
-        // 이동거리
         TextView txt_Distance = (TextView) findViewById(R.id.txt_Distance);
-//        txt_Distance.setText(str);
-
-        // 평균BPM
         TextView txt_AvgBPM = (TextView) findViewById(R.id.txt_AvgBPM);
-//        txt_AvgBPM.setText(str);
-
-        // 소모 칼로리
         TextView txt_Kcal = (TextView) findViewById(R.id.txt_Kcal);
-//        txt_Kcal.setText(str);
+
+        Button hahahahahah_btn = (Button) findViewById(R.id.hahahahahah_btn);
+        hahahahahah_btn.setOnClickListener(this);
+        Button set_btn = (Button) findViewById(R.id.set_btn);
+        set_btn.setOnClickListener(this);
+        Button ext_btn = (Button) findViewById(R.id.ext_btn);
+        ext_btn.setOnClickListener(this);
+
+        // setText
+        txt_time.setText(String.valueOf(time) + "초");
+        txt_EI.setText(EI);
+        txt_AvgSpeed.setText(arr_data[0]);
+        txt_Distance.setText(arr_data[1]);
+        txt_AvgBPM.setText(arr_data[2]);
+        txt_Kcal.setText(arr_data[3]);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            // 자랑하기
+            case R.id.hahahahahah_btn:
+                Toast.makeText(getApplicationContext(), "자랑을 해보아요~", Toast.LENGTH_SHORT).show();
+                break;
+                // DB에 저장
+            case R.id.set_btn:
+                Toast.makeText(getApplicationContext(), "DB에 저장해보아요~", Toast.LENGTH_SHORT).show();
+                break;
+                // 나가기
+            case R.id.ext_btn:
+                Toast.makeText(getApplicationContext(), "여기서 나가보아요~", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
     }
 }

@@ -30,78 +30,163 @@
         android:layout_height="wrap_content"
         android:columnCount="2"
         android:orientation="horizontal"
-        android:rowCount="7">
+        android:rowCount="6">
 
         <TextView
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:text="날짜" />
-
-        <TextView
-            android:id="@+id/txt_now"
-            android:layout_width="150dp"
-            android:layout_height="50dp" />
-
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="시간" />
+            android:layout_margin="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:padding="16dp"
+            android:text="시간"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/txt_time"
             android:layout_width="150dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:padding="16dp"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:text="운동강도" />
+            android:layout_margin="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:padding="16dp"
+            android:text="운동강도"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/txt_EI"
             android:layout_width="150dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:padding="16dp"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:text="평균속도" />
+            android:layout_margin="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:padding="16dp"
+            android:text="평균속도"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/txt_AvgSpeed"
             android:layout_width="150dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:padding="16dp"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:text="이동거리" />
+            android:layout_margin="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:padding="16dp"
+            android:text="이동거리"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/txt_Distance"
             android:layout_width="150dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:padding="16dp"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:text="평균BPM" />
+            android:layout_margin="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:padding="16dp"
+            android:text="평균BPM"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/txt_AvgBPM"
             android:layout_width="150dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:padding="16dp"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:text="소모 칼로리" />
+            android:layout_margin="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:padding="16dp"
+            android:text="소모 칼로리"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/txt_Kcal"
             android:layout_width="150dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:padding="16dp"
+            android:textColor="#000"
+            android:textSize="20dp" />
 
     </GridLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/hahahahahah_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/my_font_family"
+            android:text="자랑하기"
+            android:textColor="#000"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/set_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/my_font_family"
+            android:text="저장하기"
+            android:textColor="#000"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/ext_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/my_font_family"
+            android:text="종료하기"
+            android:textColor="#000"
+            android:textSize="20dp" />
+    </LinearLayout>
 </LinearLayout>

@@ -51,6 +51,8 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
     int workoutTime = 1800;
     int workoutIntense = 1;
 
+    // 운동강도 EI
+    String value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,7 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
             if (chip != null) {
                 Log.e(TAG, "onCheckedChanged: " + chip.getText());
 
-                String value = chip.getText().toString();
+                value = chip.getText().toString();
 
                 switch (value) {
                     case "저강도 운동":
@@ -166,6 +168,8 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
         bundle.putInt(IntentConst.REAL_TIME_WORKOUT_TOTAL_TIME, workoutTime);
         bundle.putInt(IntentConst.REAL_TIME_WORKOUT_INTENSE, workoutIntense);
         intent.putExtra(IntentConst.REAL_TIME_SETTING_FITNESS_INFO, bundle);
+        intent.putExtra("EI", value);
+        Log.d(TAG, "EI =" + value);
         startActivity(intent);
         finish();
 
