@@ -4,15 +4,12 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -376,19 +373,11 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("알림");
         builder.setMessage("운동을 종료하시겠어요?");
-        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                finish();
-            }
+        builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
+            dialog.dismiss();
+            finish();
         });
-        builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton(android.R.string.no, (dialog, which) -> dialog.dismiss());
         builder.setCancelable(false);
         builder.show();
     }
@@ -404,6 +393,9 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
             dialog.dismiss();
             // 결과값 정리하러가즈ㅏㅏ
             Intent intent = new Intent(IndoorBikeRealTimeActivity.this, IndoorBikeResultActivity.class);
+
+            String result = ;
+            intent.putExtra("result", result);
             startActivity(intent);
 //            finish();
         });
