@@ -198,7 +198,6 @@ public class MachineScanActivity extends AppCompatActivity {
                     builder.setOnDismissListener(dialog -> finish());
                     builder.show();
                 }
-
                 return;
         }
     }

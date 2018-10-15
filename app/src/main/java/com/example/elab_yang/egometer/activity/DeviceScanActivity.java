@@ -72,11 +72,11 @@ public class DeviceScanActivity extends AppCompatActivity {
         // 다음에 할게요
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener((View v) -> {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("activity_executed", true);
-            editor.apply();
-            startActivity(new Intent(DeviceScanActivity.this, MainActivity.class));
-            finish();
+//            SharedPreferences.Editor editor = preferences.edit();
+//            editor.putBoolean("activity_executed", true);
+//            editor.apply();
+//            startActivity(new Intent(DeviceScanActivity.this, MainActivity.class));
+//            finish();
         });
 
         // 스캔버튼

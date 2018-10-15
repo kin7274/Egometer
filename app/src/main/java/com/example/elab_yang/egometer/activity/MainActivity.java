@@ -25,16 +25,10 @@ public class MainActivity extends AppCompatActivity {
     //
     private static final String TAG = "MainActivity";
     private static final long RIPPLE_DURATION = 250;
-    Context context;
-    //
-    LinearLayout deviceLayout;
     //
     RecyclerView recyclerView;
     //
     DeviceAdapter deviceAdapter;
-    //
-    String mDeviceName;
-    String mDeviceAddress;
     //
     HashSet<Device> deviceDatabase = new HashSet<>();
     ArrayList<Device> deviceArrayList;
@@ -55,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-//        deviceDatabase = Paper.book("device").read("user_device");
+        deviceDatabase = Paper.book("device").read("user_device");
         if (deviceDatabase != null) {
             if (deviceDatabase.size() != 0) {
                 emptyLayout.setVisibility(View.GONE);
