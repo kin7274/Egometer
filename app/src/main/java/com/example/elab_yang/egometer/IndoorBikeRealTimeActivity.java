@@ -23,6 +23,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.elab_yang.egometer.etc.IntentConst;
 import com.example.elab_yang.egometer.model.Met;
@@ -397,18 +398,14 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("알림");
         builder.setMessage("운동을 종료하시겠어요?");
-        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                finish();
-            }
+        builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
+            Toast.makeText(getApplicationContext(), "결과값을 정리하자", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+            finish();
         });
-        builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
+        builder.setNegativeButton(android.R.string.no, (dialog, which) -> {
+            dialog.dismiss();
+            Toast.makeText(getApplicationContext(), "가즈아ㅏㅏ", Toast.LENGTH_SHORT).show();
         });
         builder.setCancelable(false);
         builder.show();
