@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.elab_yang.egometer.activity.IndoorBikeResultActivity;
 import com.example.elab_yang.egometer.etc.IntentConst;
 import com.example.elab_yang.egometer.model.Met;
 import com.example.elab_yang.egometer.service.EZBLEService;
@@ -399,9 +400,12 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         builder.setTitle("알림");
         builder.setMessage("운동을 종료하시겠어요?");
         builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
-            Toast.makeText(getApplicationContext(), "결과값을 정리하자", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "결과값을 정리하자", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
-            finish();
+            // 결과값 정리하러가즈ㅏㅏ
+            Intent intent = new Intent(IndoorBikeRealTimeActivity.this, IndoorBikeResultActivity.class);
+            startActivity(intent);
+//            finish();
         });
         builder.setNegativeButton(android.R.string.no, (dialog, which) -> {
             dialog.dismiss();

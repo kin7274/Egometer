@@ -51,10 +51,9 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".activity.SyncIndoorBikeDataActivity"
+            android:name=".activity.IndoorBikeResultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".RealtimeSettingActivity"
             android:screenOrientation="portrait"
