@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <!--툴바-->
     <android.support.v7.widget.Toolbar
@@ -24,5 +25,73 @@
             android:textStyle="normal" />
     </android.support.v7.widget.Toolbar>
 
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:orientation="horizontal"
+        android:rowCount="6">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="시간" />
+
+        <TextView
+            android:id="@+id/txt_time"
+            android:layout_width="150dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="운동강도" />
+
+        <TextView
+            android:id="@+id/txt_EI"
+            android:layout_width="150dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="평균속도" />
+
+        <TextView
+            android:id="@+id/txt_AvgSpeed"
+            android:layout_width="150dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="이동거리" />
+
+        <TextView
+            android:id="@+id/txt_Distance"
+            android:layout_width="150dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="평균BPM" />
+
+        <TextView
+            android:id="@+id/txt_AvgBPM"
+            android:layout_width="150dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="소모 칼로리" />
+
+        <TextView
+            android:id="@+id/txt_Kcal"
+            android:layout_width="150dp"
+            android:layout_height="50dp" />
+
+    </GridLayout>
 
 </LinearLayout>
