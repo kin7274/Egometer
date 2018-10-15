@@ -10,6 +10,7 @@ import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -289,8 +290,6 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         yAxis.setEnabled(false);
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
-
     }
 
     @Override
@@ -391,13 +390,27 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
 //            Toast.makeText(getApplicationContext(), "결과값을 정리하자", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
-            // 결과값 정리하러가즈ㅏㅏ
-            Intent intent = new Intent(IndoorBikeRealTimeActivity.this, IndoorBikeResultActivity.class);
+            // 시간
+            int time = (int)(long)(SystemClock.elapsedRealtime() - chronometer.getBase())/1000;
+//            Log.d(TAG, "운동시간 = " + time +"초");
+            // 평균속도
+            String avg_speed = meanSpeedTextView.getText().toString();
+            // 이동거리
+            String total_distance = totalDistanceTextView.getText().toString();
+            // 평균BPM
+            String avg_bpm = heartRateTextView.getText().toString();
+            // 소모 칼로리
+            String kcal = kcalTextview.getText().toString();
+//            Log.d(TAG, "평균쇽도 = " + avg_speed);
+//            Log.d(TAG, "이동거리 = " + total_distance);
+//            Log.d(TAG, "평균심박 = " + avg_bpm);
+//            Log.d(TAG, "칼로리량 = " + kcal);
 
-            String result = ;
-            intent.putExtra("result", result);
+            Intent intent = new Intent(IndoorBikeRealTimeActivity.this, IndoorBikeResultActivity.class);
+            intent.putExtra("result_time", time);
+            intent.putExtra("result_extra", avg_speed + "&" + total_distance + "&" + avg_bpm + "&" + kcal);
             startActivity(intent);
-//            finish();
+            finish();
         });
         builder.setNegativeButton(android.R.string.no, (dialog, which) -> {
             dialog.dismiss();

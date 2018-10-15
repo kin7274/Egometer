@@ -28,30 +28,30 @@ public class IndoorBikeResultActivity extends AppCompatActivity {
     public void set() {
         // 날짜
         TextView txt_now = (TextView) findViewById(R.id.txt_now);
-        txt_now.setText(str);
+//        txt_now.setText(str);
 
         // 시간
         TextView txt_time = (TextView) findViewById(R.id.txt_time);
-        txt_time.setText(str);
+//        txt_time.setText(str);
 
         // 운동강도
         TextView txt_EI = (TextView) findViewById(R.id.txt_EI);
-        txt_EI.setText(str);
+//        txt_EI.setText(str);
 
         // 평균속도
         TextView txt_AvgSpeed = (TextView) findViewById(R.id.txt_AvgSpeed);
-        txt_AvgSpeed.setText(str);
+//        txt_AvgSpeed.setText(str);
 
         // 이동거리
         TextView txt_Distance = (TextView) findViewById(R.id.txt_Distance);
-        txt_Distance.setText(str);
+//        txt_Distance.setText(str);
 
         // 평균BPM
         TextView txt_AvgBPM = (TextView) findViewById(R.id.txt_AvgBPM);
-        txt_AvgBPM.setText(str);
+//        txt_AvgBPM.setText(str);
 
         // 소모 칼로리
         TextView txt_Kcal = (TextView) findViewById(R.id.txt_Kcal);
-        txt_Kcal.setText(str);
+//        txt_Kcal.setText(str);
     }
 }
