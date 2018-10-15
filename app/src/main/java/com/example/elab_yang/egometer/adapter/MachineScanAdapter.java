@@ -1,4 +1,4 @@
-package com.example.elab_yang.egometer;
+package com.example.elab_yang.egometer.adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,6 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.elab_yang.egometer.R;
+import com.example.elab_yang.egometer.activity.MainActivity;
+import com.example.elab_yang.egometer.model.Device;
 
 import java.util.ArrayList;
 import java.util.HashSet;

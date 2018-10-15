@@ -18,6 +18,10 @@ import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.example.elab_yang.egometer.etc.IntentConst;
+import com.example.elab_yang.egometer.model.Met;
+import com.example.elab_yang.egometer.service.EZBLEService;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;

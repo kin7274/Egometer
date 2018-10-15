@@ -1,4 +1,4 @@
-package com.example.elab_yang.egometer;
+package com.example.elab_yang.egometer.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,10 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.elab_yang.egometer.model.Device;
+import com.example.elab_yang.egometer.R;
+import com.example.elab_yang.egometer.adapter.DeviceAdapter;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import butterknife.BindView;
 import io.paperdb.Paper;
 
 // 메인이야
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        deviceDatabase = Paper.book("device").read("user_device");
+//        deviceDatabase = Paper.book("device").read("user_device");
         if (deviceDatabase != null) {
             if (deviceDatabase.size() != 0) {
                 emptyLayout.setVisibility(View.GONE);

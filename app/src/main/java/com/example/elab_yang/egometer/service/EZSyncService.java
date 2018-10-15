@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.elab_yang.egometer;
+package com.example.elab_yang.egometer.service;
 
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -34,6 +34,11 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+
+import com.example.elab_yang.egometer.etc.Authentication;
+import com.example.elab_yang.egometer.etc.EGDataConverter;
+import com.example.elab_yang.egometer.etc.EGZeroConst;
+import com.example.elab_yang.egometer.model.Fitness;
 
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;

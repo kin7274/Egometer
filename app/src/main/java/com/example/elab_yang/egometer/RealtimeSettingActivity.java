@@ -8,6 +8,9 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.elab_yang.egometer.etc.IActivityBasicSetting;
+import com.example.elab_yang.egometer.etc.IntentConst;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,6 +24,9 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
     @BindView(R.id.start_fitness_button)
     Button startFitnessButton;
 
+    /**
+     *
+     */
     @BindView(R.id.ctv)
     CircleTimerView circleTimerView;
 

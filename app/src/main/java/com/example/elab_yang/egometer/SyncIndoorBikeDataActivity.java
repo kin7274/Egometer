@@ -21,15 +21,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.elab_yang.egometer.service.EZSyncService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.paperdb.Paper;
 
-import static com.example.elab_yang.egometer.EZSyncService.ACTION_FINAL_DONE;
-import static com.example.elab_yang.egometer.EZSyncService.EXTRA_FINAL_DATA;
-import static com.example.elab_yang.egometer.IntentConst.SYNC_INDOOR_BIKE_DEVICE;
+import static com.example.elab_yang.egometer.service.EZSyncService.ACTION_FINAL_DONE;
+import static com.example.elab_yang.egometer.service.EZSyncService.EXTRA_FINAL_DATA;
+import static com.example.elab_yang.egometer.etc.IntentConst.SYNC_INDOOR_BIKE_DEVICE;
 
 public class SyncIndoorBikeDataActivity extends AppCompatActivity {
     private static final String TAG = "SyncIndoorBikeDataActiv";

@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>. */
-package com.example.elab_yang.egometer;
+package com.example.elab_yang.egometer.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,14 +35,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.elab_yang.egometer.model.Device;
+import com.example.elab_yang.egometer.etc.EGZeroConst;
+import com.example.elab_yang.egometer.R;
+import com.example.elab_yang.egometer.RealtimeSettingActivity;
+import com.example.elab_yang.egometer.SyncIndoorBikeDataActivity;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import io.paperdb.Paper;
 
-import static com.example.elab_yang.egometer.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
-import static com.example.elab_yang.egometer.IntentConst.SYNC_INDOOR_BIKE_DEVICE;
+import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
+import static com.example.elab_yang.egometer.etc.IntentConst.SYNC_INDOOR_BIKE_DEVICE;
 
 /**
  * Adapter for displaying GBDevice instances.

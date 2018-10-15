@@ -1,4 +1,4 @@
-package com.example.elab_yang.egometer;
+package com.example.elab_yang.egometer.model;
 
 public class Device {
 

@@ -1,4 +1,4 @@
-package com.example.elab_yang.egometer;
+package com.example.elab_yang.egometer.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+
+import com.example.elab_yang.egometer.R;
 
 public class IntroActivity extends AppCompatActivity {
     SharedPreferences pref;
