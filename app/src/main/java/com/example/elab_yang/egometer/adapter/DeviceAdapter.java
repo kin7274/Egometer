@@ -35,11 +35,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.elab_yang.egometer.model.Device;
-import com.example.elab_yang.egometer.etc.EGZeroConst;
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.RealtimeSettingActivity;
-import com.example.elab_yang.egometer.SyncIndoorBikeDataActivity;
+import com.example.elab_yang.egometer.etc.EGZeroConst;
+import com.example.elab_yang.egometer.model.Device;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -48,7 +47,6 @@ import java.util.List;
 import io.paperdb.Paper;
 
 import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
-import static com.example.elab_yang.egometer.etc.IntentConst.SYNC_INDOOR_BIKE_DEVICE;
 
 /**
  * Adapter for displaying GBDevice instances.
@@ -101,9 +99,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         // 동기화
         holder.fetchActivityData.setOnClickListener(v -> {
             Log.e("클릭됨", "onClick: 클릭툄" + EGZeroConst.DEVICE_NAME);
-            Intent bikeIntent = new Intent(context, SyncIndoorBikeDataActivity.class);
-            bikeIntent.putExtra(SYNC_INDOOR_BIKE_DEVICE, deviceAddress);
-            context.startActivity(bikeIntent);
+            Toast.makeText(context, "동기화는 못해유", Toast.LENGTH_SHORT).show();
         });
 
         // 운동하러ㄱ

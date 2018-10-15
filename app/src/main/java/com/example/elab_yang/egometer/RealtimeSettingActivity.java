@@ -1,7 +1,11 @@
 package com.example.elab_yang.egometer;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.button.MaterialButton;
+import android.support.design.chip.Chip;
+import android.support.design.chip.ChipGroup;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,15 +28,23 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
     @BindView(R.id.start_fitness_button)
     Button startFitnessButton;
 
-    /**
-     *
-     */
+    @BindView(R.id.chip_group)
+    ChipGroup chipGroup;
+
     @BindView(R.id.ctv)
     CircleTimerView circleTimerView;
 
     @BindView(R.id.info)
     ImageView infoButton;
 
+    @BindView(R.id.chip_01)
+    Chip chip01;
+
+    @BindView(R.id.chip_02)
+    Chip chip02;
+
+    @BindView(R.id.chip_03)
+    Chip chip03;
 
     // TODO: 2018-10-10 0 : 저강도, 1: 중강도, 2: 고강도
     // TODO: 2018-10-10 defualt value :  시간: 30분, 중강도
@@ -45,14 +57,59 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_realtime_setting);
         initSetting();
+
         deviceAddress = getIntent().getStringExtra(IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE);
 
     }
 
+    private void initChipGroup() {
+
+        chip01.setChipBackgroundColorResource(R.color.white);
+        chip02.setChipBackgroundColorResource(R.color.colorAccent);
+        chip03.setChipBackgroundColorResource(R.color.white);
+
+
+        chipGroup.setOnCheckedChangeListener((chipGroup, i) -> {
+            Log.e(TAG, "onCheckedChanged: " + i);
+
+            Chip chip = chipGroup.findViewById(i);
+            Log.e(TAG, "onCheckedChanged: " + chipGroup.getCheckedChipId());
+            if (chip != null) {
+                Log.e(TAG, "onCheckedChanged: " + chip.getText());
+
+                String value = chip.getText().toString();
+
+                switch (value) {
+                    case "저강도 운동":
+                        workoutIntense = 0;
+                        chip01.setChipBackgroundColorResource(R.color.colorAccent);
+                        chip02.setChipBackgroundColorResource(R.color.white);
+                        chip03.setChipBackgroundColorResource(R.color.white);
+                        break;
+                    case "중강도 운동":
+                        workoutIntense = 1;
+                        chip01.setChipBackgroundColorResource(R.color.white);
+                        chip02.setChipBackgroundColorResource(R.color.colorAccent);
+                        chip03.setChipBackgroundColorResource(R.color.white);
+                        break;
+                    case "고강도 운동":
+                        workoutIntense = 2;
+                        chip01.setChipBackgroundColorResource(R.color.white);
+                        chip02.setChipBackgroundColorResource(R.color.white);
+                        chip03.setChipBackgroundColorResource(R.color.colorAccent);
+                        break;
+                }
+            }
+        });
+
+    }
 
     private void initTimerView() {
+
+
         circleTimerView.setCurrentTime(1800);
         circleTimerView.setCircleTimerListener(this);
+
     }
 
     @Override
@@ -63,11 +120,14 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
     @Override
     public void initSetting() {
         bindView();
+        initChipGroup();
         initTimerView();
     }
 
+
     @Override
     public void onTimerStop() {
+
     }
 
     @Override
@@ -116,7 +176,13 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("정보");
         builder.setMessage("운동 시간은 30-60분이 적당합니다. 혈당 감소에는 중강도 운동, 고강도 운동이 효과가 있다는 보고가 있습니다. 시간을 설정한 후 운동 강도를 설정해주세요");
-        builder.setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss());
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
         builder.show();
     }
 }
