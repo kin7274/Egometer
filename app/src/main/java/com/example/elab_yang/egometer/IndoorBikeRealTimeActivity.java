@@ -102,7 +102,7 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     private ArrayList<Entry> realtimeData = new ArrayList<>();
     private int cnt = 0;
     private int speedCount = 0;
-
+    String EI;
 
     float userHeartRate = 190.0f;
     float userMinHeartRate = userHeartRate * 0.5f;
@@ -308,8 +308,8 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 
 //        mDeviceAddress = getIntent().getStringExtra(REAL_TIME_INDOOR_BIKE_DEVICE);
 
-        String EI = getIntent().getExtras().getString("EI");  // 운동강도
-        Log.d(TAG, "EI =" + EI);
+        EI = getIntent().getExtras().getString("EI");  // 운동강도
+        Log.d(TAG, "22222222222222222222222222. EI =" + EI);
         bundle = getIntent().getBundleExtra(IntentConst.REAL_TIME_SETTING_FITNESS_INFO);
         mDeviceAddress = bundle.getString(IntentConst.REAL_TIME_DEVICE_ADDEDSS);
         workoutTime = bundle.getInt(IntentConst.REAL_TIME_WORKOUT_TOTAL_TIME);
@@ -408,9 +408,10 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 //            Log.d(TAG, "평균심박 = " + avg_bpm);
 //            Log.d(TAG, "칼로리량 = " + kcal);
 
+            Log.d(TAG, "3333333333333333333333333333. EI =" + EI);
             Intent intent = new Intent(IndoorBikeRealTimeActivity.this, IndoorBikeResultActivity.class);
             intent.putExtra("result_time", time);
-            intent.putExtra("result_extra", avg_speed + "&" + total_distance + "&" + avg_bpm + "&" + kcal);
+            intent.putExtra("result_extra", EI + "&" + avg_speed + "&" + total_distance + "&" + avg_bpm + "&" + kcal);
             startActivity(intent);
             finish();
         });

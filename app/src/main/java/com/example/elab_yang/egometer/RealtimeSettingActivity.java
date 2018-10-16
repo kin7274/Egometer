@@ -52,7 +52,7 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
     int workoutIntense = 1;
 
     // 운동강도 EI
-    String value;
+    String value = "중강도 운동";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,7 +169,7 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
         bundle.putInt(IntentConst.REAL_TIME_WORKOUT_INTENSE, workoutIntense);
         intent.putExtra(IntentConst.REAL_TIME_SETTING_FITNESS_INFO, bundle);
         intent.putExtra("EI", value);
-        Log.d(TAG, "EI =" + value);
+        Log.d(TAG, "111111111111111111111111111. EI =" + value);
         startActivity(intent);
         finish();
 
