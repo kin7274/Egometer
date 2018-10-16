@@ -1,6 +1,10 @@
 package com.example.elab_yang.egometer.activity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,16 +15,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
+import com.example.elab_yang.egometer.model.DB;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class IndoorBikeResultActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "IndoorBikeResultActivity";
+    Context mContext;
+    DB db;
+    SQLiteDatabase sql;
 
+    int time;
+    String[] arr_data;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indoor_bike_result);
         setToolbar();
         set();
+        // DB
+        db = new DB(this);
     }
 
     // 툴바
@@ -33,9 +48,9 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
     public void set() {
         // 인텐트 리시브
         Intent intent = getIntent();
-        int time = intent.getExtras().getInt("result_time");
+        time = intent.getExtras().getInt("result_time");
         String extra = intent.getExtras().getString("result_extra");
-        String[] arr_data = extra.split("&");
+        arr_data = extra.split("&");
 
         // 객체 생성
         TextView txt_time = (TextView) findViewById(R.id.txt_time);
@@ -61,6 +76,20 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         txt_Kcal.setText(arr_data[4]);
     }
 
+    // DB에 저장한다
+    public void setDB(){
+        sql = db.getWritableDatabase();
+        // 현재시간 : String getTime
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String getTime = sdf.format(date);
+        //
+        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s초','%s','%s','%s','%s','%s')", getTime, String.valueOf(time), arr_data[0], arr_data[1], arr_data[2], arr_data[3], arr_data[4]));
+        Toast.makeText(getApplicationContext(), "저장했어유", Toast.LENGTH_SHORT).show();
+        sql.close();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -71,6 +100,7 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
             // DB에 저장
             case R.id.set_btn:
                 Toast.makeText(getApplicationContext(), "DB에 저장해보아요~", Toast.LENGTH_SHORT).show();
+                setDB();
                 break;
             // 나가기
             case R.id.ext_btn:
