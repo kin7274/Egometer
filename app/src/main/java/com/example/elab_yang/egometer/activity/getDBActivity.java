@@ -110,7 +110,6 @@ public class getDBActivity extends AppCompatActivity {
     public void setDB(String date, String time, String ei, String speed, String distance, String bpm, String kcal) {
         sql = db.getWritableDatabase();
 
-
         sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s초','%s','%s','%s','%s','%s')", date, time, ei, speed, distance, bpm, kcal));
         sql.close();
     }
