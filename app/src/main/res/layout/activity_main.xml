@@ -51,19 +51,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="운동부하 자동 기록 디바이스를 등록해주세요"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/getDB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/add_device"
+            android:layout_alignParentStart="true"
+            android:text="DB조회" />
 
         <Button
             android:id="@+id/add_device"

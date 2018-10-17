@@ -38,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //
+        Button getDB = (Button) findViewById(R.id.getDB);
+        getDB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, getDBActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Paper.init(this);
         //
         Button add_device = (Button) findViewById(R.id.add_device);

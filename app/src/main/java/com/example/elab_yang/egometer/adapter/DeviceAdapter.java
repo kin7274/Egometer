@@ -38,6 +38,7 @@ import android.widget.Toast;
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.RealtimeSettingActivity;
 import com.example.elab_yang.egometer.etc.EGZeroConst;
+import com.example.elab_yang.egometer.model.CardItem;
 import com.example.elab_yang.egometer.model.Device;
 
 import java.util.ArrayList;
@@ -77,19 +78,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        // 톡 건드림
-        holder.container.setOnClickListener(v -> {
-            Toast.makeText(context, "아얏!", Toast.LENGTH_SHORT).show();
-        });
-        // 꾸우욱 누름
-        holder.container.setOnLongClickListener(v -> {
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-            builder1.setTitle("머용")
-                    .setMessage("아 머용")
-                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
-                    .show();
-            return true;
-        });
 
         String deviceName = deviceList.get(position).getDeviceName();
         String deviceAddress = deviceList.get(position).getDeviceAddress();
@@ -167,7 +155,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView container;
+        CardView cardview;
         //
         ImageView deviceImageView;
         TextView deviceNameLabel;
@@ -196,7 +184,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
 
         ViewHolder(View view) {
             super(view);
-            container = view.findViewById(R.id.card_view);
+            cardview = view.findViewById(R.id.card_view);
 
             deviceImageView = view.findViewById(R.id.device_image);
             deviceNameLabel = view.findViewById(R.id.device_name);
