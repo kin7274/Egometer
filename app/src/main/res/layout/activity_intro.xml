@@ -13,6 +13,7 @@
         android:layout_marginBottom="46dp"
         android:fontFamily="@font/my_font_family"
         android:background="#FF9800"
+        android:layout_gravity="center_vertical"
         android:text="시작하기"
         android:textColor="#fff"
         android:textSize="30sp" />
