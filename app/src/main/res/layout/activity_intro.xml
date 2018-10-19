@@ -12,8 +12,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="46dp"
         android:fontFamily="@font/my_font_family"
-        android:background="#FF9800"
-        android:layout_gravity="center_vertical"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center|center_horizontal"
         android:text="시작하기"
         android:textColor="#fff"
         android:textSize="30sp" />
