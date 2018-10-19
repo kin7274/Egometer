@@ -39,21 +39,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //
         Button getDB = (Button) findViewById(R.id.getDB);
-        getDB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, getDBActivity.class);
-                startActivity(intent);
-            }
+        getDB.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, getDBActivity.class);
+            startActivity(intent);
         });
-
         Paper.init(this);
         //
         Button add_device = (Button) findViewById(R.id.add_device);
         add_device.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, MachineScanActivity.class)));
-        //
-        LinearLayout emptyLayout = (LinearLayout) findViewById(R.id.empty_layout);
-        LinearLayout deviceLayout = (LinearLayout) findViewById(R.id.device_layout);
         //
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -61,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         deviceDatabase = Paper.book("device").read("user_device");
         if (deviceDatabase != null) {
             if (deviceDatabase.size() != 0) {
-                emptyLayout.setVisibility(View.GONE);
-                deviceLayout.setVisibility(View.VISIBLE);
                 deviceArrayList = new ArrayList<>(deviceDatabase);
                 deviceAdapter = new DeviceAdapter(this, deviceArrayList);
                 recyclerView.setAdapter(deviceAdapter);
@@ -73,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             Log.e(TAG, "onCreate: " + "등록된 장비 없음");
-            emptyLayout.setVisibility(View.VISIBLE);
-            deviceLayout.setVisibility(View.GONE);
         }
     }
 }

@@ -88,6 +88,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         holder.fetchActivityData.setOnClickListener(v -> {
             Log.e("클릭됨", "onClick: 클릭툄" + EGZeroConst.DEVICE_NAME);
             Toast.makeText(context, "동기화는 못해유", Toast.LENGTH_SHORT).show();
+
         });
 
         // 운동하러ㄱ

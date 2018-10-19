@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="#FF9800"
     android:layout_height="match_parent">
 
-    <Button
+    <TextView
         android:id="@+id/next_btn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#f1235f"
-        android:text="시작하기" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="46dp"
+        android:fontFamily="@font/my_font_family"
+        android:background="#FF9800"
+        android:text="시작하기"
+        android:textColor="#fff"
+        android:textSize="30sp" />
+</RelativeLayout>
