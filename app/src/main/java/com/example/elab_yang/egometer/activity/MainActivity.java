@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setToolbar();
+        setStatusbar();
         //
         Button getDB = (Button) findViewById(R.id.getDB);
         getDB.setOnClickListener(v -> {
@@ -68,5 +70,20 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.e(TAG, "onCreate: " + "등록된 장비 없음");
         }
+    }
+
+    // 툴바
+    public void setToolbar() {
+        Toolbar mytoolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(mytoolbar);
+        getSupportActionBar().setTitle("");
+    }
+
+    // 상태바 색 변경
+    public void setStatusbar() {
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
 }
