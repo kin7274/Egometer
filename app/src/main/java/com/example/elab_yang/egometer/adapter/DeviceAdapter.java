@@ -84,13 +84,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         holder.deviceNameLabel.setText(deviceList.get(position).getDeviceName());
         holder.deviceStatusLabel.setText(deviceList.get(position).getDeviceAddress());
 
-        // 동기화
-        holder.fetchActivityData.setOnClickListener(v -> {
-            Log.e("클릭됨", "onClick: 클릭툄" + EGZeroConst.DEVICE_NAME);
-            Toast.makeText(context, "동기화는 못해유", Toast.LENGTH_SHORT).show();
-
-        });
-
         // 운동하러ㄱ
         // TODO: 2018-09-28 실시간 동기화 가능 -제창
         holder.showActivityTracks.setOnClickListener(v -> {
@@ -192,7 +185,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             deviceStatusLabel = view.findViewById(R.id.device_status);
 
             //actions
-            fetchActivityData = view.findViewById(R.id.device_action_fetch_activity);
             showActivityTracks = view.findViewById(R.id.device_action_show_activity_tracks);
             deviceInfoView = view.findViewById(R.id.device_info_image);
 

@@ -308,8 +308,6 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 
 //        mDeviceAddress = getIntent().getStringExtra(REAL_TIME_INDOOR_BIKE_DEVICE);
 
-        EI = getIntent().getExtras().getString("EI");  // 운동강도
-        Log.d(TAG, "22222222222222222222222222. EI =" + EI);
         bundle = getIntent().getBundleExtra(IntentConst.REAL_TIME_SETTING_FITNESS_INFO);
         mDeviceAddress = bundle.getString(IntentConst.REAL_TIME_DEVICE_ADDEDSS);
         workoutTime = bundle.getInt(IntentConst.REAL_TIME_WORKOUT_TOTAL_TIME);

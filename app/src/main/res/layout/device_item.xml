@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -56,25 +56,11 @@
                 tools:text="connecting" />
 
             <ImageView
-                android:layout_margin="4dp"
-                android:id="@+id/device_action_fetch_activity"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_below="@id/device_image"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="4dp"
-                android:scaleType="fitXY"
-                card_view:srcCompat="@drawable/ic_action_fetch_activity_data" />
-
-            <ImageView
                 android:id="@+id/device_action_show_activity_tracks"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_below="@id/device_image"
                 android:layout_margin="4dp"
-                android:layout_toEndOf="@id/device_action_fetch_activity"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
@@ -115,4 +101,4 @@
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
