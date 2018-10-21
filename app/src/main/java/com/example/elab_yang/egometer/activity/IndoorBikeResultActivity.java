@@ -98,6 +98,7 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
             case R.id.set_btn:
                 Toast.makeText(getApplicationContext(), "DB에 저장해보아요~", Toast.LENGTH_SHORT).show();
                 setDB();
+                finish();
                 break;
         }
     }

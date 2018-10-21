@@ -101,7 +101,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             cardview = (CardView) itemView.findViewById(R.id.cardview);
             date = (TextView) itemView.findViewById(R.id.date);
             time = (TextView) itemView.findViewById(R.id.time);
-            ei = (TextView) itemView.findViewById(R.id.ei);
             speed = (TextView) itemView.findViewById(R.id.speed);
             distance = (TextView) itemView.findViewById(R.id.distance);
             bpm = (TextView) itemView.findViewById(R.id.bpm);
