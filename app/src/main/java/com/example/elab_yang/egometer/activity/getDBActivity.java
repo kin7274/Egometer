@@ -59,7 +59,7 @@ public class getDBActivity extends AppCompatActivity {
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(getResources().getColor(R.color.colorAccent));
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
 
     public void setRecyclerView() {

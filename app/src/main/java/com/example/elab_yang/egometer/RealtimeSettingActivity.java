@@ -66,7 +66,7 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
     private void initChipGroup() {
 
         chip01.setChipBackgroundColorResource(R.color.white);
-        chip02.setChipBackgroundColorResource(R.color.colorAccent);
+        chip02.setChipBackgroundColorResource(R.color.colorPrimaryDark);
         chip03.setChipBackgroundColorResource(R.color.white);
 
 
@@ -83,21 +83,21 @@ public class RealtimeSettingActivity extends AppCompatActivity implements IActiv
                 switch (value) {
                     case "저강도 운동":
                         workoutIntense = 0;
-                        chip01.setChipBackgroundColorResource(R.color.colorAccent);
+                        chip02.setChipBackgroundColorResource(R.color.colorPrimaryDark);
                         chip02.setChipBackgroundColorResource(R.color.white);
                         chip03.setChipBackgroundColorResource(R.color.white);
                         break;
                     case "중강도 운동":
                         workoutIntense = 1;
                         chip01.setChipBackgroundColorResource(R.color.white);
-                        chip02.setChipBackgroundColorResource(R.color.colorAccent);
+                        chip02.setChipBackgroundColorResource(R.color.colorPrimaryDark);
                         chip03.setChipBackgroundColorResource(R.color.white);
                         break;
                     case "고강도 운동":
                         workoutIntense = 2;
                         chip01.setChipBackgroundColorResource(R.color.white);
                         chip02.setChipBackgroundColorResource(R.color.white);
-                        chip03.setChipBackgroundColorResource(R.color.colorAccent);
+                        chip02.setChipBackgroundColorResource(R.color.colorPrimaryDark);
                         break;
                 }
             }

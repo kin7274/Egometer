@@ -135,8 +135,8 @@ public class DeviceScanActivity extends AppCompatActivity {
     private void checkScanPermission() {
         if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("허용1");
-            builder.setMessage("허용2");
+            builder.setTitle("권한 허용");
+            builder.setMessage("위치 권한을 허용해주세욥!");
             builder.setPositiveButton(android.R.string.ok, null);
             builder.setOnDismissListener(dialog -> requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION));
             builder.show();

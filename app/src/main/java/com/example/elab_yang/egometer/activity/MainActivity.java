@@ -1,6 +1,5 @@
 package com.example.elab_yang.egometer.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,31 +7,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
-import com.example.elab_yang.egometer.model.Device;
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.adapter.DeviceAdapter;
+import com.example.elab_yang.egometer.model.Device;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import io.paperdb.Paper;
 
-// 메인이야
 public class MainActivity extends AppCompatActivity {
-    //
     private static final String TAG = "MainActivity";
     private static final long RIPPLE_DURATION = 250;
-    //
     RecyclerView recyclerView;
-    //
     DeviceAdapter deviceAdapter;
-    //
     HashSet<Device> deviceDatabase = new HashSet<>();
     ArrayList<Device> deviceArrayList;
 
@@ -42,17 +34,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setToolbar();
         setStatusbar();
-        //
         Button getDB = (Button) findViewById(R.id.getDB);
         getDB.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, getDBActivity.class);
             startActivity(intent);
         });
-        Paper.init(this);
-        //
         Button add_device = (Button) findViewById(R.id.add_device);
         add_device.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, MachineScanActivity.class)));
-        //
+        Paper.init(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -72,18 +61,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // 툴바
     public void setToolbar() {
         Toolbar mytoolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(mytoolbar);
         getSupportActionBar().setTitle("");
     }
 
-    // 상태바 색 변경
     public void setStatusbar() {
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(getResources().getColor(R.color.colorAccent));
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
 }
