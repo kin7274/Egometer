@@ -4,7 +4,7 @@
     android:background="@color/colorPrimary"
     android:layout_height="match_parent">
 
-    <TextView
+    <Button
         android:id="@+id/next_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,5 +16,6 @@
         android:fontFamily="@font/my_font_family"
         android:text="시작하기"
         android:textColor="#fff"
+        style="?android:attr/borderlessButtonStyle"
         android:textSize="30sp" />
 </RelativeLayout>
