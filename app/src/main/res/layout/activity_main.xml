@@ -20,42 +20,44 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:fontFamily="@font/my_font_family"
-            android:text="MAIN VIEW"
+            android:text="EGOMETER"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="normal" />
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="?attr/actionBarSize"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager">
 
     </android.support.v7.widget.RecyclerView>
 
-        <Button
-            android:id="@+id/getDB"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/add_device"
-            android:layout_alignParentStart="true"
-            android:textColor="@color/white"
-            android:background="@color/colorPrimaryDark"
-            android:textSize="20sp"
-            android:fontFamily="@font/my_font_family"
-            android:text="DB조회" />
-
     <Button
-        android:background="@color/colorPrimaryDark"
         android:id="@+id/add_device"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/getDB"
         android:fontFamily="@font/my_font_family"
         android:text="장치 추가"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/getDB"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp"
+        android:fontFamily="@font/my_font_family"
+        android:text="DB조회"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
 </RelativeLayout>

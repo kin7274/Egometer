@@ -67,11 +67,11 @@ public class DeviceScanActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener((View v) -> {
             Toast.makeText(getApplicationContext(), "수정 예정", Toast.LENGTH_SHORT).show();
-//            SharedPreferences.Editor editor = preferences.edit();
-//            editor.putBoolean("activity_executed", true);
-//            editor.apply();
-//            startActivity(new Intent(DeviceScanActivity.this, MainActivity.class));
-//            finish();
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("activity_executed", true);
+            editor.apply();
+            startActivity(new Intent(DeviceScanActivity.this, MainActivity.class));
+            finish();
         });
 
         // 스캔버튼
@@ -152,7 +152,7 @@ public class DeviceScanActivity extends AppCompatActivity {
                 handler.postDelayed(() -> {
                     mScanning = false;
                     bluetoothLeScanner.stopScan(leScanCallback);
-                    button.setText("SCAN");
+                    button1.setText("SCAN");
                 }, SCAN_PERIOD);
                 mScanning = true;
                 startNEWBTLEDiscovery();
