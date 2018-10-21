@@ -32,51 +32,41 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.elab_yang.egometer.adapter.DeviceScanAdapter;
 import com.example.elab_yang.egometer.R;
+import com.example.elab_yang.egometer.adapter.DeviceScanAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// 스캔 액티비티
 public class DeviceScanActivity extends AppCompatActivity {
-    //
     private static final String TAG = "DeviceScanActivity";
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1000;
     private static final int REQUEST_ENABLE_BT = 1;
     private static final long SCAN_PERIOD = 10000;
-    //
     BluetoothManager bluetoothManager;
     BluetoothAdapter bluetoothAdapter;
     BluetoothLeScanner bluetoothLeScanner;
-    //
     Button button, button1;
     RecyclerView recyclerView;
-    //
     Handler handler;
-    //
     DeviceScanAdapter adapter;
     ArrayList<BluetoothDevice> bleDeviceList;
-    //
     boolean mScanning;
-    //
     SharedPreferences preferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_scan);
-        //
         setToolbar();
         setStatusbar();
         preferences = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
-        //
         bleDeviceList = new ArrayList<>();
         handler = new Handler();
 
-        // 다음에 할게요
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener((View v) -> {
+            Toast.makeText(getApplicationContext(), "수정 예정", Toast.LENGTH_SHORT).show();
 //            SharedPreferences.Editor editor = preferences.edit();
 //            editor.putBoolean("activity_executed", true);
 //            editor.apply();
@@ -108,19 +98,17 @@ public class DeviceScanActivity extends AppCompatActivity {
         checkBluetoothSupport();
     }
 
-    // 툴바
     public void setToolbar() {
         Toolbar mytoolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(mytoolbar);
         getSupportActionBar().setTitle("");
     }
 
-    // 상태바 색 변경
     public void setStatusbar() {
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(getResources().getColor(R.color.colorAccent));
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
 
     private void checkBleSupport() {
