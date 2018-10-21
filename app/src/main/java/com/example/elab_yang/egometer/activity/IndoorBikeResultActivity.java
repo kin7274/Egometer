@@ -1,9 +1,7 @@
 package com.example.elab_yang.egometer.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,12 +22,12 @@ import java.util.Date;
 
 public class IndoorBikeResultActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "IndoorBikeResultActivity";
-    Context mContext;
     DB db;
     SQLiteDatabase sql;
 
     int time;
     String[] arr_data;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +35,6 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         setToolbar();
         setStatusbar();
         set();
-        // DB
         db = new DB(this);
     }
 
@@ -65,22 +62,16 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
 
         // 객체 생성
         TextView txt_time = (TextView) findViewById(R.id.txt_time);
-        TextView txt_EI = (TextView) findViewById(R.id.txt_EI);
         TextView txt_AvgSpeed = (TextView) findViewById(R.id.txt_AvgSpeed);
         TextView txt_Distance = (TextView) findViewById(R.id.txt_Distance);
         TextView txt_AvgBPM = (TextView) findViewById(R.id.txt_AvgBPM);
         TextView txt_Kcal = (TextView) findViewById(R.id.txt_Kcal);
 
-        Button hahahahahah_btn = (Button) findViewById(R.id.hahahahahah_btn);
-        hahahahahah_btn.setOnClickListener(this);
         Button set_btn = (Button) findViewById(R.id.set_btn);
         set_btn.setOnClickListener(this);
-        Button ext_btn = (Button) findViewById(R.id.ext_btn);
-        ext_btn.setOnClickListener(this);
 
         // setText
         txt_time.setText(String.valueOf(time) + "초");
-        txt_EI.setText(arr_data[0]);
         txt_AvgSpeed.setText(arr_data[1]);
         txt_Distance.setText(arr_data[2]);
         txt_AvgBPM.setText(arr_data[3]);
@@ -95,7 +86,6 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         Date date = new Date(now);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String getTime = sdf.format(date);
-        //
         sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s초','%s','%s','%s','%s','%s')", getTime, String.valueOf(time), arr_data[0], arr_data[1], arr_data[2], arr_data[3], arr_data[4]));
         Toast.makeText(getApplicationContext(), "저장했어유", Toast.LENGTH_SHORT).show();
         sql.close();
@@ -104,20 +94,11 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            // 자랑하기
-            case R.id.hahahahahah_btn:
-                Toast.makeText(getApplicationContext(), "자랑을 해보아요~", Toast.LENGTH_SHORT).show();
-                break;
             // DB에 저장
             case R.id.set_btn:
                 Toast.makeText(getApplicationContext(), "DB에 저장해보아요~", Toast.LENGTH_SHORT).show();
                 setDB();
                 break;
-            // 나가기
-            case R.id.ext_btn:
-                Toast.makeText(getApplicationContext(), "여기서 나가보아요~", Toast.LENGTH_SHORT).show();
-                break;
-
         }
     }
 }

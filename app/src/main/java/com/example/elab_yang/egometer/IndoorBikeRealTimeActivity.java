@@ -56,9 +56,6 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     @BindView(R.id.textView2)
     TextView kcalTextview;
 
-//    @BindView(R.id.wave_view)
-//    WaveView customWaveView;
-
     @BindView(R.id.textView3)
     TextView nowSpeedTextView;
 
@@ -79,8 +76,6 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     @BindView(R.id.line_chart)
     LineChart lineChart;
 
-//    @BindView(R.id.empty_layout)
-//    LinearLayout emptyLayout;
     @BindView(R.id.info_layout)
     LinearLayout infoLayout;
 

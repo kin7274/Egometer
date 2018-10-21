@@ -1,6 +1,5 @@
 package com.example.elab_yang.egometer.model;
 
-
 public class CardItem {
     private String date;
     private String time;
