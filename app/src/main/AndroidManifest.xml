@@ -48,8 +48,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".activity.MachineScanActivity"
             android:screenOrientation="portrait"
@@ -59,10 +58,7 @@
             android:name=".activity.IndoorBikeResultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".RealtimeSettingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+
         <activity
             android:name=".IndoorBikeRealTimeActivity"
             android:screenOrientation="portrait"
