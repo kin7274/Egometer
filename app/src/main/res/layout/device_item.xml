@@ -68,7 +68,6 @@
                 android:scaleType="fitXY"
                 card_view:srcCompat="@drawable/ic_activity_tracks" />
 
-
             <ImageView
                 android:id="@+id/device_info_image"
                 android:layout_width="36dp"
@@ -76,7 +75,7 @@
                 android:layout_below="@id/device_image"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="0dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:layout_toEndOf="@id/device_action_show_activity_tracks"
                 android:background="?android:attr/selectableItemBackground"

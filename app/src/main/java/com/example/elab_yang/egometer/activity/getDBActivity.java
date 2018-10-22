@@ -103,7 +103,7 @@ public class getDBActivity extends AppCompatActivity {
 
     public void set_setDB() {
         int cnt = lists.size();
-        Toast.makeText(getApplicationContext(), "cnt = " + cnt, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "cnt = " + cnt, Toast.LENGTH_SHORT).show();
         sql = db.getWritableDatabase();
         db.onUpgrade(sql, 1, 2);
 
@@ -122,7 +122,7 @@ public class getDBActivity extends AppCompatActivity {
     public void setDB(String date, String time, String speed, String distance, String bpm, String kcal) {
         sql = db.getWritableDatabase();
 
-        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s초','%s','%s','%s','%s')", date, time, speed, distance, bpm, kcal));
+        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s','%s','%s','%s','%s')", date, time, speed, distance, bpm, kcal));
         sql.close();
     }
 
