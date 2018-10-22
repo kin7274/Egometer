@@ -11,8 +11,7 @@ public class DB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // 인덱스, 오늘날짜, 운동시간, 운동강도, 평균속도, 이동거리, 평균bpm, 소모 칼로리
-        db.execSQL("create table tb_egometer(_id Integer primary key autoincrement, date text, time text, ei text, speed text, distance text, bpm text, kcal text)");
+        db.execSQL("create table tb_egometer(_id Integer primary key autoincrement, date text, time text, speed text, distance text, bpm text, kcal text)");
     }
 
     @Override

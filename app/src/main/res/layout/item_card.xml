@@ -24,8 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/my_font_family"
                 android:gravity="center_vertical"
                 android:hint="00년 00월 00일 00시 00분"
@@ -34,13 +34,6 @@
                 android:textSize="20sp" />
 
         </LinearLayout>
-
-        <view
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:backgroundTint="@color/colorPrimaryDark" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,7 +64,9 @@
                 android:textSize="20sp" />
         </LinearLayout>
 
+
         <LinearLayout
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:orientation="horizontal"
@@ -85,7 +80,7 @@
                 android:gravity="center_horizontal"
                 android:text="시간"
                 android:textColor="#807f7f"
-                android:textSize="15sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -95,7 +90,7 @@
                 android:gravity="center_horizontal"
                 android:text="속도"
                 android:textColor="#807f7f"
-                android:textSize="15sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -128,6 +123,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:orientation="horizontal"
@@ -141,7 +137,7 @@
                 android:gravity="center_horizontal"
                 android:text="거리"
                 android:textColor="#807f7f"
-                android:textSize="15sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -151,17 +147,10 @@
                 android:gravity="center_horizontal"
                 android:text="심박"
                 android:textColor="#807f7f"
-                android:textSize="15sp" />
+                android:textSize="18sp" />
         </LinearLayout>
-
-        <view
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:backgroundTint="#a8acef" />
-
         <LinearLayout
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:orientation="horizontal"
@@ -175,7 +164,7 @@
                 android:gravity="center_horizontal|center"
                 android:text="소모 칼로리"
                 android:textColor="#807f7f"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/kcal"

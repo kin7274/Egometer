@@ -82,7 +82,7 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         Date date = new Date(now);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String getTime = sdf.format(date);
-        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s초','%s','%s','%s','%s','%s')", getTime, String.valueOf(time), arr_data[0], arr_data[1], arr_data[2], arr_data[3], arr_data[4]));
+        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s초','%s','%s','%s','%s')", getTime, String.valueOf(time), arr_data[1], arr_data[2], arr_data[3], arr_data[4]));
         Toast.makeText(getApplicationContext(), "저장했어유", Toast.LENGTH_SHORT).show();
         sql.close();
     }

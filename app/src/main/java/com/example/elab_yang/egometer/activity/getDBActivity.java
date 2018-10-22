@@ -2,7 +2,6 @@ package com.example.elab_yang.egometer.activity;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -88,15 +87,13 @@ public class getDBActivity extends AppCompatActivity {
         Cursor cursor;
         cursor = sql.rawQuery("select*from tb_egometer", null);
         while (cursor.moveToNext()) {
-            data += cursor.getString(0) + ","
-                    + cursor.getString(1) + ","
+            data += cursor.getString(1) + ","
                     + cursor.getString(2) + ","
                     + cursor.getString(3) + ","
                     + cursor.getString(4) + ","
                     + cursor.getString(5) + ","
-                    + cursor.getString(6) + ","
-                    + cursor.getString(7) + "\n";
-            lists.add(new CardItem(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7)));
+                    + cursor.getString(6) + "\n";
+            lists.add(new CardItem(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6)));
         }
         mAdapter.notifyDataSetChanged();
         cursor.close();
@@ -104,7 +101,7 @@ public class getDBActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "조회하였습니다.", Toast.LENGTH_SHORT).show();
     }
 
-    public void set_setDB(){
+    public void set_setDB() {
         int cnt = lists.size();
         Toast.makeText(getApplicationContext(), "cnt = " + cnt, Toast.LENGTH_SHORT).show();
         sql = db.getWritableDatabase();
@@ -113,28 +110,26 @@ public class getDBActivity extends AppCompatActivity {
         for (int i = 0; i < cnt; i++) {
             Log.d(TAG, i + " = " + lists.get(i).getDate());
             Log.d(TAG, i + " = " + lists.get(i).getTime());
-            Log.d(TAG, i + " = " + lists.get(i).getEi());
             Log.d(TAG, i + " = " + lists.get(i).getSpeed());
             Log.d(TAG, i + " = " + lists.get(i).getDistance());
             Log.d(TAG, i + " = " + lists.get(i).getBpm());
             Log.d(TAG, i + " = " + lists.get(i).getKcal());
-            setDB(lists.get(i).getDate(), lists.get(i).getTime(), lists.get(i).getEi(), lists.get(i).getSpeed(), lists.get(i).getDistance(), lists.get(i).getBpm(), lists.get(i).getKcal());
+            setDB(lists.get(i).getDate(), lists.get(i).getTime(), lists.get(i).getSpeed(), lists.get(i).getDistance(), lists.get(i).getBpm(), lists.get(i).getKcal());
         }
     }
 
     // DB에 저장하는 메서드
-    public void setDB(String date, String time, String ei, String speed, String distance, String bpm, String kcal) {
+    public void setDB(String date, String time, String speed, String distance, String bpm, String kcal) {
         sql = db.getWritableDatabase();
 
-        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s초','%s','%s','%s','%s','%s')", date, time, ei, speed, distance, bpm, kcal));
+        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s초','%s','%s','%s','%s')", date, time, speed, distance, bpm, kcal));
         sql.close();
     }
-//
+
+    //
     @Override
     public void onBackPressed() {
         set_setDB();
         finish();
-//
-//        super.onBackPressed();
     }
 }

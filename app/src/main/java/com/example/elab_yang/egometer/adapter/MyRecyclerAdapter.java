@@ -3,7 +3,6 @@ package com.example.elab_yang.egometer.adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.model.CardItem;
@@ -35,8 +33,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         return new ViewHolder(view);
     }
 
-    // RecyclerView의 Row 하나하나를 구현하기위해 Bind(묶이다) 될 때
-    // 뷰 홀더에 데이터를 설정하는 부분
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         CardItem item = mDataList.get(position);
@@ -44,7 +40,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         CardView cardview = holder.cardview;
         TextView date = holder.date;
         TextView time = holder.time;
-        TextView ei = holder.ei;
         TextView speed = holder.speed;
         TextView distance = holder.distance;
         TextView bpm = holder.bpm;
@@ -52,20 +47,15 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 
         holder.date.setText(item.getDate());
         holder.time.setText(item.getTime());
-        holder.ei.setText(item.getEi());
         holder.speed.setText(item.getSpeed());
         holder.distance.setText(item.getDistance());
         holder.bpm.setText(item.getBpm());
         holder.kcal.setText(item.getKcal());
         // 톡 건드림
 
-        holder.cardview.setOnLongClickListener(new View.OnLongClickListener(){
-            @Override
-            public boolean onLongClick(View v) {
-                removeAt(position);
-
-                return false;
-            }
+        holder.cardview.setOnLongClickListener(v -> {
+            removeAt(position);
+            return false;
         });
     }
 
@@ -89,12 +79,10 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         return false;
     }
 
-    // 각각의 아이템의 레퍼런스를 저장할 뷰 홀더 클래스
-    // 반드시 RecyclerView.ViewHolder를 상속해야 함
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardview;
-        TextView date, time, ei, speed, distance, bpm, kcal;
+        TextView date, time, speed, distance, bpm, kcal;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -105,9 +93,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             distance = (TextView) itemView.findViewById(R.id.distance);
             bpm = (TextView) itemView.findViewById(R.id.bpm);
             kcal = (TextView) itemView.findViewById(R.id.kcal);
-
             cardview.setOnClickListener(v -> {
-
             });
             itemView.setOnClickListener(v -> {
 //                    Toast.makeText(mContext, "머요ㅡㅡ", Toast.LENGTH_LONG).show();
