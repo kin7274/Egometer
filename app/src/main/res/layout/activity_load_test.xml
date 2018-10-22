@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="7"
+    tools:context=".LoadTestActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/stage_text_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/my_font_family"
+            android:gravity="center"
+            android:text="1단계"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/aim_speed_text_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/my_font_family"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="Speed"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <cn.iwgang.countdownview.CountdownView
+        android:id="@+id/cv_countdownView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_weight="1"
+        app:isHideTimeBackground="false"
+        app:isShowDay="false"
+        app:isShowHour="false"
+        app:isShowMillisecond="true"
+        app:isShowMinute="true"
+        app:isShowSecond="true"
+        app:suffixGravity="center"
+        app:suffixTextColor="#000000"
+        app:suffixTextSize="30sp"
+        app:timeBgDivisionLineSize="1dp"
+        app:timeBgRadius="3dp"
+        app:timeBgSize="70dp"
+        app:timeTextColor="#FFFFFF"
+        app:timeTextSize="50sp" />
+
+    <TextView
+        android:id="@+id/guide_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/my_font_family"
+        android:gravity="center"
+        android:text="엌케이 양호-"
+        android:textColor="@color/black"
+        android:textSize="28sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="vertical"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animation_view"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_fileName="like.json" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/heart_rate_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:fontFamily="@font/my_font_family"
+                        android:gravity="center"
+                        android:text="심박수"
+                        android:textColor="@color/black"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/my_font_family"
+                        android:gravity="center"
+                        android:text="BPM"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.dreamwalker.gaugeview.GaugeView
+                android:id="@+id/gauge_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                app:needleHeight="0.40"
+                app:needleWidth="0.010"
+                app:scaleEndValue="100"
+                app:scaleStartValue="0"
+                app:showInnerRim="false"
+                app:showOuterRim="false"
+                app:showOuterShadow="false" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/speed_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/my_font_family"
+                    android:gravity="center"
+                    android:text="속도"
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/my_font_family"
+                    android:gravity="center"
+                    android:text="km/h"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

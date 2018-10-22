@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../DiabetesFits.iml" filepath="$PROJECT_DIR$/../DiabetesFits.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../app/app.iml" filepath="$PROJECT_DIR$/../app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../diarydatepicker/diarydatepicker.iml" filepath="$PROJECT_DIR$/../diarydatepicker/diarydatepicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../expandablecheckrecyclerview/expandablecheckrecyclerview.iml" filepath="$PROJECT_DIR$/../expandablecheckrecyclerview/expandablecheckrecyclerview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../expandablerecyclerview/expandablerecyclerview.iml" filepath="$PROJECT_DIR$/../expandablerecyclerview/expandablerecyclerview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../fabulousfilter/fabulousfilter.iml" filepath="$PROJECT_DIR$/../fabulousfilter/fabulousfilter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gaugeview.iml" filepath="$PROJECT_DIR$/gaugeview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../horizontalcalendar/horizontalcalendar.iml" filepath="$PROJECT_DIR$/../horizontalcalendar/horizontalcalendar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../materiallogin/materiallogin.iml" filepath="$PROJECT_DIR$/../materiallogin/materiallogin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../multiwaveview/multiwaveview.iml" filepath="$PROJECT_DIR$/../multiwaveview/multiwaveview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../photoview/photoview.iml" filepath="$PROJECT_DIR$/../photoview/photoview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../progresssubmitbutton/progresssubmitbutton.iml" filepath="$PROJECT_DIR$/../progresssubmitbutton/progresssubmitbutton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../receiptview/receiptview.iml" filepath="$PROJECT_DIR$/../receiptview/receiptview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../searchfilter/searchfilter.iml" filepath="$PROJECT_DIR$/../searchfilter/searchfilter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../supercalendar/supercalendar.iml" filepath="$PROJECT_DIR$/../supercalendar/supercalendar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../verticalintrov2/verticalintrov2.iml" filepath="$PROJECT_DIR$/../verticalintrov2/verticalintrov2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../waveviewlib/waveviewlib.iml" filepath="$PROJECT_DIR$/../waveviewlib/waveviewlib.iml" />
+    </modules>
+  </component>
+</project>

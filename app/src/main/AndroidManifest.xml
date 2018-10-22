@@ -36,6 +36,11 @@
         </activity>
 
         <activity
+            android:name=".LoadTestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
             android:name=".activity.DeviceScanActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
@@ -55,6 +60,11 @@
             android:theme="@style/AppTheme" />
 
         <activity
+            android:name=".TestStartBeforeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
             android:name=".activity.IndoorBikeResultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
@@ -63,6 +73,7 @@
             android:name=".IndoorBikeRealTimeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity android:name=".BikeScanActivity" />
 
         <service
             android:name=".service.EZBLEService"

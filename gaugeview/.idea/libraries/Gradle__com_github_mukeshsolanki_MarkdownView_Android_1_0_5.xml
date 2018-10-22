@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.mukeshsolanki:MarkdownView-Android-1.0.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MarkdownView-Android-1.0.5.aar/b4de0979eea907dc0ba566eadb551958/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MarkdownView-Android-1.0.5.aar/b4de0979eea907dc0ba566eadb551958/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

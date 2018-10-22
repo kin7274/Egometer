@@ -16,10 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
+import com.example.elab_yang.egometer.TestStartBeforeActivity;
 import com.example.elab_yang.egometer.adapter.DeviceAdapter;
 import com.example.elab_yang.egometer.model.Device;
 
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_load_test:
                 // 운동부하검사
-                start
+                startActivity(new Intent(MainActivity.this, TestStartBeforeActivity.class));
         }
         drawer.closeDrawer(GravityCompat.START);
         return false;

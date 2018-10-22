@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/.." />
+            <option value="$PROJECT_DIR$/../app" />
+            <option value="$PROJECT_DIR$/../diarydatepicker" />
+            <option value="$PROJECT_DIR$/../expandablecheckrecyclerview" />
+            <option value="$PROJECT_DIR$/../expandablerecyclerview" />
+            <option value="$PROJECT_DIR$/../fabulousfilter" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/../horizontalcalendar" />
+            <option value="$PROJECT_DIR$/../materiallogin" />
+            <option value="$PROJECT_DIR$/../multiwaveview" />
+            <option value="$PROJECT_DIR$/../photoview" />
+            <option value="$PROJECT_DIR$/../progresssubmitbutton" />
+            <option value="$PROJECT_DIR$/../receiptview" />
+            <option value="$PROJECT_DIR$/../searchfilter" />
+            <option value="$PROJECT_DIR$/../supercalendar" />
+            <option value="$PROJECT_DIR$/../verticalintrov2" />
+            <option value="$PROJECT_DIR$/../waveviewlib" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

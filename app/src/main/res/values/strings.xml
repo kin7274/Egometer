@@ -2,4 +2,18 @@
     <string name="app_name">Egometer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="fitness_load_test_start_message">운동부하검사란 운동중 발생할 심장의 이상반응과 기능적 운동능력을 확인하는 검사입니다.
+        \n\n검사 방법은 운동속도 시속 20km/h로 시작해 운동속도를 2분마다 시속 2km/h씩 증가시켜 나갑니다.
+    </string>
+
+    <string name="fitness_load_test_start_message2">준비가 되셨다면 아래 버튼을 눌러주세요.
+    </string>
+
+    <string name="ble_not_supported">BLE is not supported</string>
+
+    <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
+    <string name="permission_alert_title">This app needs location access</string>
+    <string name="permission_alert_message">Please grant location access so this app can detect peripherals.</string>
+
 </resources>

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.kevalpatel2106:ruler-picker-1.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ruler-picker-1.1.aar/cd995db630c3b885770ccda5c4ff1fc7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ruler-picker-1.1.aar/cd995db630c3b885770ccda5c4ff1fc7/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kevalpatel2106/ruler-picker/1.1/48bc8df2853e3f05fda851528a0d9c43c31e4caa/ruler-picker-1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
