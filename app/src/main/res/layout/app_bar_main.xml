@@ -24,7 +24,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
                 android:fontFamily="@font/my_font_family"
-                android:text="EGOMETER"
+                android:text="당뇨18"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
                 android:textStyle="normal" />

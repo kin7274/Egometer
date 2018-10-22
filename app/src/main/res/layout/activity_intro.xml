@@ -4,6 +4,18 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="213dp"
+        android:fontFamily="@font/my_font_family"
+        android:gravity="center_horizontal"
+        android:text="@string/intro"
+        android:textColor="@color/white"
+        android:textSize="35sp" />
+
     <Button
         android:id="@+id/next_btn"
         style="?android:attr/borderlessButtonStyle"
@@ -13,9 +25,8 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center|center_horizontal"
         android:layout_marginBottom="45dp"
-        android:background="@color/colorPrimary"
         android:fontFamily="@font/my_font_family"
-        android:text="시작하기"
+        android:text="시작하기!~"
         android:textColor="#fff"
         android:textSize="30sp" />
 </RelativeLayout>

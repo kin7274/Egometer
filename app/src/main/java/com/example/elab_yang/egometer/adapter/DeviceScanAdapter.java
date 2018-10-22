@@ -23,8 +23,7 @@ import java.util.HashSet;
 
 import io.paperdb.Paper;
 
-class DeviceScanViewHolder extends RecyclerView.ViewHolder{
-
+class DeviceScanViewHolder extends RecyclerView.ViewHolder {
     TextView deviceName;
     TextView deviceAddress;
     LinearLayout container;
@@ -35,23 +34,18 @@ class DeviceScanViewHolder extends RecyclerView.ViewHolder{
         this.deviceAddress = itemView.findViewById(R.id.device_address);
         this.container = itemView.findViewById(R.id.container);
     }
-
 }
 
-public class DeviceScanAdapter extends RecyclerView.Adapter<DeviceScanViewHolder>{
-
+public class DeviceScanAdapter extends RecyclerView.Adapter<DeviceScanViewHolder> {
     ArrayList<BluetoothDevice> deviceArrayList;
     Context context;
     SharedPreferences preferences;
 
-//    HashMap<String,String> deviceMap = new HashMap<>();
-    //ArrayList<HashMap<String,String>> deviceDatabase = new ArrayList<>();
     HashSet<Device> deviceDatabase = new HashSet<>();
 
     public DeviceScanAdapter(ArrayList<BluetoothDevice> deviceArrayList, Context context) {
         this.deviceArrayList = deviceArrayList;
         this.context = context;
-
         preferences = this.context.getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
         Paper.init(this.context);
     }
@@ -65,14 +59,12 @@ public class DeviceScanAdapter extends RecyclerView.Adapter<DeviceScanViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull DeviceScanViewHolder holder, int position) {
-
         final String deviceName = deviceArrayList.get(position).getName();
         final String deviceAddress = deviceArrayList.get(position).getAddress();
         if (deviceName != null && deviceName.length() > 0)
             holder.deviceName.setText(deviceName);
         else
             holder.deviceName.setText("unknown_device");
-//        holder.deviceName.setText(deviceArrayList.get(position).getName());
         holder.deviceAddress.setText(deviceArrayList.get(position).getAddress());
 
         holder.container.setOnClickListener(v -> {
@@ -80,22 +72,14 @@ public class DeviceScanAdapter extends RecyclerView.Adapter<DeviceScanViewHolder
             builder.setTitle("Check");
             builder.setMessage(deviceName + " 장비를 등록합니다.");
             builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("activity_executed",true);
+                editor.putBoolean("activity_executed", true);
                 editor.apply();
-                // TODO: 2018-07-22 장비 등록 내부 케시에 저장한다. - 박제창 
-//                deviceMap.put("deviceName", deviceName);
-//                deviceMap.put("deviceAddress", deviceAddress);
                 deviceDatabase.add(new Device(deviceName, deviceAddress));
                 Paper.book("device").write("user_device", deviceDatabase);
-
-                // 장치 선택하면 메인으로 이동
                 Intent intent = new Intent(context, MainActivity.class);
-//                intent.putExtra(IntentConst.EXTRAS_DEVICE_NAME, deviceName);
-//                intent.putExtra(IntentConst.EXTRAS_DEVICE_ADDRESS, deviceAddress);
                 context.startActivity(intent);
-                ((Activity)context).finish();
+                ((Activity) context).finish();
             });
             builder.show();
         });

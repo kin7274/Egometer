@@ -1,5 +1,6 @@
 package com.example.elab_yang.egometer.activity;
 
+
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -19,75 +20,53 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
-import com.example.elab_yang.egometer.adapter.DeviceScanAdapter;
+import com.example.elab_yang.egometer.adapter.EGOScanAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeviceScanActivity extends AppCompatActivity {
+public class EGOScanActivity extends AppCompatActivity {
     private static final String TAG = "DeviceScanActivity";
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1000;
     private static final int REQUEST_ENABLE_BT = 1;
-    private static final long SCAN_PERIOD = 10000;
+    private static final long SCAN_PERIOD = 10000; // Stops scanning after 10 seconds.
+
+    RecyclerView recyclerView;
+    EGOScanAdapter adapter;
+
+    ArrayList<BluetoothDevice> bleDeviceList;
+
     BluetoothManager bluetoothManager;
     BluetoothAdapter bluetoothAdapter;
     BluetoothLeScanner bluetoothLeScanner;
-    Button button, button1;
-    RecyclerView recyclerView;
+
+    Button button;
     Handler handler;
-    DeviceScanAdapter adapter;
-    ArrayList<BluetoothDevice> bleDeviceList;
+
     boolean mScanning;
+
     SharedPreferences preferences;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_scan);
-        setToolbar();
+        setContentView(R.layout.activity_tradmill_scan);
         setStatusbar();
         preferences = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
         bleDeviceList = new ArrayList<>();
         handler = new Handler();
 
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener((View v) -> {
-//            Toast.makeText(getApplicationContext(), "수정 예정", Toast.LENGTH_SHORT).show();
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("activity_executed", true);
-            editor.apply();
-            startActivity(new Intent(DeviceScanActivity.this, MainActivity.class));
-            finish();
-        });
-
-        // 스캔버튼
-        button1 = (Button) findViewById(R.id.button1);
-        button1.setOnClickListener(v -> {
-            if (!mScanning) {
-                button1.setText("STOP");
-                bleDeviceList.clear();
-                adapter.notifyDataSetChanged();
-                scanLeDevice(true);
-
-            } else {
-                button1.setText("SCAN");
-                scanLeDevice(false);
-            }
-        });
         checkScanPermission();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -96,12 +75,19 @@ public class DeviceScanActivity extends AppCompatActivity {
         checkBleSupport();
         getBluetoothAdapter();
         checkBluetoothSupport();
-    }
 
-    public void setToolbar() {
-        Toolbar mytoolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(mytoolbar);
-        getSupportActionBar().setTitle("");
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(v -> {
+            if (!mScanning) {
+                button.setText("STOP");
+                bleDeviceList.clear();
+                adapter.notifyDataSetChanged();
+                scanLeDevice(true);
+            } else {
+                button.setText("SCAN");
+                scanLeDevice(false);
+            }
+        });
     }
 
     public void setStatusbar() {
@@ -144,22 +130,17 @@ public class DeviceScanActivity extends AppCompatActivity {
     }
 
     private void scanLeDevice(final boolean enable) {
-        if (!bluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        } else {
-            if (enable) {
-                handler.postDelayed(() -> {
-                    mScanning = false;
-                    bluetoothLeScanner.stopScan(leScanCallback);
-                    button1.setText("SCAN");
-                }, SCAN_PERIOD);
-                mScanning = true;
-                startNEWBTLEDiscovery();
-            } else {
+        if (enable) {
+            handler.postDelayed(() -> {
                 mScanning = false;
                 bluetoothLeScanner.stopScan(leScanCallback);
-            }
+                button.setText("SCAN");
+            }, SCAN_PERIOD);
+            mScanning = true;
+            startNEWBTLEDiscovery();
+        } else {
+            mScanning = false;
+            bluetoothLeScanner.stopScan(leScanCallback);
         }
     }
 
@@ -226,15 +207,18 @@ public class DeviceScanActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         if (!bluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        } else {
-            adapter = new DeviceScanAdapter(bleDeviceList, this);
-            recyclerView.setAdapter(adapter);
-            scanLeDevice(true);
-            button1.setText("STOP");
+            if (!bluetoothAdapter.isEnabled()) {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }
         }
+
+        adapter = new EGOScanAdapter(bleDeviceList, this);
+        recyclerView.setAdapter(adapter);
+        scanLeDevice(true);
+        button.setText("STOP");
     }
 
     @Override
@@ -251,33 +235,29 @@ public class DeviceScanActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void startNEWBTLEDiscovery() {
-        if (bluetoothLeScanner == null) {
-            getBluetoothAdapter();
-        } else {
-            bluetoothLeScanner.startScan(getScanFilters(), getScanSettings(), leScanCallback);
-        }
+        bluetoothLeScanner.startScan(getScanFilters(), getScanSettings(), leScanCallback);
     }
 
     private List<ScanFilter> getScanFilters() {
         List<ScanFilter> allFilters = new ArrayList<>();
         ScanFilter scanFilter0 = new ScanFilter.Builder().setDeviceName("KNU EG0").build();
-        ScanFilter scanFilter1 = new ScanFilter.Builder().setDeviceName("HMSoft").build();
         allFilters.add(scanFilter0);
-        allFilters.add(scanFilter1);
         return allFilters;
     }
+
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private ScanSettings getScanSettings() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return new ScanSettings.Builder()
-                    .setScanMode(android.bluetooth.le.ScanSettings.SCAN_MODE_LOW_LATENCY)
-                    .setMatchMode(android.bluetooth.le.ScanSettings.MATCH_MODE_STICKY)
+                    .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
+                    .setMatchMode(ScanSettings.MATCH_MODE_STICKY)
                     .build();
         } else {
             return new ScanSettings.Builder()
-                    .setScanMode(android.bluetooth.le.ScanSettings.SCAN_MODE_LOW_LATENCY)
+                    .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
                     .build();
         }
     }
+
 }

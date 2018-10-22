@@ -31,13 +31,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
-import com.example.elab_yang.egometer.adapter.MachineScanAdapter;
-import com.example.elab_yang.egometer.etc.EGZeroConst;
+import com.example.elab_yang.egometer.adapter.TREADScanAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MachineScanActivity extends AppCompatActivity {
+public class TREADScanActivIty extends AppCompatActivity {
 
     private static final String TAG = "DeviceScanActivity";
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1000;
@@ -45,7 +44,7 @@ public class MachineScanActivity extends AppCompatActivity {
     private static final long SCAN_PERIOD = 10000; // Stops scanning after 10 seconds.
 
     RecyclerView recyclerView;
-    MachineScanAdapter adapter;
+    TREADScanAdapter adapter;
 
     ArrayList<BluetoothDevice> bleDeviceList;
 
@@ -63,7 +62,7 @@ public class MachineScanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_machine_scan);
+        setContentView(R.layout.activity_tradmill_scan);
         setStatusbar();
         preferences = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
         bleDeviceList = new ArrayList<>();
@@ -98,6 +97,7 @@ public class MachineScanActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
+
 
     private void checkBleSupport() {
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
@@ -144,7 +144,6 @@ public class MachineScanActivity extends AppCompatActivity {
             }, SCAN_PERIOD);
             mScanning = true;
             startNEWBTLEDiscovery();
-            //bluetoothLeScanner.startScan(leScanCallback);
         } else {
             mScanning = false;
             bluetoothLeScanner.stopScan(leScanCallback);
@@ -154,10 +153,7 @@ public class MachineScanActivity extends AppCompatActivity {
     private ScanCallback leScanCallback = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-//            super.onScanResult(callbackType, result);
             BluetoothDevice device = result.getDevice();
-
-            // TODO: 2018-07-21 장비가 중복되어 리스트에 추가되는 현상을 막아줍니다. - 박제창
             if (bleDeviceList.size() < 1) {
                 bleDeviceList.add(device);
                 adapter.notifyDataSetChanged();
@@ -173,8 +169,6 @@ public class MachineScanActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 }
             }
-
-            //String address = device.getAddress();
         }
 
         @Override
@@ -191,11 +185,9 @@ public class MachineScanActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         switch (requestCode) {
             case PERMISSION_REQUEST_COARSE_LOCATION:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // TODO: 2018-07-21 스캔 동작하기 -- 박제창 (Dreamwalker)
                     Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
                 } else {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -212,7 +204,6 @@ public class MachineScanActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_ENABLE_BT && resultCode == Activity.RESULT_CANCELED) {
             finish();
         }
@@ -221,15 +212,13 @@ public class MachineScanActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         if (!bluetoothAdapter.isEnabled()) {
             if (!bluetoothAdapter.isEnabled()) {
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }
         }
-
-        adapter = new MachineScanAdapter(bleDeviceList, this);
+        adapter = new TREADScanAdapter(bleDeviceList, this);
         recyclerView.setAdapter(adapter);
         scanLeDevice(true);
         button.setText("STOP");
@@ -247,27 +236,17 @@ public class MachineScanActivity extends AppCompatActivity {
             bluetoothLeScanner.stopScan(leScanCallback);
     }
 
-    // New BTLE Discovery use startScan (List<ScanFilter> filters,
-    //                                  ScanSettings settings,
-    //                                  ScanCallback callback)
-    // It's added on API21
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void startNEWBTLEDiscovery() {
-        // Only use new API when user uses Lollipop+ device
         bluetoothLeScanner.startScan(getScanFilters(), getScanSettings(), leScanCallback);
     }
 
     private List<ScanFilter> getScanFilters() {
         List<ScanFilter> allFilters = new ArrayList<>();
-        ScanFilter scanFilter0 = new ScanFilter.Builder().setDeviceName(EGZeroConst.DEVICE_NAME).build();
+        ScanFilter scanFilter0 = new ScanFilter.Builder().setDeviceName("HMSoft").build();
         allFilters.add(scanFilter0);
-//        ScanFilter scanFilter1 = new ScanFilter.Builder().setDeviceName("").build();
-//        for (DeviceCoordinator coordinator : DeviceHelper.getInstance().getAllCoordinators()) {
-//            allFilters.addAll(coordinator.createBLEScanFilters());
-//        }
         return allFilters;
     }
-
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private ScanSettings getScanSettings() {

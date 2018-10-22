@@ -35,29 +35,51 @@
             </intent-filter>
         </activity>
 
+        <!--기본 장치 선택-->
+        <activity
+            android:name=".activity.DeviceScanActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <!--메인-->
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!--연결할 장치를 선택하시오-->
+        <activity
+            android:name=".activity.DeviceChoiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!--선택1. 에르고미터 스캔-->
+        <activity
+            android:name=".activity.EGOScanActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <!--선택2. 트레드밀 스캔-->
+        <activity
+            android:name=".activity.TREADScanActivIty"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <!--운동부하검사-->
         <activity
             android:name=".LoadTestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-        <activity
-            android:name=".activity.DeviceScanActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+
 
         <activity
             android:name=".activity.getDBActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-        <activity
-            android:name=".activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity
-            android:name=".activity.MachineScanActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+
+
 
         <activity
             android:name=".TestStartBeforeActivity"

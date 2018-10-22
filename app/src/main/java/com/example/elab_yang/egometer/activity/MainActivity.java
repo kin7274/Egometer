@@ -14,8 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.TestStartBeforeActivity;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         setStatusbar();
 
+        TextView textview = (TextView) findViewById(R.id.textview);
+        textview.setVisibility(View.GONE);
         Toolbar mytoolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(mytoolbar);
         getSupportActionBar().setTitle("");
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity
             }
         } else {
             Log.e(TAG, "onCreate: " + "등록된 장비 없음");
+            textview.setVisibility(View.VISIBLE);
         }
     }
 
@@ -105,7 +110,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_add_device:
                 // 장치 추가
 //                Toast.makeText(getApplicationContext(),"장치 추가", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, MachineScanActivity.class));
+                startActivity(new Intent(MainActivity.this, DeviceChoiceActivity.class));
                 break;
             case R.id.nav_db_check:
                 // DB 확인
