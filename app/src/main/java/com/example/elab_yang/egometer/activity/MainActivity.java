@@ -55,14 +55,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-//        Button getDB = (Button) findViewById(R.id.getDB);
-//        getDB.setOnClickListener(v -> {
-//            Intent intent = new Intent(MainActivity.this, getDBActivity.class);
-//            startActivity(intent);
-//        });
-//        Button add_device = (Button) findViewById(R.id.add_device);
-//        add_device.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, MachineScanActivity.class)));
         Paper.init(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -121,6 +113,9 @@ public class MainActivity extends AppCompatActivity
 //                Toast.makeText(getApplicationContext(),"DB 확인", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, getDBActivity.class));
                 break;
+            case R.id.nav_load_test:
+                // 운동부하검사
+                start
         }
         drawer.closeDrawer(GravityCompat.START);
         return false;
