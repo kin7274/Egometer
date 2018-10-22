@@ -38,21 +38,17 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         db = new DB(this);
     }
 
-    // 툴바
     public void setToolbar() {
         Toolbar mytoolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(mytoolbar);
         getSupportActionBar().setTitle("");
     }
-
-    // 상태바 색 변경
     public void setStatusbar() {
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
-
     public void set() {
         // 인텐트 리시브
         Intent intent = getIntent();

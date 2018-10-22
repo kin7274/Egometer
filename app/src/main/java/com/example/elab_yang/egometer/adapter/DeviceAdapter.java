@@ -33,12 +33,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.elab_yang.egometer.IndoorBikeRealTimeActivity;
 import com.example.elab_yang.egometer.R;
-import com.example.elab_yang.egometer.RealtimeSettingActivity;
 import com.example.elab_yang.egometer.etc.EGZeroConst;
-import com.example.elab_yang.egometer.model.CardItem;
 import com.example.elab_yang.egometer.model.Device;
 
 import java.util.ArrayList;
@@ -88,7 +86,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         // TODO: 2018-09-28 실시간 동기화 가능 -제창
         holder.showActivityTracks.setOnClickListener(v -> {
             Log.e("클릭됨", "onClick: 클릭툄");
-            Intent bsmIntent = new Intent(context, RealtimeSettingActivity.class);
+//            Intent bsmIntent = new Intent(context, RealtimeSettingActivity.class);
+            Intent bsmIntent = new Intent(context, IndoorBikeRealTimeActivity.class);
             bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
             context.startActivity(bsmIntent);
         });

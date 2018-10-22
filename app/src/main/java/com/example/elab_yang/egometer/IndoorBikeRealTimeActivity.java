@@ -41,6 +41,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.iwgang.countdownview.CountdownView;
 
+import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
+
 public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     private static final String TAG = "IndoorBikeRealTimeActiv";
 
@@ -293,34 +295,20 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_indoor_bike_real_time);
 
         ButterKnife.bind(this);
-        // TODO: 2018-07-24 폰트 설정
-//        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/grobold.ttf");
-//        chronometer.setTypeface(font, Typeface.NORMAL);
         chronometer.setTextSize(20);
 
         final FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(-2, -2);
         lp.gravity = Gravity.BOTTOM | Gravity.CENTER;
 
-//        mDeviceAddress = getIntent().getStringExtra(REAL_TIME_INDOOR_BIKE_DEVICE);
-
-        bundle = getIntent().getBundleExtra(IntentConst.REAL_TIME_SETTING_FITNESS_INFO);
-        mDeviceAddress = bundle.getString(IntentConst.REAL_TIME_DEVICE_ADDEDSS);
-        workoutTime = bundle.getInt(IntentConst.REAL_TIME_WORKOUT_TOTAL_TIME);
-        workoutIntense = bundle.getInt(IntentConst.REAL_TIME_WORKOUT_INTENSE);
-        Log.e(TAG, "onCreate: " + mDeviceAddress + "||" + workoutIntense + "::" + workoutTime);
-
-//        countdownView.start(workoutTime * 1000);
+        mDeviceAddress = getIntent().getStringExtra(REAL_TIME_INDOOR_BIKE_DEVICE);
 
         Intent gattServiceIntent = new Intent(this, EZBLEService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
 
-        initChart();
-
-//        emptyLayout.setVisibility(View.VISIBLE);
-        infoLayout.setVisibility(View.GONE);
+        countdownView.start(1800000);
         countdownView.setVisibility(View.GONE);
-
-
+        initChart();
+        infoLayout.setVisibility(View.GONE);
     }
 
     @Override
