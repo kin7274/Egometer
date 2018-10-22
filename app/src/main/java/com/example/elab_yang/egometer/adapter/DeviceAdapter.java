@@ -97,7 +97,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         holder.deviceInfoView.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(EGZeroConst.DEVICE_NAME);
-            builder.setMessage("에르고미터(실내자전거). 실내에서 탈 수 있는 자전거.");
+            builder.setMessage("에르고미터(실내자전거).\n 실내에서 탈 수 있는 자전거.");
             builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
