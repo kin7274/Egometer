@@ -126,15 +126,23 @@ public class MainActivity extends AppCompatActivity
 //                Toast.makeText(getApplicationContext(),"DB 확인", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, DBChoiceActivity.class));
                 break;
+            case R.id.nav_bloodsuger:
+                // 혈당 다이어리
+//                Toast.makeText(getApplicationContext(),"DB 확인", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, BloodDiaryActivity.class));
+                break;
             case R.id.nav_load_test:
                 // 운동부하검사
                 startActivity(new Intent(MainActivity.this, TestStartBeforeActivity.class));
+                break;
+            case R.id.nav_guide:
+                // 사용자가이드
+                startActivity(new Intent(MainActivity.this, AppGuidenceActivity.class));
                 break;
             //환경설정
             case R.id.nav_setting:
                 Toast.makeText(getApplicationContext(),"환경설정", Toast.LENGTH_SHORT).show();
                 break;
-
         }
         drawer.closeDrawer(GravityCompat.START);
         return false;

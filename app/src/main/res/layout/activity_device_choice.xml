@@ -8,19 +8,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:weightSum="2">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/choice1_egometer"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+        <RelativeLayout
+            android:id="@+id/choice1_ergometer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1">
 
             <ImageView
+                android:id="@+id/image1"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_margin="8dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
                 android:src="@drawable/egometer"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="125dp" />
@@ -29,6 +32,8 @@
                 android:id="@+id/text1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/image1"
                 android:fontFamily="@font/my_font_family"
                 android:gravity="center_horizontal"
                 android:text="EGOMETER"
@@ -37,18 +42,21 @@
                 tools:layout_editor_absoluteX="30dp"
                 tools:layout_editor_absoluteY="325dp" />
 
-        </android.support.constraint.ConstraintLayout>
+        </RelativeLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <RelativeLayout
             android:id="@+id/choice2_treadmill"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1">
 
             <ImageView
+                android:id="@+id/image2"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_margin="8dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
                 android:src="@drawable/treadmill"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="125dp" />
@@ -57,14 +65,15 @@
                 android:id="@+id/text2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/image2"
                 android:fontFamily="@font/my_font_family"
                 android:gravity="center_horizontal"
                 android:text="TREADMILL"
                 android:textColor="@color/black"
                 android:textSize="25sp"
-                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteX="30dp"
                 tools:layout_editor_absoluteY="325dp" />
-
-        </android.support.constraint.ConstraintLayout>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

@@ -71,7 +71,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     public DeviceAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Paper.init(context);
         this.parent = parent;
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.treadmill_device_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.device_item, parent, false);
         return new ViewHolder(view);
     }
 

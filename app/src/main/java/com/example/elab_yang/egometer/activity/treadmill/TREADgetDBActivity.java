@@ -8,8 +8,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
@@ -36,10 +40,12 @@ public class TREADgetDBActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dbcheck);
+        mContext = this;
         setStatusbar();
         setRecyclerView();
         db = new DB2(this);
-        getDB();
+        setSpinner();
+//        getDB();
     }
 
     public void setStatusbar() {
@@ -47,6 +53,34 @@ public class TREADgetDBActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
+    }
+
+    public void setSpinner() {
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        final ArrayList<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+
+        String[] list2 = new String[3];
+        list2[0] = "사용자1";
+        list2[1] = "사용자2";
+        list2[2] = "사용자3";
+        ArrayAdapter spinnerAdapter;
+        spinnerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, list2);
+        spinner.setAdapter(spinnerAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String user_id = spinner.getItemAtPosition(position).toString().substring(3, 4);
+                Toast.makeText(TREADgetDBActivity.this.getApplicationContext(), "선택한 아이템 : " + user_id, Toast.LENGTH_SHORT).show();
+                getDB(user_id);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     public void setRecyclerView() {
@@ -68,11 +102,12 @@ public class TREADgetDBActivity extends AppCompatActivity {
         recycler_view.setAdapter(mAdapter);
     }
 
-    public void getDB() {
+    public void getDB(String user_id) {
         sql = db.getReadableDatabase();
         // 화면 clear
         data = "";
         Cursor cursor;
+        lists.clear();
         cursor = sql.rawQuery("select*from tb_treadmill", null);
         while (cursor.moveToNext()) {
             data += cursor.getString(0) + ","
@@ -82,7 +117,9 @@ public class TREADgetDBActivity extends AppCompatActivity {
                     + cursor.getString(4) + ","
                     + cursor.getString(5) + ","
                     + cursor.getString(6) + "\n";
-            lists.add(new CardItem2(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6)));
+            if (cursor.getString(1).contains(user_id)) {
+                lists.add(new CardItem2(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6)));
+            }
         }
         mAdapter.notifyDataSetChanged();
         cursor.close();

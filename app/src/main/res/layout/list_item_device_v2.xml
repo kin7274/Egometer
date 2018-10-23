@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="4">
 
             <TextView
                 android:id="@+id/device_name"
@@ -25,7 +25,7 @@
                 android:fontFamily="@font/my_font_family"
                 android:text="device name"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="25sp" />
 
         </LinearLayout>
 
@@ -38,7 +38,7 @@
             android:fontFamily="@font/my_font_family"
             android:text="addedss"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="25sp" />
 
     </LinearLayout>
 </LinearLayout>

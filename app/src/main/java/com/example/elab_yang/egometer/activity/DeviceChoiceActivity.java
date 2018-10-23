@@ -7,6 +7,8 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.activity.ergometer.EGOScanActivity;
@@ -21,21 +23,11 @@ public class DeviceChoiceActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // 에르고미터 선택
-        ConstraintLayout choice1_egometer = (ConstraintLayout) findViewById(R.id.choice1_egometer);
-        choice1_egometer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DeviceChoiceActivity.this, EGOScanActivity.class));
-            }
-        });
+        RelativeLayout choice1_ergometer = (RelativeLayout) findViewById(R.id.choice1_ergometer);
+        choice1_ergometer.setOnClickListener(v -> startActivity(new Intent(DeviceChoiceActivity.this, EGOScanActivity.class)));
 
         // 트레드밀 선택
-        ConstraintLayout choice2_treadmill = (ConstraintLayout) findViewById(R.id.choice2_treadmill);
-        choice2_treadmill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DeviceChoiceActivity.this, TREADScanActivIty.class));
-            }
-        });
+        RelativeLayout choice2_treadmill = (RelativeLayout) findViewById(R.id.choice2_treadmill);
+        choice2_treadmill.setOnClickListener(v -> startActivity(new Intent(DeviceChoiceActivity.this, TREADScanActivIty.class)));
     }
 }

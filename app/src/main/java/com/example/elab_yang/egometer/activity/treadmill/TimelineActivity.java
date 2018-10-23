@@ -39,6 +39,7 @@ public class TimelineActivity extends AppCompatActivity {
             text2.setVisibility(View.VISIBLE);
             Intent intent = new Intent(TimelineActivity.this, receiveData.class);
             intent.putExtra("BLE", abc);
+            abc = "";
             startActivity(intent);
             finish();
         }
@@ -50,7 +51,7 @@ public class TimelineActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_DATA_AVAILABLE_CHANGE.equals(action)) {
-                message = (intent.getStringExtra(EXTRA_DATA)).substring(0, 19);
+                message = (intent.getStringExtra(EXTRA_DATA)).substring(0, 20);
                 Log.d(TAG, "message = " + message);
                 abc += message;
             }

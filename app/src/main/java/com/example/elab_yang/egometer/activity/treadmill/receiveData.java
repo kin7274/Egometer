@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
+import com.example.elab_yang.egometer.activity.MainActivity;
 import com.example.elab_yang.egometer.adapter.MyRecyclerAdapter2;
 import com.example.elab_yang.egometer.model.CardItem2;
 import com.example.elab_yang.egometer.model.DB;
@@ -47,7 +48,7 @@ public class receiveData extends AppCompatActivity {
         for (int y = 0; y < i; y++) {
             abc[0] = "사용자" + str[y].substring(12, 13);
             abc[1] = str[y].substring(2, 4) + "년 " + str[y].substring(4, 6) + "월 " + str[y].substring(6, 8) + "일 "
-             + str[y].substring(8, 10) + "시 " + str[y].substring(10, 12) + "분 ";
+                    + str[y].substring(8, 10) + "시 " + str[y].substring(10, 12) + "분 ";
             abc[2] = str[y].substring(13, 15).replace("0", "") + str[y].substring(15, 17) + "초";
             abc[3] = str[y].substring(17, 18) + "km";
             abc[4] = str[y].substring(18, 20) + "m/s";
@@ -86,7 +87,6 @@ public class receiveData extends AppCompatActivity {
         sql.execSQL(String.format("INSERT INTO tb_treadmill VALUES(null, '%s','%s','%s','%s','%s','%s')", user_code, date, time, distance, speed, bpm));
         Toast.makeText(getApplicationContext(), "저장햇구요", Toast.LENGTH_SHORT).show();
         sql.close();
-        startActivity(new Intent(receiveData.this, TREADgetDBActivity.class));
         finish();
     }
 
