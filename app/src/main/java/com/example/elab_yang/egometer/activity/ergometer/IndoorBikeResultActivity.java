@@ -1,4 +1,4 @@
-package com.example.elab_yang.egometer.activity;
+package com.example.elab_yang.egometer.activity.ergometer;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -68,7 +67,7 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
 
         // setText
         txt_time.setText(String.valueOf(time) + "초");
-        txt_AvgSpeed.setText(arr_data[1] + "km/h");
+        txt_AvgSpeed.setText(arr_data[1]);
         txt_Distance.setText(arr_data[2]);
         txt_AvgBPM.setText(arr_data[3]);
         txt_Kcal.setText(arr_data[4]);
@@ -82,7 +81,7 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         Date date = new Date(now);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String getTime = sdf.format(date);
-        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s','%s','%s','%s','%s')", getTime, String.valueOf(time) + "초", arr_data[1] + "km/h", arr_data[2], arr_data[3], arr_data[4]));
+        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s','%s','%s','%s','%s')", getTime, String.valueOf(time) + "초", arr_data[1], arr_data[2], arr_data[3], arr_data[4]));
         Toast.makeText(getApplicationContext(), "저장했어유", Toast.LENGTH_SHORT).show();
         sql.close();
     }

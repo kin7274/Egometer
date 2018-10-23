@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.example.elab_yang.egometer.R;
-import com.example.elab_yang.egometer.activity.ergometer.EGOScanActivity;
-import com.example.elab_yang.egometer.activity.treadmill.TREADScanActivIty;
+import com.example.elab_yang.egometer.activity.ergometer.EGOgetDBActivity;
+import com.example.elab_yang.egometer.activity.treadmill.TREADgetDBActivity;
+import com.example.elab_yang.egometer.model.DB2;
 
-public class DeviceChoiceActivity extends AppCompatActivity {
+public class DBChoiceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class DeviceChoiceActivity extends AppCompatActivity {
         choice1_egometer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DeviceChoiceActivity.this, EGOScanActivity.class));
+                startActivity(new Intent(DBChoiceActivity.this, EGOgetDBActivity.class));
             }
         });
 
@@ -34,7 +35,7 @@ public class DeviceChoiceActivity extends AppCompatActivity {
         choice2_treadmill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DeviceChoiceActivity.this, TREADScanActivIty.class));
+                startActivity(new Intent(DBChoiceActivity.this, TREADgetDBActivity.class));
             }
         });
     }

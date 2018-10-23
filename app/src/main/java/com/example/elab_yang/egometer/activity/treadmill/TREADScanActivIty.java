@@ -1,4 +1,4 @@
-package com.example.elab_yang.egometer.activity;
+package com.example.elab_yang.egometer.activity.treadmill;
 
 
 import android.Manifest;
@@ -31,19 +31,19 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
-import com.example.elab_yang.egometer.adapter.EGOScanAdapter;
+import com.example.elab_yang.egometer.adapter.TREADScanAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EGOScanActivity extends AppCompatActivity {
+public class TREADScanActivIty extends AppCompatActivity {
     private static final String TAG = "DeviceScanActivity";
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1000;
     private static final int REQUEST_ENABLE_BT = 1;
     private static final long SCAN_PERIOD = 10000; // Stops scanning after 10 seconds.
 
     RecyclerView recyclerView;
-    EGOScanAdapter adapter;
+    TREADScanAdapter adapter;
 
     ArrayList<BluetoothDevice> bleDeviceList;
 
@@ -75,7 +75,7 @@ public class EGOScanActivity extends AppCompatActivity {
         checkBleSupport();
         getBluetoothAdapter();
         checkBluetoothSupport();
-
+        //
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(v -> {
             if (!mScanning) {
@@ -97,6 +97,7 @@ public class EGOScanActivity extends AppCompatActivity {
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
 
+
     private void checkBleSupport() {
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Toast.makeText(this, "x", Toast.LENGTH_SHORT).show();
@@ -115,6 +116,7 @@ public class EGOScanActivity extends AppCompatActivity {
             Toast.makeText(this, "x", Toast.LENGTH_SHORT).show();
             finish();
         }
+
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -131,10 +133,13 @@ public class EGOScanActivity extends AppCompatActivity {
 
     private void scanLeDevice(final boolean enable) {
         if (enable) {
-            handler.postDelayed(() -> {
-                mScanning = false;
-                bluetoothLeScanner.stopScan(leScanCallback);
-                button.setText("SCAN");
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mScanning = false;
+                    bluetoothLeScanner.stopScan(leScanCallback);
+                    button.setText("SCAN");
+                }
             }, SCAN_PERIOD);
             mScanning = true;
             startNEWBTLEDiscovery();
@@ -179,7 +184,6 @@ public class EGOScanActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         switch (requestCode) {
             case PERMISSION_REQUEST_COARSE_LOCATION:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -207,15 +211,13 @@ public class EGOScanActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         if (!bluetoothAdapter.isEnabled()) {
             if (!bluetoothAdapter.isEnabled()) {
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }
         }
-
-        adapter = new EGOScanAdapter(bleDeviceList, this);
+        adapter = new TREADScanAdapter(bleDeviceList, this);
         recyclerView.setAdapter(adapter);
         scanLeDevice(true);
         button.setText("STOP");
@@ -240,11 +242,10 @@ public class EGOScanActivity extends AppCompatActivity {
 
     private List<ScanFilter> getScanFilters() {
         List<ScanFilter> allFilters = new ArrayList<>();
-        ScanFilter scanFilter0 = new ScanFilter.Builder().setDeviceName("KNU EG0").build();
+        ScanFilter scanFilter0 = new ScanFilter.Builder().setDeviceName("HMSoft").build();
         allFilters.add(scanFilter0);
         return allFilters;
     }
-
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private ScanSettings getScanSettings() {

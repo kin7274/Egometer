@@ -1,4 +1,4 @@
-package com.example.elab_yang.egometer.activity;
+package com.example.elab_yang.egometer.activity.treadmill;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -16,15 +16,14 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.service.BluetoothLeService;
+import com.example.elab_yang.egometer.R;
 
 import static com.example.elab_yang.egometer.service.BluetoothLeService.ACTION_DATA_AVAILABLE;
 import static com.example.elab_yang.egometer.service.BluetoothLeService.ACTION_DATA_AVAILABLE_CHANGE;
 import static com.example.elab_yang.egometer.service.BluetoothLeService.EXTRA_DATA;
 import static com.example.elab_yang.egometer.service.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
 
-// 데이터받고 db에 추가, 조회 전부다
 public class TimelineActivity extends AppCompatActivity {
     private final static String TAG = TimelineActivity.class.getSimpleName();
     Context mContext;
@@ -103,19 +102,18 @@ public class TimelineActivity extends AppCompatActivity {
         mBluetoothLeService.writeCharacteristic("o");
     }
 
-    public void setLottie() {
+    public void setLottie(){
         LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view);
         animationView.loop(true);
         animationView.playAnimation();
     }
 
-    public void set() {
+    public void set(){
         text1 = (TextView) findViewById(R.id.text1);
         text2 = (TextView) findViewById(R.id.text2);
         text1.setVisibility(View.VISIBLE);
         text2.setVisibility(View.GONE);
     }
-
     // 종료ㅡ 서비스도
     @Override
     protected void onDestroy() {

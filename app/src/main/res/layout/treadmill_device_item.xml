@@ -67,6 +67,7 @@
                 android:padding="4dp"
                 android:scaleType="fitXY"
                 card_view:srcCompat="@drawable/ic_looks_one_black_24dp" />
+
             <ImageView
                 android:id="@+id/device_action_fetch_activity"
                 android:layout_width="48dp"

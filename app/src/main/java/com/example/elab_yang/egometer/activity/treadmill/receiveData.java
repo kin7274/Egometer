@@ -1,4 +1,4 @@
-package com.example.elab_yang.egometer.activity;
+package com.example.elab_yang.egometer.activity.treadmill;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,22 +9,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import com.example.elab_yang.egometer.adapter.MyRecyclerAdapter;
-import com.example.elab_yang.egometer.adapter.MyRecyclerAdapter2;
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.adapter.MyRecyclerAdapter2;
 import com.example.elab_yang.egometer.model.CardItem2;
 import com.example.elab_yang.egometer.model.DB;
+import com.example.elab_yang.egometer.model.DB2;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class receiveData extends AppCompatActivity {
-    DB db;
+    DB2 db;
     SQLiteDatabase sql;
 
     String data;
-    String abc[] = {"", "", "", "", "", "", ""};
+    String abc[] = {"", "", "", "", "", ""};
     List<CardItem2> lists;
     private MyRecyclerAdapter2 mAdapter;
     RecyclerView recycler_view;
@@ -33,8 +32,8 @@ public class receiveData extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getdb);
-        setRecyclerView();
-        db = new DB(this);
+//        setRecyclerView();
+        db = new DB2(this);
         Intent intent = getIntent();
         data = intent.getStringExtra("BLE");
         // & = end bit로 구분
@@ -54,10 +53,16 @@ public class receiveData extends AppCompatActivity {
             abc[4] = str[y].substring(18, 20) + "m/s";
             abc[5] = str[y].substring(20, 23);
             //
-            lists.add(new CardItem2(abc[0], abc[1], abc[2], abc[3], abc[4], abc[5]));
-            mAdapter.notifyDataSetChanged();
+//            lists.add(new CardItem2(abc[0], abc[1], abc[2], abc[3], abc[4], abc[5]));
+//            mAdapter.notifyDataSetChanged();
             setDB(abc[0], abc[1], abc[2], abc[3], abc[4], abc[5]);
         }
+        abc[0] = "";
+        abc[1] = "";
+        abc[2] = "";
+        abc[3] = "";
+        abc[4] = "";
+        abc[5] = "";
     }
 
     public void setRecyclerView() {
@@ -81,6 +86,8 @@ public class receiveData extends AppCompatActivity {
         sql.execSQL(String.format("INSERT INTO tb_treadmill VALUES(null, '%s','%s','%s','%s','%s','%s')", user_code, date, time, distance, speed, bpm));
         Toast.makeText(getApplicationContext(), "저장햇구요", Toast.LENGTH_SHORT).show();
         sql.close();
+        startActivity(new Intent(receiveData.this, TREADgetDBActivity.class));
+        finish();
     }
 
     // 특정문자 반복 갯수 확인

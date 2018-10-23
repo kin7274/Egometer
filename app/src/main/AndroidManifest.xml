@@ -55,13 +55,13 @@
 
         <!--선택1. 에르고미터 스캔-->
         <activity
-            android:name=".activity.EGOScanActivity"
+            android:name=".activity.ergometer.EGOScanActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
         <!--선택2. 트레드밀 스캔-->
         <activity
-            android:name=".activity.TREADScanActivIty"
+            android:name=".activity.treadmill.TREADScanActivIty"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
@@ -71,14 +71,52 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-
-
+        <!--DB 선택-->
         <activity
-            android:name=".activity.getDBActivity"
+            android:name=".activity.DBChoiceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
+        <!--에르고미터 DataBase-->
+        <activity
+            android:name=".activity.ergometer.EGOgetDBActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
 
+        <!--트레드밀 DataBase-->
+        <activity
+            android:name=".activity.treadmill.TREADgetDBActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <!--트레드밀 서비스검색창-->
+        <activity
+            android:name=".activity.treadmill.DeviceControlActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <!--BLE서비스-->
+        <service
+            android:name=".service.BluetoothLeService"
+            android:enabled="true" />
+
+        <!--트레드밀 데이터를 받음-->
+        <activity
+            android:name=".activity.treadmill.TimelineActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
+        <!--트레드밀 데이터 저장-->
+        <activity
+            android:name=".activity.treadmill.receiveData"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <!--호구조사-->
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
 
 
         <activity
@@ -87,7 +125,7 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".activity.IndoorBikeResultActivity"
+            android:name=".activity.ergometer.IndoorBikeResultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 

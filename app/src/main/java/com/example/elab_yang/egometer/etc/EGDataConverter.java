@@ -1,12 +1,8 @@
 package com.example.elab_yang.egometer.etc;
 
 public class EGDataConverter {
-
-
     public EGDataConverter() {
     }
-
-    // TODO: 2018-07-24 static으로 설정하면 객체 생성없이 사용 가능해요 - 박제창
     public static String parseBluetoothData(byte[] data) {
         if (data == null || data.length == 0) {
             return "";

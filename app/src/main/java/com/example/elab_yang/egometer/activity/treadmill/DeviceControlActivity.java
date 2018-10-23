@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.elab_yang.egometer.activity;
+package com.example.elab_yang.egometer.activity.treadmill;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothGattCharacteristic;

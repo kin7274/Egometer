@@ -28,12 +28,10 @@ public class MyRecyclerAdapter2 extends RecyclerView.Adapter<MyRecyclerAdapter2.
     // 뷰 홀더를 생성하는 부분. 레이아웃을 만드는 부분
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card2, parent, false);
         return new ViewHolder(view);
     }
 
-    // RecyclerView의 Row 하나하나를 구현하기위해 Bind(묶이다) 될 때
-    // 뷰 홀더에 데이터를 설정하는 부분
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         CardItem2 item = mDataList.get(position);
@@ -52,7 +50,6 @@ public class MyRecyclerAdapter2 extends RecyclerView.Adapter<MyRecyclerAdapter2.
         holder.distance.setText(item.getDistance());
         holder.speed.setText(item.getSpeed());
         holder.bpm.setText(item.getBpm());
-        // 톡 건드림
 
         holder.cardview.setOnLongClickListener(v -> {
             removeAt(position);
@@ -60,7 +57,6 @@ public class MyRecyclerAdapter2 extends RecyclerView.Adapter<MyRecyclerAdapter2.
         });
     }
 
-    // 아이템의 수
     @Override
     public int getItemCount() {
         return mDataList.size();
@@ -80,8 +76,6 @@ public class MyRecyclerAdapter2 extends RecyclerView.Adapter<MyRecyclerAdapter2.
         return false;
     }
 
-    // 각각의 아이템의 레퍼런스를 저장할 뷰 홀더 클래스
-    // 반드시 RecyclerView.ViewHolder를 상속해야 함
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardview;
@@ -98,7 +92,6 @@ public class MyRecyclerAdapter2 extends RecyclerView.Adapter<MyRecyclerAdapter2.
             bpm = (TextView) itemView.findViewById(R.id.bpm);
 
             cardview.setOnClickListener(v -> {
-
             });
             itemView.setOnClickListener(v -> {
 //                    Toast.makeText(mContext, "머요ㅡㅡ", Toast.LENGTH_LONG).show();

@@ -1,4 +1,4 @@
-package com.example.elab_yang.egometer.activity;
+package com.example.elab_yang.egometer.activity.ergometer;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -21,7 +21,7 @@ import com.example.elab_yang.egometer.model.DB;
 import java.util.ArrayList;
 import java.util.List;
 
-public class getDBActivity extends AppCompatActivity {
+public class EGOgetDBActivity extends AppCompatActivity {
     private static final String TAG = "getDBActivity";
 
     Context mContext;

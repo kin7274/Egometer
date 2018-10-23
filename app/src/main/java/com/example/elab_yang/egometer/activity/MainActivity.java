@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.TestStartBeforeActivity;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivity";
     private static final long RIPPLE_DURATION = 250;
     RecyclerView recyclerView;
+    //    DeviceAdapter deviceAdapter;
     DeviceAdapter deviceAdapter;
     HashSet<Device> deviceDatabase = new HashSet<>();
     ArrayList<Device> deviceArrayList;
@@ -66,12 +68,14 @@ public class MainActivity extends AppCompatActivity
         if (deviceDatabase != null) {
             if (deviceDatabase.size() != 0) {
                 deviceArrayList = new ArrayList<>(deviceDatabase);
+
                 deviceAdapter = new DeviceAdapter(this, deviceArrayList);
                 recyclerView.setAdapter(deviceAdapter);
                 for (int i = 0; i < deviceArrayList.size(); i++) {
                     Device device = deviceArrayList.get(i);
                     Log.e(TAG, "onCreate: " + device.getDeviceName() + ", " + device.getDeviceAddress());
                 }
+
             }
         } else {
             Log.e(TAG, "onCreate: " + "등록된 장비 없음");
@@ -106,7 +110,12 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         int id = menuItem.getItemId();
-        switch (id){
+        switch (id) {
+            // 호구조사
+            case R.id.nav_profile:
+//                Toast.makeText(getApplicationContext(),"장치 추가", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                break;
             case R.id.nav_add_device:
                 // 장치 추가
 //                Toast.makeText(getApplicationContext(),"장치 추가", Toast.LENGTH_SHORT).show();
@@ -115,11 +124,17 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_db_check:
                 // DB 확인
 //                Toast.makeText(getApplicationContext(),"DB 확인", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, getDBActivity.class));
+                startActivity(new Intent(MainActivity.this, DBChoiceActivity.class));
                 break;
             case R.id.nav_load_test:
                 // 운동부하검사
                 startActivity(new Intent(MainActivity.this, TestStartBeforeActivity.class));
+                break;
+            //환경설정
+            case R.id.nav_setting:
+                Toast.makeText(getApplicationContext(),"환경설정", Toast.LENGTH_SHORT).show();
+                break;
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return false;

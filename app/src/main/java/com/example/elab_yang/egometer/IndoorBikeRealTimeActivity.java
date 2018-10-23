@@ -23,8 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.elab_yang.egometer.activity.IndoorBikeResultActivity;
-import com.example.elab_yang.egometer.etc.IntentConst;
+import com.example.elab_yang.egometer.activity.ergometer.IndoorBikeResultActivity;
 import com.example.elab_yang.egometer.model.Met;
 import com.example.elab_yang.egometer.service.EZBLEService;
 import com.github.mikephil.charting.charts.LineChart;
