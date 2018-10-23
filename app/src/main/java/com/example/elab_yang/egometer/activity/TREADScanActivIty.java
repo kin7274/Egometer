@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TREADScanActivIty extends AppCompatActivity {
-
     private static final String TAG = "DeviceScanActivity";
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1000;
     private static final int REQUEST_ENABLE_BT = 1;
@@ -124,8 +123,8 @@ public class TREADScanActivIty extends AppCompatActivity {
     private void checkScanPermission() {
         if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("1");
-            builder.setMessage("2");
+            builder.setTitle("권한 허용");
+            builder.setMessage("위치 권한을 허용해주세욥!");
             builder.setPositiveButton(android.R.string.ok, null);
             builder.setOnDismissListener(dialog -> requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION));
             builder.show();
