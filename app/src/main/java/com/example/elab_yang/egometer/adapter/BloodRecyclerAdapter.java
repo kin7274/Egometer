@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
@@ -20,6 +21,7 @@ import com.github.mikephil.charting.charts.Chart;
 
 import java.util.List;
 
+import static android.support.constraint.Constraints.TAG;
 import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
 
 public class BloodRecyclerAdapter extends RecyclerView.Adapter<BloodRecyclerAdapter.ViewHolder> implements OnLongClickListener {
@@ -50,6 +52,7 @@ public class BloodRecyclerAdapter extends RecyclerView.Adapter<BloodRecyclerAdap
         holder.image.setOnClickListener(v -> {
             Intent intent = new Intent(context, ViewChartActivity.class);
             intent.putExtra(item.getDate(), "DATE");
+            Log.d(TAG, "DATE = " + item.getDate());
             context.startActivity(intent);
         });
         holder.cardview.setOnLongClickListener(v -> {

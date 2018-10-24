@@ -32,7 +32,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BloodDiaryActivity extends AppCompatActivity {
+public class BloodSugarActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 //    LineChart line_chart;
 //    private LineDataSet lineDataSet;

@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.TestStartBeforeActivity;
@@ -134,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_bloodsuger:
                 // 혈당 다이어리
 //                Toast.makeText(getApplicationContext(),"DB 확인", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, BloodDiaryActivity.class));
+                startActivity(new Intent(MainActivity.this, BloodSugarActivity.class));
                 break;
             case R.id.nav_load_test:
                 // 운동부하검사
@@ -144,9 +143,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // 사용자가이드
                 startActivity(new Intent(MainActivity.this, AppGuidenceActivity.class));
                 break;
-            //환경설정
             case R.id.nav_setting:
-                Toast.makeText(getApplicationContext(),"환경설정", Toast.LENGTH_SHORT).show();
+                //환경설정
+//                Toast.makeText(getApplicationContext(),"환경설정", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, SettingActivity.class));
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

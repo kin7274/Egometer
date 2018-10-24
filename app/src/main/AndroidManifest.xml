@@ -140,9 +140,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-        <!--혈당다이어리-->
+        <!--VIEW 혈당차트-->
         <activity
-            android:name=".activity.BloodDiaryActivity"
+            android:name=".activity.BloodSugarActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <!--환경설정-->
+        <activity
+            android:name=".activity.SettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 

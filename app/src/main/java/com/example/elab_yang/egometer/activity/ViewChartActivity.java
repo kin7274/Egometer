@@ -33,6 +33,7 @@ public class ViewChartActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actvity_chartview);
+        // Date READ
         Intent intent = getIntent();
         date = intent.getExtras().getString("DATE");
         setToolbar();
