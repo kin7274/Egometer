@@ -106,7 +106,6 @@ public class EGOgetDBActivity extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(), "cnt = " + cnt, Toast.LENGTH_SHORT).show();
         sql = db.getWritableDatabase();
         db.onUpgrade(sql, 1, 2);
-
         for (int i = 0; i < cnt; i++) {
             Log.d(TAG, i + " = " + lists.get(i).getDate());
             Log.d(TAG, i + " = " + lists.get(i).getTime());
@@ -121,7 +120,6 @@ public class EGOgetDBActivity extends AppCompatActivity {
     // DB에 저장하는 메서드
     public void setDB(String date, String time, String speed, String distance, String bpm, String kcal) {
         sql = db.getWritableDatabase();
-
         sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s','%s','%s','%s','%s')", date, time, speed, distance, bpm, kcal));
         sql.close();
     }

@@ -66,21 +66,21 @@ public class receiveData extends AppCompatActivity {
         abc[5] = "";
     }
 
-    public void setRecyclerView() {
-        recycler_view = (RecyclerView) findViewById(R.id.recycler_view);
-        recycler_view.setHasFixedSize(false);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
-        recycler_view.setLayoutManager(layoutManager);
-        try {
-            lists = new ArrayList<>();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        mAdapter = new MyRecyclerAdapter2(lists);
-        recycler_view.setAdapter(mAdapter);
-    }
+//    public void setRecyclerView() {
+//        recycler_view = (RecyclerView) findViewById(R.id.recycler_view);
+//        recycler_view.setHasFixedSize(false);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//        layoutManager.setReverseLayout(true);
+//        layoutManager.setStackFromEnd(true);
+//        recycler_view.setLayoutManager(layoutManager);
+//        try {
+//            lists = new ArrayList<>();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        mAdapter = new MyRecyclerAdapter2(lists);
+//        recycler_view.setAdapter(mAdapter);
+//    }
 
     public void setDB(String user_code, String date, String time, String distance, String speed, String bpm) {
         sql = db.getWritableDatabase();

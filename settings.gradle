@@ -1,1 +1,1 @@
-include ':app', 'gaugeview'
+include ':app', 'gaugeview', 'verticalintrov2'

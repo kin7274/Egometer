@@ -51,4 +51,5 @@ dependencies {
     implementation 'com.github.iwgang:countdownview:2.1.6'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation project(':gaugeview')
+    implementation project(':verticalintrov2')
 }

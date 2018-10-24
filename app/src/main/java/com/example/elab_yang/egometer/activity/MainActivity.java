@@ -30,25 +30,35 @@ import java.util.HashSet;
 
 import io.paperdb.Paper;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
     private static final long RIPPLE_DURATION = 250;
     RecyclerView recyclerView;
-    //    DeviceAdapter deviceAdapter;
     DeviceAdapter deviceAdapter;
     HashSet<Device> deviceDatabase = new HashSet<>();
     ArrayList<Device> deviceArrayList;
+    TextView textview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setStatusbar();
-
-        TextView textview = (TextView) findViewById(R.id.textview);
+        textview = (TextView) findViewById(R.id.textview);
         textview.setVisibility(View.GONE);
+        setNavi();
+        Paper.init(this);
+        setDevice();
+    }
+
+    public void setStatusbar() {
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
+    }
+
+    public void setNavi(){
         Toolbar mytoolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(mytoolbar);
         getSupportActionBar().setTitle("");
@@ -60,7 +70,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        Paper.init(this);
+    }
+
+    public void setDevice(){
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -81,13 +93,6 @@ public class MainActivity extends AppCompatActivity
             Log.e(TAG, "onCreate: " + "등록된 장비 없음");
             textview.setVisibility(View.VISIBLE);
         }
-    }
-
-    public void setStatusbar() {
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
 
     @Override

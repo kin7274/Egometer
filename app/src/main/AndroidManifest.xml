@@ -121,6 +121,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
+        <!--View Chart-->
+        <activity
+            android:name=".activity.ViewChartActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
         <!--네비게이션 레이아웃-->
         <!--호구조사-->
         <activity
