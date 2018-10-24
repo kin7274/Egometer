@@ -22,11 +22,11 @@
             android:icon="@drawable/ic_storage_black_24dp"
             android:title="DataBase" />
 
-        <!--혈당 다이어리-->
+        <!--혈당 확인-->
         <item
             android:id="@+id/nav_bloodsuger"
-            android:icon="@drawable/ic_border_color_black_24dp"
-            android:title="Blood Diary" />
+            android:icon="@drawable/ic_trending_up_black_24dp"
+            android:title="BloodSugar Chart" />
 
         <!--운동부하검사-->
         <item
