@@ -19,6 +19,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ViewChartActivity extends AppCompatActivity {
     String date = "";
@@ -49,7 +50,6 @@ public class ViewChartActivity extends AppCompatActivity {
         setSupportActionBar(mytoolbar);
         getSupportActionBar().setTitle("");
         TextView bar_title = (TextView) findViewById(R.id.bar_title);
-        bar_title.setText(date + "... 그 날의 혈당값...");
     }
 
     public void setStatusbar() {
@@ -70,9 +70,22 @@ public class ViewChartActivity extends AppCompatActivity {
     public void setChart() {
         // arr.add(new Entry(x축, y축))
 //         entry.add(new Entry(xData, yData));
-        entry.add(new Entry(0, 130));
-        entry.add(new Entry(10, 90));
-        entry.add(new Entry(20, 110));
+
+        // 0 < random < 1 사이의 실수
+//        double random = Math.random();
+
+        Random rand = new Random();
+        // 1 ~ 100 사이 숫자
+        for (int i = 0; i < 3; i++) {
+            int p = rand.nextInt(100) + 1;
+            float floatP = (float) p;
+
+            entry.add(new Entry(cnt, floatP));
+            cnt = cnt + 10;
+        }
+//        entry.add(new Entry(0, 130));
+//        entry.add(new Entry(10, 90));
+//        entry.add(new Entry(20, 110));
 //        entry.add(new Entry(cnt, (float) yData));
         // 범례
         lineDataSet = new LineDataSet(entry, "Blood Sugar");
