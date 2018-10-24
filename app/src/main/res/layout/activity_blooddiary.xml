@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
+        android:gravity="center_horizontal"
         android:fontFamily="@font/my_font_family"
         android:text="에르고미터 DataBase와 연동"
         android:textColor="@color/black"
