@@ -18,6 +18,7 @@
 package com.example.elab_yang.egometer.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -27,11 +28,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.elab_yang.egometer.IndoorBikeRealTimeActivity;
 import com.example.elab_yang.egometer.R;
+import com.example.elab_yang.egometer.activity.MainActivity;
 import com.example.elab_yang.egometer.activity.treadmill.DeviceControlActivity;
 import com.example.elab_yang.egometer.activity.treadmill.TimelineActivity;
 import com.example.elab_yang.egometer.etc.EGZeroConst;
@@ -46,7 +49,7 @@ import io.paperdb.Paper;
 import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
 
 public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder> {
-    private final Context context;
+    private Context context;
     private List<Device> deviceList;
     private int expandedDevicePosition = RecyclerView.NO_POSITION;
     private ViewGroup parent;
@@ -87,7 +90,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             holder.fetchActivityData.setVisibility(View.GONE);
             holder.showActivityTracks.setImageResource(R.drawable.ic_activity_tracks);
         } else {// 동기화
-            holder.fetchActivityData.setOnClickListener(v -> {
+            holder.fetchActivityData.setOnClickListener((View v) -> {
                 Log.e("클릭됨", "onClick: 클릭툄" + EGZeroConst.DEVICE_NAME);
                 Intent bsmIntent1 = new Intent(context, TimelineActivity.class);
                 bsmIntent1.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);

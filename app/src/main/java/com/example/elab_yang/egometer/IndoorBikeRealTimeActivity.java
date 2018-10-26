@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,6 +41,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.iwgang.countdownview.CountdownView;
 
+import static android.graphics.Color.RED;
 import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
 
 public class IndoorBikeRealTimeActivity extends AppCompatActivity {
@@ -150,99 +152,106 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     // ACTION_GATT_SERVICES_DISCOVERED: discovered GATT services.
     // ACTION_DATA_AVAILABLE: received data from the device.  This can be a result of read
     //                        or notification operations.
-    private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-            if (EZBLEService.ACTION_GATT_CONNECTED.equals(action)) {
-                mConnected = true;
-                //updateConnectionState(R.string.connected);
-                invalidateOptionsMenu();
+    private final BroadcastReceiver mGattUpdateReceiver;
+
+    {
+        mGattUpdateReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                final String action = intent.getAction();
+                if (EZBLEService.ACTION_GATT_CONNECTED.equals(action)) {
+                    mConnected = true;
+                    //updateConnectionState(R.string.connected);
+                    invalidateOptionsMenu();
 //                emptyLayout.setVisibility(View.GONE);
-                infoLayout.setVisibility(View.VISIBLE);
-                countdownView.setVisibility(View.VISIBLE);
+                    infoLayout.setVisibility(View.VISIBLE);
+                    countdownView.setVisibility(View.VISIBLE);
 
-            } else if (EZBLEService.ACTION_GATT_DISCONNECTED.equals(action)) {
-                mConnected = false;
-                chronometer.stop();
-                countdownView.pause();
-                //updateConnectionState(R.string.disconnected);
-                invalidateOptionsMenu();
+                } else if (EZBLEService.ACTION_GATT_DISCONNECTED.equals(action)) {
+                    mConnected = false;
+                    chronometer.stop();
+                    countdownView.pause();
+                    //updateConnectionState(R.string.disconnected);
+                    invalidateOptionsMenu();
 //                emptyLayout.setVisibility(View.VISIBLE);
-                infoLayout.setVisibility(View.GONE);
-                countdownView.setVisibility(View.GONE);
+                    infoLayout.setVisibility(View.GONE);
+                    countdownView.setVisibility(View.GONE);
 
-                firstStartFlag = true;
-                //clearUI();
-            } else if (EZBLEService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
-                // Show all the supported services and characteristics on the user interface.
-                // TODO: 2018-07-24 서비스와 연결되엉ㅅ을때 방송되어 받아지는 리시버 - 박제창
-                startIndicator = true;
-                chronometer.start();
-                countdownView.start(workoutTime * 1000);
-                // TODO: 2018-10-10 처음 시작한다. --> 장비와 연결이 종료되었다. --> 타이머를 잠시 정지한다. --> 장비가 연결되면 다시 시작한다.
-                if (firstStartFlag){
-                    countdownView.restart();
-                    firstStartFlag = false;
-                }
-                //chronometer.start();
-                //displayGattServices(mBluetoothLeService.getSupportedGattServices());
-            } else if (EZBLEService.ACTION_DATA_AVAILABLE.equals(action)) {
-                Log.e(TAG, "onReceive: " + intent.getStringExtra(EZBLEService.EXTRA_DATA));
-                displayData(intent.getStringExtra(EZBLEService.EXTRA_DATA));
-            } else if (EZBLEService.ACTION_HEART_RATE_AVAILABLE.equals(action)) {
-                Log.e(TAG, "onReceive:  실시간 화면에서 심박수 받앗어요 ");
-                String hr = intent.getStringExtra(EZBLEService.EXTRA_DATA);
-                heartRateTextView.setText(hr);
-                setLineChartData(hr);
+                    firstStartFlag = true;
+                    //clearUI();
+                } else if (EZBLEService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
+                    startIndicator = true;
+                    chronometer.start();
+                    countdownView.start(workoutTime * 1000);
+                    if (firstStartFlag) {
+                        countdownView.restart();
+                        firstStartFlag = false;
+                    }
+                } else if (EZBLEService.ACTION_DATA_AVAILABLE.equals(action)) {
+                    Log.e(TAG, "onReceive: " + intent.getStringExtra(EZBLEService.EXTRA_DATA));
+                    displayData(intent.getStringExtra(EZBLEService.EXTRA_DATA));
+                } else if (EZBLEService.ACTION_HEART_RATE_AVAILABLE.equals(action)) {
+                    Log.e(TAG, "onReceive:  실시간 화면에서 심박수 받앗어요 ");
+                    String hr = intent.getStringExtra(EZBLEService.EXTRA_DATA);
+                    heartRateTextView.setText(hr);
+                    setLineChartData(hr);
 
-                float userHR = Float.parseFloat(hr);
-                if (userHR > 0.0f && userHR < userMinHeartRate) {
-                    String msg = "운동강도를 올릴 필요가 있습니다.";
-                    userStateMsgTextView.setText(msg);
+                    float userHR = Float.parseFloat(hr);
+                    if (userHR > 0.0f && userHR < userMinHeartRate) {
+                        String msg = "운동강도를 올릴 필요가 있습니다.";
+                        userStateMsgTextView.setText(msg);
+                        userStateMsgTextView.setBackgroundColor(Color.RED);
+
 //                    customWaveView.setmBlowWaveColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.low_stat));
 //                    customWaveView.setmAboveWaveColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.low_stat));
 //                    customWaveView.setBackgroundColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.low_stat));
-                } else if (userHR >= userMinHeartRate && userHR < userMaxHeartRate) {
-                    String msg = "적절한 운동강도로 운동중입니다.";
-                    userStateMsgTextView.setText(msg);
+                    } else if (userHR >= userMinHeartRate && userHR < userMaxHeartRate) {
+                        String msg = "적절한 운동강도로 운동중입니다.";
+                        userStateMsgTextView.setText(msg);
+                        userStateMsgTextView.setBackgroundColor(Color.GREEN);
+
 //                    customWaveView.setmBlowWaveColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.shopAccent));
 //                    customWaveView.setmAboveWaveColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.shopAccent));
 //                    customWaveView.setBackgroundColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.shopAccent));
-                } else if (userHR >= userMaxHeartRate) {
-                    String msg = "운동강도가 초과됬습니다. 속도를 낮추고나 W를 낮춰주세요";
-                    userStateMsgTextView.setText(msg);
+                    } else if (userHR >= userMaxHeartRate) {
+                        String msg = "운동강도가 초과됬습니다. 속도를 낮추고나 W를 낮춰주세요";
+                        userStateMsgTextView.setText(msg);
+                        userStateMsgTextView.setBackgroundColor(Color.YELLOW);
+
 //                    customWaveView.setmBlowWaveColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.bsp_red));
 //                    customWaveView.setmAboveWaveColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.bsp_red));
 //                    customWaveView.setBackgroundColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.bsp_red));
-                } else if (userHR == 0.0f) {
-                    String msg = "심박센서 착용 및 위치 확인해주세요.";
-                    userStateMsgTextView.setText(msg);
+                    } else if (userHR == 0.0f) {
+                        String msg = "심박센서 착용 및 위치 확인해주세요.";
+                        userStateMsgTextView.setText(msg);
+                        userStateMsgTextView.setBackgroundColor(Color.GREEN);
+
+                    }
+
+                } else if (EZBLEService.ACTION_INDOOR_BIKE_AVAILABLE.equals(action)) {
+
+                    String nowSpeed = intent.getStringExtra(EZBLEService.EXTRA_DATA);
+                    nowSpeedTextView.setText(nowSpeed);
+                    if (!nowSpeed.equals("0.00")) {
+                        globalKCal += countSpeed(nowSpeed);
+                        String tmp = String.format("%3.2f", globalKCal);
+                        String msg = tmp + "kcal";
+                        kcalTextview.setText(msg);
+                        sumSpeed += Float.parseFloat(nowSpeed);
+                        float meanSpeed = sumSpeed / speedCount;
+                        String meanSpeedMsg = String.format("%2.1f", meanSpeed);
+                        meanSpeedTextView.setText(meanSpeedMsg);
+                        speedCount++;
+                    }
+
+
+                } else if (EZBLEService.ACTION_TREADMILL_AVAILABLE.equals(action)) {
+                    String totalDistance = intent.getStringExtra(EZBLEService.EXTRA_DATA);
+                    totalDistanceTextView.setText(totalDistance);
                 }
-
-            } else if (EZBLEService.ACTION_INDOOR_BIKE_AVAILABLE.equals(action)) {
-
-                String nowSpeed = intent.getStringExtra(EZBLEService.EXTRA_DATA);
-                nowSpeedTextView.setText(nowSpeed);
-                if (!nowSpeed.equals("0.00")) {
-                    globalKCal += countSpeed(nowSpeed);
-                    String tmp = String.format("%3.2f", globalKCal);
-                    String msg = tmp + "kcal";
-                    kcalTextview.setText(msg);
-                    sumSpeed += Float.parseFloat(nowSpeed);
-                    float meanSpeed = sumSpeed / speedCount;
-                    String meanSpeedMsg = String.format("%2.1f", meanSpeed);
-                    meanSpeedTextView.setText(meanSpeedMsg);
-                    speedCount++;
-                }
-
-
-            } else if (EZBLEService.ACTION_TREADMILL_AVAILABLE.equals(action)) {
-                String totalDistance = intent.getStringExtra(EZBLEService.EXTRA_DATA);
-                totalDistanceTextView.setText(totalDistance);
             }
-        }
-    };
+        };
+    }
 
     private void setLineChartData(String hr) {
         float floatValue = Float.parseFloat(hr);
@@ -252,7 +261,7 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         lineDataSet.setDrawCircles(true);
         lineDataSet.setDrawValues(false);
         lineDataSet.setCubicIntensity(0.2f);
-        lineDataSet.setColor(Color.RED);
+        lineDataSet.setColor(RED);
         lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
         lineChart.moveViewToX(lineData.getEntryCount());
@@ -293,6 +302,8 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indoor_bike_real_time);
 
+        //
+        showDialog();
         ButterKnife.bind(this);
         chronometer.setTextSize(20);
 
@@ -308,6 +319,20 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         countdownView.setVisibility(View.GONE);
         initChart();
         infoLayout.setVisibility(View.GONE);
+    }
+
+    // 운동 후혈당입력
+    public void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("운동전 혈당을 입력해주세요")
+                .setMessage("혈당은 몇인가요?");
+        final EditText et = new EditText(this);
+        builder.setPositiveButton("YES", (dialog, which) -> {
+            Toast.makeText(getApplicationContext(), "감사합니다", Toast.LENGTH_SHORT).show();
+        })
+                .setView(et)
+                .create()
+                .show();
     }
 
     @Override

@@ -76,13 +76,37 @@ public class ViewChartActivity extends AppCompatActivity {
 
         Random rand = new Random();
         // 1 ~ 100 사이 숫자
-        for (int i = 0; i < 3; i++) {
-            int p = rand.nextInt(100) + 1;
-            float floatP = (float) p;
+//        for (int i = 0; i < 3; i++) {
+//            int p = rand.nextInt(100) + 1;
+//            float floatP = (float) p;
+//
+//            entry.add(new Entry(cnt, floatP));
+//            cnt = cnt + 10;
+//        }
 
-            entry.add(new Entry(cnt, floatP));
-            cnt = cnt + 10;
-        }
+        float cnt1 = 0;
+        float cnt2 = 20;
+        float cnt3 = 40;
+
+        // p1 : 110 ~ 130
+//        int p1 = rand.nextInt(130) + 110;
+        int p1 = rand.nextInt(65) + 55;
+        float floatP1 = (float) p1;
+
+        // p2 : 80 ~ 90
+//        int p2 = rand.nextInt(90) + 80;
+        int p2 = rand.nextInt(45) + 40;
+        float floatP2 = (float) p2;
+
+        // p3 : 100 ~ 110
+//        int p3 = rand.nextInt(110) + 100;
+        int p3 = rand.nextInt(55) + 50;
+        float floatP3 = (float) p3;
+
+        entry.add(new Entry(cnt1, floatP1));
+        entry.add(new Entry(cnt2, floatP2));
+        entry.add(new Entry(cnt3, floatP3));
+
 //        entry.add(new Entry(0, 130));
 //        entry.add(new Entry(10, 90));
 //        entry.add(new Entry(20, 110));

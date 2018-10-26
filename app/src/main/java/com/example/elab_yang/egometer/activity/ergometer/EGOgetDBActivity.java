@@ -4,13 +4,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
@@ -29,6 +34,8 @@ public class EGOgetDBActivity extends AppCompatActivity {
     SQLiteDatabase sql;
     String data;
 
+    Button add_btn;
+
     List<CardItem> lists;
     private MyRecyclerAdapter mAdapter;
     RecyclerView recycler_view;
@@ -42,6 +49,37 @@ public class EGOgetDBActivity extends AppCompatActivity {
         setStatusbar();
         mContext = this;
         setRecyclerView();
+
+        add_btn = (Button) findViewById(R.id.add_btn);
+        add_btn.setOnClickListener(v -> {
+//            selectDialog();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            View view = LayoutInflater.from(EGOgetDBActivity.this)
+                    .inflate(R.layout.edit_box, null, false);
+            builder.setView(view);
+
+            final Button ButtonSubmit = (Button) view.findViewById(R.id.button_dialog_submit);
+            final EditText edit1 = (EditText) view.findViewById(R.id.edit1);
+            final EditText edit2 = (EditText) view.findViewById(R.id.edit2);
+            final EditText edit3 = (EditText) view.findViewById(R.id.edit3);
+            final EditText edit4 = (EditText) view.findViewById(R.id.edit4);
+            final EditText edit5 = (EditText) view.findViewById(R.id.edit5);
+            ButtonSubmit.setText("삽입");
+            final AlertDialog dialog = builder.create();
+            ButtonSubmit.setOnClickListener(v1 -> {
+                String strEdit1 = edit1.getText().toString();
+                String strEdit2 = edit2.getText().toString();
+                String strEdit3 = edit3.getText().toString();
+                String strEdit4 = edit3.getText().toString();
+                String strEdit5 = edit3.getText().toString();
+                // 디뽈트값
+                lists.add(new CardItem(strEdit1, strEdit1, strEdit2, strEdit3, strEdit4, strEdit5));
+                mAdapter.notifyDataSetChanged();
+                dialog.dismiss();
+            });
+
+            dialog.show();
+        });
         db = new DB(this);
         getDB();
     }

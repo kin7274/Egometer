@@ -76,6 +76,7 @@ public class BloodSugarActivity extends AppCompatActivity {
         Cursor cursor;
         cursor = sql.rawQuery("select*from tb_egometer", null);
         while (cursor.moveToNext()) {
+            // TODO: 2018-10-26 한개면 따로;;
             for (int i = 0; i < (int) rows_count/2; i++) {
                 Log.d(TAG, "행 갯수 = " + rows_count);
                 try {

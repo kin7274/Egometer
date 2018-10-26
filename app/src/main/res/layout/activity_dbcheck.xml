@@ -32,12 +32,22 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_height="435dp"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="100dp"
-        android:fontFamily="@font/my_font_family"
+        android:layout_centerVertical="true"
         android:textColor="#000"
         android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/add_btn"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:fontFamily="@font/my_font_family"
+        android:text="Add Data!!"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
 </RelativeLayout>

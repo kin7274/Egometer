@@ -1,24 +1,31 @@
 package com.example.elab_yang.egometer.activity.ergometer;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.elab_yang.egometer.IndoorBikeRealTimeActivity;
 import com.example.elab_yang.egometer.R;
+import com.example.elab_yang.egometer.activity.treadmill.TimelineActivity;
 import com.example.elab_yang.egometer.model.DB;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
 
 public class IndoorBikeResultActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "IndoorBikeResult";
@@ -35,6 +42,22 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         setStatusbar();
         set();
         db = new DB(this);
+
+        showDialog();
+    }
+
+    // 운동 후혈당입력
+    public void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("운동후 혈당을 입력해주세요")
+                .setMessage("혈당은 몇인가요?");
+        final EditText et = new EditText(IndoorBikeResultActivity.this);
+        builder.setPositiveButton("YES", (dialog, which) -> {
+            Toast.makeText(getApplicationContext(), "감사합니다", Toast.LENGTH_SHORT).show();
+        })
+                .setView(et)
+                .create()
+                .show();
     }
 
     public void setToolbar() {
@@ -42,12 +65,14 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         setSupportActionBar(mytoolbar);
         getSupportActionBar().setTitle("");
     }
+
     public void setStatusbar() {
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
+
     public void set() {
         // 인텐트 리시브
         Intent intent = getIntent();
@@ -74,7 +99,7 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
     }
 
     // DB에 저장한다
-    public void setDB(){
+    public void setDB() {
         sql = db.getWritableDatabase();
         // 현재시간 : String getTime
         long now = System.currentTimeMillis();

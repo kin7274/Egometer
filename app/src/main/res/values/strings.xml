@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">당뇨18</string>
+    <string name="app_name">트레고</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="intro">에르고미터 + 트레드밀\n\n완전뿌시기 어플리케이션</string>

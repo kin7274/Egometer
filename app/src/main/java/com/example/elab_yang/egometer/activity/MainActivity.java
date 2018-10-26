@@ -1,5 +1,6 @@
 package com.example.elab_yang.egometer.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,6 +33,7 @@ import io.paperdb.Paper;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
     private static final long RIPPLE_DURATION = 250;
+    Context mContext;
     RecyclerView recyclerView;
     DeviceAdapter deviceAdapter;
     HashSet<Device> deviceDatabase = new HashSet<>();
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = this;
         setStatusbar();
         textview = (TextView) findViewById(R.id.textview);
         textview.setVisibility(View.GONE);
