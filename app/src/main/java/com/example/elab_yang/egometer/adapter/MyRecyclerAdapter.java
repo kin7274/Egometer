@@ -18,9 +18,12 @@ import com.example.elab_yang.egometer.model.CardItem;
 
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> implements OnLongClickListener {
     Context mContext;
     private final List<CardItem> mDataList;
+
     public MyRecyclerAdapter(List<CardItem> dataList) {
         mDataList = dataList;
     }
@@ -42,6 +45,9 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         TextView distance = holder.distance;
         TextView bpm = holder.bpm;
         TextView kcal = holder.kcal;
+        TextView before_bloodsugar = holder.before_bloodsugar;
+        TextView after_bloodsugar = holder.after_bloodsugar;
+        TextView after_before = holder.after_before;
 
         holder.date.setText(item.getDate());
         holder.time.setText(item.getTime());
@@ -49,6 +55,14 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         holder.distance.setText(item.getDistance());
         holder.bpm.setText(item.getBpm());
         holder.kcal.setText(item.getKcal());
+        holder.before_bloodsugar.setText(item.getBefore_bloodsugar());
+        holder.after_bloodsugar.setText(item.getAfter_bloodsugar());
+
+        int sub_bloodsugar = Integer.parseInt(item.getAfter_bloodsugar()) - Integer.parseInt(item.getBefore_bloodsugar());
+        if (sub_bloodsugar >= 0) holder.after_before.setText("+" + String.valueOf(sub_bloodsugar));
+        else holder.after_before.setText("-" + String.valueOf(sub_bloodsugar));
+
+//        holder.after_before.setText(String.valueOf(sub_bloodsugar));
 
         holder.cardview.setOnClickListener(v -> {
             Toast.makeText(mContext, "쌔게...", Toast.LENGTH_SHORT).show();
@@ -65,7 +79,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         return mDataList.size();
     }
 
-    public void setOnClickListener(DialogInterface.OnClickListener onClickListener) {
+    public void setOnClickListener() {
     }
 
     public void removeAt(int position) {
@@ -82,7 +96,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardview;
-        TextView date, time, speed, distance, bpm, kcal;
+        TextView date, time, speed, distance, bpm, kcal, before_bloodsugar, after_bloodsugar, after_before;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -93,6 +107,9 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             distance = (TextView) itemView.findViewById(R.id.distance);
             bpm = (TextView) itemView.findViewById(R.id.bpm);
             kcal = (TextView) itemView.findViewById(R.id.kcal);
+            before_bloodsugar = (TextView) itemView.findViewById(R.id.before_bloodsugar);
+            after_bloodsugar = (TextView) itemView.findViewById(R.id.after_bloodsugar);
+            after_before = (TextView) itemView.findViewById(R.id.after_before);
             cardview.setOnClickListener(v -> {
             });
             itemView.setOnClickListener(v -> {

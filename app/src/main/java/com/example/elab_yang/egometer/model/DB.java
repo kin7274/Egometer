@@ -11,7 +11,7 @@ public class DB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table tb_egometer(_id Integer primary key autoincrement, date text, time text, speed text, distance text, bpm text, kcal text)");
+        db.execSQL("create table tb_egometer(_id Integer primary key autoincrement, date text, time text, speed text, distance text, bpm text, kcal text, before_bloodsugar text, after_bloodsugar text)");
     }
 
     @Override

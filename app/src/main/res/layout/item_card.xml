@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="230dp"
     android:layout_margin="8dp"
     android:elevation="3dp"
     android:padding="16dp"
@@ -176,6 +176,68 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:weightSum="7">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center"
+                android:text="운동 전 혈당"
+                android:textColor="#807f7f"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/before_bloodsugar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center"
+                android:hint="000"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center"
+                android:text="운동 후 혈당"
+                android:textColor="#807f7f"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/after_bloodsugar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center"
+                android:hint="000"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/after_before"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center"
+                android:hint="000kcal"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+        </LinearLayout>
+
     </LinearLayout>
 </android.support.v7.widget.CardView>
 

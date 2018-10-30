@@ -64,16 +64,20 @@ public class EGOgetDBActivity extends AppCompatActivity {
             final EditText edit3 = (EditText) view.findViewById(R.id.edit3);
             final EditText edit4 = (EditText) view.findViewById(R.id.edit4);
             final EditText edit5 = (EditText) view.findViewById(R.id.edit5);
+            final EditText edit6 = (EditText) view.findViewById(R.id.edit6);
+            final EditText edit7 = (EditText) view.findViewById(R.id.edit7);
             ButtonSubmit.setText("삽입");
             final AlertDialog dialog = builder.create();
             ButtonSubmit.setOnClickListener(v1 -> {
                 String strEdit1 = edit1.getText().toString();
                 String strEdit2 = edit2.getText().toString();
                 String strEdit3 = edit3.getText().toString();
-                String strEdit4 = edit3.getText().toString();
-                String strEdit5 = edit3.getText().toString();
+                String strEdit4 = edit4.getText().toString();
+                String strEdit5 = edit5.getText().toString();
+                String strEdit6 = edit6.getText().toString();
+                String strEdit7 = edit7.getText().toString();
                 // 디뽈트값
-                lists.add(new CardItem(strEdit1, strEdit1, strEdit2, strEdit3, strEdit4, strEdit5));
+                lists.add(new CardItem(strEdit1, strEdit1, strEdit2, strEdit3, strEdit4, strEdit5, strEdit6, strEdit7));
                 mAdapter.notifyDataSetChanged();
                 dialog.dismiss();
             });
@@ -130,8 +134,10 @@ public class EGOgetDBActivity extends AppCompatActivity {
                     + cursor.getString(3) + ","
                     + cursor.getString(4) + ","
                     + cursor.getString(5) + ","
-                    + cursor.getString(6) + "\n";
-            lists.add(new CardItem(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6)));
+                    + cursor.getString(6) + ","
+                    + cursor.getString(7) + ","
+                    + cursor.getString(8) + "\n";
+            lists.add(new CardItem(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8)));
         }
         mAdapter.notifyDataSetChanged();
         cursor.close();
@@ -151,14 +157,18 @@ public class EGOgetDBActivity extends AppCompatActivity {
             Log.d(TAG, i + " = " + lists.get(i).getDistance());
             Log.d(TAG, i + " = " + lists.get(i).getBpm());
             Log.d(TAG, i + " = " + lists.get(i).getKcal());
-            setDB(lists.get(i).getDate(), lists.get(i).getTime(), lists.get(i).getSpeed(), lists.get(i).getDistance(), lists.get(i).getBpm(), lists.get(i).getKcal());
+            Log.d(TAG, i + " = " + lists.get(i).getKcal());
+            Log.d(TAG, i + " = " + lists.get(i).getKcal());
+            Log.d(TAG, i + " = " + lists.get(i).getBefore_bloodsugar());
+            Log.d(TAG, i + " = " + lists.get(i).getAfter_bloodsugar());
+            setDB(lists.get(i).getDate(), lists.get(i).getTime(), lists.get(i).getSpeed(), lists.get(i).getDistance(), lists.get(i).getBpm(), lists.get(i).getKcal(), lists.get(i).getBefore_bloodsugar(), lists.get(i).getAfter_bloodsugar());
         }
     }
 
     // DB에 저장하는 메서드
-    public void setDB(String date, String time, String speed, String distance, String bpm, String kcal) {
+    public void setDB(String date, String time, String speed, String distance, String bpm, String kcal, String before_bloodsugar, String after_bloodsugar) {
         sql = db.getWritableDatabase();
-        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s','%s','%s','%s','%s')", date, time, speed, distance, bpm, kcal));
+        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", date, time, speed, distance, bpm, kcal, before_bloodsugar, after_bloodsugar));
         sql.close();
     }
 

@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.elab_yang.egometer.DeleteDataBaseActivity;
 import com.example.elab_yang.egometer.R;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
@@ -61,15 +62,17 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.layout2:
                 // Database 삭제
-                Toast.makeText(getApplicationContext(), "Database 삭제", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Database 삭제", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(SettingActivity.this, DeleteDataBaseActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.layout3:
                 // 앱 평가하기
-                Toast.makeText(getApplicationContext(), "앱 평가하기", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "업데이트 예정 : 앱 평가하기", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.layout4:
                 // 앱 소개하기
-                Toast.makeText(getApplicationContext(), "앱 소개하기", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "업데이트 예정 : 앱 소개하기", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

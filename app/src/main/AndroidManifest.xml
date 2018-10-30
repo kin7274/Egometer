@@ -152,6 +152,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
+        <!--DELETE DATABASESS-->
+        <activity
+            android:name=".DeleteDataBaseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
         <!--BLE서비스-->
         <service
             android:name=".service.BluetoothLeService"

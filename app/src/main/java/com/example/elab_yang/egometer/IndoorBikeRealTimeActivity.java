@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -46,6 +47,11 @@ import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BI
 
 public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     private static final String TAG = "IndoorBikeRealTimeActiv";
+
+    // 운동 전 혈당
+    String before_bloodsugar = "";
+    // 운동 후 혈당
+    String after_bloodsugar = "";
 
     BluetoothGattCharacteristic mNotifyCharacteristic;
     EZBLEService mBluetoothLeService;
@@ -321,13 +327,15 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         infoLayout.setVisibility(View.GONE);
     }
 
-    // 운동 후혈당입력
+    // 운동 전 혈당입력
     public void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("운동전 혈당을 입력해주세요")
                 .setMessage("혈당은 몇인가요?");
         final EditText et = new EditText(this);
         builder.setPositiveButton("YES", (dialog, which) -> {
+            // 운동 전 혈당을 받아서
+            before_bloodsugar = et.getText().toString();
             Toast.makeText(getApplicationContext(), "감사합니다", Toast.LENGTH_SHORT).show();
         })
                 .setView(et)
@@ -377,55 +385,62 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     public void onClickButton() {
 //        finish();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("알림");
-        builder.setMessage("운동을 종료하시겠어요?");
-        builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
-            dialog.dismiss();
-            finish();
-        });
-        builder.setNegativeButton(android.R.string.no, (dialog, which) -> dialog.dismiss());
-        builder.setCancelable(false);
-        builder.show();
+        builder.setTitle("알림")
+                .setMessage("운동을 종료하시겠어요?")
+                .setPositiveButton("네", (dialog, which) -> finish());
     }
 
     @Override
     public void onBackPressed() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("알림");
         builder.setMessage("운동을 종료하시겠어요?");
         builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
 //            Toast.makeText(getApplicationContext(), "결과값을 정리하자", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
-            // 시간
-            int time = (int)(long)(SystemClock.elapsedRealtime() - chronometer.getBase())/1000;
-//            Log.d(TAG, "운동시간 = " + time +"초");
-            // 평균속도
-            String avg_speed = meanSpeedTextView.getText().toString();
-            // 이동거리
-            String total_distance = totalDistanceTextView.getText().toString();
-            // 평균BPM
-            String avg_bpm = heartRateTextView.getText().toString();
-            // 소모 칼로리
-            String kcal = kcalTextview.getText().toString();
+
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setTitle("운동 후 혈당을 입력해주세요")
+                    .setMessage("혈당은 몇인가요?");
+            final EditText et1 = new EditText(this);
+            builder1.setPositiveButton("응", (dialog1, which1) -> {
+                // 운동 후 혈당을 받아서
+                after_bloodsugar = et1.getText().toString();
+                Toast.makeText(getApplicationContext(), "감사합니다", Toast.LENGTH_SHORT).show();
+
+                // 시간
+                int time = (int) (long) (SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000;
+                //            Log.d(TAG, "운동시간 = " + time +"초");
+                // 평균속도
+                String avg_speed = meanSpeedTextView.getText().toString();
+                // 이동거리
+                String total_distance = totalDistanceTextView.getText().toString();
+                // 평균BPM
+                String avg_bpm = heartRateTextView.getText().toString();
+                // 소모 칼로리
+                String kcal = kcalTextview.getText().toString();
 //            Log.d(TAG, "평균쇽도 = " + avg_speed);
 //            Log.d(TAG, "이동거리 = " + total_distance);
 //            Log.d(TAG, "평균심박 = " + avg_bpm);
 //            Log.d(TAG, "칼로리량 = " + kcal);
 
-            Log.d(TAG, "3333333333333333333333333333. EI =" + EI);
-            Intent intent = new Intent(IndoorBikeRealTimeActivity.this, IndoorBikeResultActivity.class);
-            intent.putExtra("result_time", time);
-            intent.putExtra("result_extra", EI + "&" + avg_speed + "&" + total_distance + "&" + avg_bpm + "&" + kcal);
-            startActivity(intent);
-            finish();
+                //            Log.d(TAG, "3333333333333333333333333333. EI =" + EI);
+                Intent intent = new Intent(IndoorBikeRealTimeActivity.this, IndoorBikeResultActivity.class);
+                intent.putExtra("before_bloodsugar", before_bloodsugar);
+                intent.putExtra("after_bloodsugar", after_bloodsugar);
+                intent.putExtra("result_time", time);
+                intent.putExtra("result_extra", avg_speed + "&" + total_distance + "&" + avg_bpm + "&" + kcal);
+
+                startActivity(intent);
+
+                finish();
+            })
+                    .setView(et1)
+                    .create()
+                    .show();
         });
-        builder.setNegativeButton(android.R.string.no, (dialog, which) -> {
-            dialog.dismiss();
-            Toast.makeText(getApplicationContext(), "가즈아ㅏㅏ", Toast.LENGTH_SHORT).show();
-        });
-        builder.setCancelable(false);
-        builder.show();
-//        super.onBackPressed();
+        builder.show()
+                .create();
+
     }
 }

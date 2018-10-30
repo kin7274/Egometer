@@ -1,6 +1,7 @@
 package com.example.elab_yang.egometer.activity.ergometer;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,35 +30,27 @@ import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BI
 
 public class IndoorBikeResultActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "IndoorBikeResult";
+    Context mContext;
     DB db;
     SQLiteDatabase sql;
-    int time;
+    int time = 0;
+    // 운동 전 혈당
+    String before_bloodsugar = "";
+    // 운동 후 혈당
+    String after_bloodsugar = "";
     String[] arr_data;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indoor_bike_result);
+        mContext = this;
         setToolbar();
         setStatusbar();
         set();
         db = new DB(this);
 
-        showDialog();
-    }
-
-    // 운동 후혈당입력
-    public void showDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("운동후 혈당을 입력해주세요")
-                .setMessage("혈당은 몇인가요?");
-        final EditText et = new EditText(IndoorBikeResultActivity.this);
-        builder.setPositiveButton("YES", (dialog, which) -> {
-            Toast.makeText(getApplicationContext(), "감사합니다", Toast.LENGTH_SHORT).show();
-        })
-                .setView(et)
-                .create()
-                .show();
+//        showDialog();
     }
 
     public void setToolbar() {
@@ -77,6 +70,8 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         // 인텐트 리시브
         Intent intent = getIntent();
         time = intent.getExtras().getInt("result_time");
+        before_bloodsugar = intent.getExtras().getString("before_bloodsugar");
+        after_bloodsugar = intent.getExtras().getString("after_bloodsugar");
         String extra = intent.getExtras().getString("result_extra");
         arr_data = extra.split("&");
 
@@ -86,16 +81,21 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         TextView txt_Distance = (TextView) findViewById(R.id.txt_Distance);
         TextView txt_AvgBPM = (TextView) findViewById(R.id.txt_AvgBPM);
         TextView txt_Kcal = (TextView) findViewById(R.id.txt_Kcal);
+        TextView txt_before_bloodsugar = (TextView) findViewById(R.id.txt_before_bloodsugar);
+        TextView txt_after_bloodsugar = (TextView) findViewById(R.id.txt_after_bloodsugar);
 
         Button set_btn = (Button) findViewById(R.id.set_btn);
         set_btn.setOnClickListener(this);
 
         // setText
         txt_time.setText(String.valueOf(time) + "초");
-        txt_AvgSpeed.setText(arr_data[1]);
-        txt_Distance.setText(arr_data[2]);
-        txt_AvgBPM.setText(arr_data[3]);
-        txt_Kcal.setText(arr_data[4]);
+        txt_AvgSpeed.setText(arr_data[0]);
+        txt_Distance.setText(arr_data[1]);
+        txt_AvgBPM.setText(arr_data[2]);
+        txt_Kcal.setText(arr_data[3]);
+        txt_before_bloodsugar.setText(before_bloodsugar);
+        txt_after_bloodsugar.setText(after_bloodsugar);
+//        txt_after_bloodsugar.setText(after_bloodsugar);
     }
 
     // DB에 저장한다
@@ -106,7 +106,7 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         Date date = new Date(now);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String getTime = sdf.format(date);
-        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s','%s','%s','%s','%s','%s')", getTime, String.valueOf(time) + "초", arr_data[1], arr_data[2], arr_data[3], arr_data[4]));
+        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", getTime, String.valueOf(time) + "초", arr_data[0], arr_data[1], arr_data[2], arr_data[3], before_bloodsugar, after_bloodsugar));
         Toast.makeText(getApplicationContext(), "저장했어유", Toast.LENGTH_SHORT).show();
         sql.close();
     }

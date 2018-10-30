@@ -7,14 +7,18 @@ public class CardItem {
     private String distance;
     private String bpm;
     private String kcal;
+    private String before_bloodsugar;
+    private String after_bloodsugar;
 
-    public CardItem(String date, String time, String speed, String distance, String bpm, String kcal) {
+    public CardItem(String date, String time, String speed, String distance, String bpm, String kcal, String before_bloodsugar, String after_bloodsugar) {
         this.date = date;
         this.time = time;
         this.speed = speed;
         this.distance = distance;
         this.bpm = bpm;
         this.kcal = kcal;
+        this.before_bloodsugar = before_bloodsugar;
+        this.after_bloodsugar = after_bloodsugar;
     }
 
     public String getDate() {
@@ -63,5 +67,21 @@ public class CardItem {
 
     public void setKcal(String kcal) {
         this.kcal = kcal;
+    }
+
+    public String getBefore_bloodsugar() {
+        return before_bloodsugar;
+    }
+
+    public void setBefore_bloodsugar(String before_bloodsugar) {
+        this.before_bloodsugar = before_bloodsugar;
+    }
+
+    public String getAfter_bloodsugar() {
+        return after_bloodsugar;
+    }
+
+    public void setAfter_bloodsugar(String after_bloodsugar) {
+        this.after_bloodsugar = after_bloodsugar;
     }
 }
