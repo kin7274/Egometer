@@ -2,6 +2,7 @@ package com.example.elab_yang.egometer.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -38,32 +39,32 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void set() {
-        CardView card_view1 = (CardView) findViewById(R.id.card_view1);
-        card_view1.setOnClickListener(this);
-        CardView card_view2 = (CardView) findViewById(R.id.card_view2);
-        card_view2.setOnClickListener(this);
-        CardView card_view3 = (CardView) findViewById(R.id.card_view3);
-        card_view3.setOnClickListener(this);
-        CardView card_view4 = (CardView) findViewById(R.id.card_view4);
-        card_view4.setOnClickListener(this);
+        ConstraintLayout layout1 = (ConstraintLayout) findViewById(R.id.layout1);
+        layout1.setOnClickListener(this);
+        ConstraintLayout layout2 = (ConstraintLayout) findViewById(R.id.layout2);
+        layout2.setOnClickListener(this);
+        ConstraintLayout layout3 = (ConstraintLayout) findViewById(R.id.layout3);
+        layout3.setOnClickListener(this);
+        ConstraintLayout layout4 = (ConstraintLayout) findViewById(R.id.layout4);
+        layout4.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.card_view1:
+            case R.id.layout1:
                 // 개인정보 입력
                 Toast.makeText(getApplicationContext(), "개인정보 수정", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.card_view2:
+            case R.id.layout2:
                 // Database 삭제
                 Toast.makeText(getApplicationContext(), "Database 삭제", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.card_view3:
+            case R.id.layout3:
                 // 앱 평가하기
                 Toast.makeText(getApplicationContext(), "앱 평가하기", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.card_view4:
+            case R.id.layout4:
                 // 앱 소개하기
                 Toast.makeText(getApplicationContext(), "앱 소개하기", Toast.LENGTH_SHORT).show();
                 break;
