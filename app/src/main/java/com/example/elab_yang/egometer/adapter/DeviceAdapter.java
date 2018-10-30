@@ -83,7 +83,16 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
 
         String deviceName = deviceList.get(position).getDeviceName();
         String deviceAddress = deviceList.get(position).getDeviceAddress();
-        holder.deviceNameLabel.setText(deviceList.get(position).getDeviceName());
+//        holder.deviceNameLabel.setText(deviceList.get(position).getDeviceName());
+        if(deviceName.equals("KNU EG0")){
+            // 에르고미터
+            Log.d(TAG, "onBindViewHolder: 이건 에르고미터");
+            holder.deviceNameLabel.setText("에르고미터");
+        } else if(deviceName.equals("HMSoft")){
+            // 트레드밀
+            Log.d(TAG, "onBindViewHolder: 이건 트레드밀");
+            holder.deviceNameLabel.setText("트레드밀");
+        }
         holder.deviceStatusLabel.setText(deviceList.get(position).getDeviceAddress());
         if (deviceName.equals(EGZeroConst.DEVICE_NAME)) {
             // deviceFlag true <- ergometer
@@ -121,7 +130,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
                 builder.show();
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle(EGZeroConst.DEVICE_NAME);
+                builder.setTitle("트레드밀입니다");
                 builder.setMessage("트레드밀입니다");
                 builder.setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss());
                 builder.show();
