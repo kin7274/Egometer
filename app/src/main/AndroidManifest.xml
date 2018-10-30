@@ -135,10 +135,10 @@
             android:theme="@style/AppTheme" />
 
         <!--앱 가이던스-->
-        <activity
-            android:name=".activity.AppGuidenceActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+        <!--<activity-->
+            <!--android:name=".activity.AppGuidenceActivity"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/AppTheme" />-->
 
         <!--VIEW 혈당차트-->
         <activity
