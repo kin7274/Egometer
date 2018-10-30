@@ -1,5 +1,6 @@
 package com.example.elab_yang.egometer.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import com.example.elab_yang.egometer.model.CardItem;
 
 import java.util.List;
 
+import static com.example.elab_yang.egometer.R.color.blue;
 import static java.lang.Integer.parseInt;
 
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> implements OnLongClickListener {
@@ -34,6 +36,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         return new ViewHolder(view);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         CardItem item = mDataList.get(position);
@@ -59,8 +62,13 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         holder.after_bloodsugar.setText(item.getAfter_bloodsugar());
 
         int sub_bloodsugar = Integer.parseInt(item.getAfter_bloodsugar()) - Integer.parseInt(item.getBefore_bloodsugar());
-        if (sub_bloodsugar >= 0) holder.after_before.setText("+" + String.valueOf(sub_bloodsugar));
-        else holder.after_before.setText("-" + String.valueOf(sub_bloodsugar));
+        if (sub_bloodsugar >= 0) {
+            after_before.setTextColor(R.color.blue);
+            holder.after_before.setText("+" + String.valueOf(sub_bloodsugar));
+        } else {
+//            after_before.setTextColor(R.color.red);
+            holder.after_before.setText(String.valueOf(sub_bloodsugar));
+        }
 
 //        holder.after_before.setText(String.valueOf(sub_bloodsugar));
 

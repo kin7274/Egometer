@@ -233,8 +233,8 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/my_font_family"
                 android:gravity="center_horizontal|center"
-                android:hint="000kcal"
-                android:textColor="@color/colorPrimary"
+                android:hint="000"
+                android:textColor="@color/red"
                 android:textSize="20sp" />
         </LinearLayout>
 
