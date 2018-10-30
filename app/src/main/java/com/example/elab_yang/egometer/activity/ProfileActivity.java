@@ -1,12 +1,10 @@
 package com.example.elab_yang.egometer.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -30,6 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
         EditText user_blood_max = (EditText) findViewById(R.id.user_blood_max);
         EditText user_weight = (EditText) findViewById(R.id.user_weight);
         EditText user_height = (EditText) findViewById(R.id.user_height);
+        // 저장버튼 클릭 이벤트
         Button set_btn = (Button) findViewById(R.id.set_btn);
         set_btn.setOnClickListener(v -> {
             user_data[0] = user_name.getText().toString();
@@ -45,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
         });
 
+        // 저장된 값이 있다면 불러오기
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         String AAAA = null;
         try {

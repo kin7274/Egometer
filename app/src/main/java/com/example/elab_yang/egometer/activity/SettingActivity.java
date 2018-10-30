@@ -1,5 +1,6 @@
 package com.example.elab_yang.egometer.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -54,7 +55,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.layout1:
                 // 개인정보 입력
-                Toast.makeText(getApplicationContext(), "개인정보 수정", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "개인정보 수정", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SettingActivity.this, ProfileActivity.class);
+                startActivity(intent);
                 break;
             case R.id.layout2:
                 // Database 삭제
