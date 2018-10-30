@@ -24,7 +24,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
                 android:fontFamily="@font/my_font_family"
-                android:text="트레고"
+                android:text="이모든솔루션 - 유산소 운동 관리 프로그램"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
                 android:textStyle="normal" />
