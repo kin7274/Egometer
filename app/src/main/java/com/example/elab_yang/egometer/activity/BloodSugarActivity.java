@@ -48,6 +48,8 @@ public class BloodSugarActivity extends AppCompatActivity {
     SQLiteDatabase sql;
     String str;
     String[] arr = {"", "", "", "", "", "", "" , "", "", "", "", ""};
+    String[] arr1 = {"", "", "", "", "", "", "" , "", "", "", "", ""};
+    String[] arr2 = {"", "", "", "", "", "", "" , "", "", "", "", ""};
 
     // Entry는 float형만
 //    private ArrayList<Entry> entry = new ArrayList<>();
@@ -76,18 +78,18 @@ public class BloodSugarActivity extends AppCompatActivity {
         Cursor cursor;
         cursor = sql.rawQuery("select*from tb_egometer", null);
         while (cursor.moveToNext()) {
-            // TODO: 2018-10-26 한개면 따로;;
+            // TODO: 2018-10-26 한개면 따로
             for (int i = 0; i < (int) rows_count/2; i++) {
                 Log.d(TAG, "행 갯수 = " + rows_count);
                 try {
 //                    Log.d(TAG, cursor.getString(1));
-//                    Log.d(TAG, cursor.getString(1));
                     arr[i] = cursor.getString(1);
-                    lists.add(new Blood(arr[i]));
+                    arr1[i] = cursor.getString(7) + "/" + cursor.getString(8);
+                    lists.add(new Blood(arr[i], arr1[i]));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Log.d(TAG, "arr = " + arr[i]);
+                Log.d(TAG, "arr = " + arr[i] + arr1[i]);
             }
         }
         mAdapter.notifyDataSetChanged();

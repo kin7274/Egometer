@@ -44,15 +44,19 @@ public class BloodRecyclerAdapter extends RecyclerView.Adapter<BloodRecyclerAdap
         Blood item = mDataList.get(position);
         CardView cardview = holder.cardview;
         TextView date = holder.date;
+        TextView bloodsugar = holder.bloodsugar;
         ImageView image = holder.image;
 
         holder.date.setText(item.getDate());
+        holder.bloodsugar.setText(item.getBloodsugar());
 
         // 이미지 클릭 -> 차트 보기
         holder.image.setOnClickListener(v -> {
             Intent intent = new Intent(context, ViewChartActivity.class);
-            intent.putExtra(item.getDate(), "DATE");
+            intent.putExtra("DATE", item.getDate());
             Log.d(TAG, "DATE = " + item.getDate());
+            intent.putExtra("bloodsugar", item.getBloodsugar());
+            Log.d(TAG, "bloodsugar = " + item.getBloodsugar());
             context.startActivity(intent);
         });
         holder.cardview.setOnLongClickListener(v -> {
@@ -83,12 +87,14 @@ public class BloodRecyclerAdapter extends RecyclerView.Adapter<BloodRecyclerAdap
     public class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardview;
         TextView date;
+        TextView bloodsugar;
         ImageView image;
 
         public ViewHolder(View itemView) {
             super(itemView);
             cardview = (CardView) itemView.findViewById(R.id.cardview);
             date = (TextView) itemView.findViewById(R.id.date);
+            bloodsugar = (TextView) itemView.findViewById(R.id.txt_bloodsugar);
             image = (ImageView) itemView.findViewById(R.id.image);
 
             cardview.setOnClickListener(v -> {

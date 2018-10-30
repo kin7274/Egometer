@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -22,8 +23,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ViewChartActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     String date = "";
+    String bloodsugar = "";
     LineChart line_chart;
+    String[] arr = {"", ""};
     private LineDataSet lineDataSet;
     private LineData lineData;
     private ArrayList<Entry> entry = new ArrayList<>();
@@ -36,7 +40,25 @@ public class ViewChartActivity extends AppCompatActivity {
         setContentView(R.layout.actvity_chartview);
         // Date READ
         Intent intent = getIntent();
-        date = intent.getExtras().getString("DATE");
+        try {
+            date = intent.getExtras().getString("DATE");
+            bloodsugar = intent.getExtras().getString("bloodsugar");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "date: " + date);
+        Log.d(TAG, "bloodsugar: " + bloodsugar);
+        String[] arr = bloodsugar.split("/");
+        Log.d(TAG, "arr[0]: " + arr[0]);
+        Log.d(TAG, "arr[1]: " + arr[1]);
+        // float형 변환
+//        Log.d(TAG, "setChart Float.valueOf(arr[0]): " + Float.valueOf(arr[0]));
+//        Log.d(TAG, "setChart Float.valueOf(arr[1]): " + Float.valueOf(arr[1]));
+        Log.d(TAG, "(float) Integer.parseInt(arr[0])): " + (float) Integer.parseInt(arr[0]));
+        Log.d(TAG, "(float) Integer.parseInt(arr[1])): " + (float) Integer.parseInt(arr[1]));
+        // arr[0] = 운동 전 혈당
+        // arr[1] = 운동 후
+
         setToolbar();
         setStatusbar();
 
@@ -50,6 +72,7 @@ public class ViewChartActivity extends AppCompatActivity {
         setSupportActionBar(mytoolbar);
         getSupportActionBar().setTitle("");
         TextView bar_title = (TextView) findViewById(R.id.bar_title);
+        bar_title.setText(date + " 그 날의 혈당 데이터..");
     }
 
     public void setStatusbar() {
@@ -90,21 +113,29 @@ public class ViewChartActivity extends AppCompatActivity {
 
         // p1 : 110 ~ 130
 //        int p1 = rand.nextInt(130) + 110;
-        int p1 = rand.nextInt(65) + 55;
-        float floatP1 = (float) p1;
+//        int p1 = rand.nextInt(65) + 55;
+//        float floatP1 = (float) p1;
 
         // p2 : 80 ~ 90
 //        int p2 = rand.nextInt(90) + 80;
-        int p2 = rand.nextInt(45) + 40;
-        float floatP2 = (float) p2;
+//        int p2 = rand.nextInt(45) + 40;
+//        float floatP2 = (float) p2;
 
         // p3 : 100 ~ 110
 //        int p3 = rand.nextInt(110) + 100;
         int p3 = rand.nextInt(55) + 50;
         float floatP3 = (float) p3;
 
-        entry.add(new Entry(cnt1, floatP1));
-        entry.add(new Entry(cnt2, floatP2));
+
+
+//        entry.add(new Entry(cnt1, (float) Float.valueOf(arr[0])));
+//        entry.add(new Entry(cnt2, (float) Float.valueOf(arr[1])));
+//        entry.add(new Entry(cnt2, (float) Integer.parseInt(arr[0])));
+//        entry.add(new Entry(cnt2, (float) Integer.parseInt(arr[1])));
+//        entry.add(new Entry(cnt1, floatP1));
+//        entry.add(new Entry(cnt2, floatP2));
+        entry.add(new Entry(cnt1, (float) 90.0));
+        entry.add(new Entry(cnt2, (float) 110.0));
         entry.add(new Entry(cnt3, floatP3));
 
 //        entry.add(new Entry(0, 130));
