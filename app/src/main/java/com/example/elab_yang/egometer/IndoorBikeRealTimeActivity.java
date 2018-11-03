@@ -424,10 +424,11 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 //            Log.d(TAG, "칼로리량 = " + kcal);
 
                 //            Log.d(TAG, "3333333333333333333333333333. EI =" + EI);
-                Intent intent = new Intent(IndoorBikeRealTimeActivity.this, IndoorBikeResultActivity.class);
 
                 Intent bsmintent = getIntent();
-                before_bloodsugar = intent.getExtras().getString("before_bloodsugar");
+                before_bloodsugar = bsmintent.getExtras().getString("before_bloodsugar");
+
+                Intent intent = new Intent(IndoorBikeRealTimeActivity.this, IndoorBikeResultActivity.class);
                 intent.putExtra("before_bloodsugar", before_bloodsugar);
                 intent.putExtra("after_bloodsugar", after_bloodsugar);
                 intent.putExtra("result_time", time);
