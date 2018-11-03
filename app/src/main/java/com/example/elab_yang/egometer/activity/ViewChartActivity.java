@@ -54,8 +54,9 @@ public class ViewChartActivity extends AppCompatActivity {
         // float형 변환
 //        Log.d(TAG, "setChart Float.valueOf(arr[0]): " + Float.valueOf(arr[0]));
 //        Log.d(TAG, "setChart Float.valueOf(arr[1]): " + Float.valueOf(arr[1]));
-        Log.d(TAG, "(float) Integer.parseInt(arr[0])): " + (float) Integer.parseInt(arr[0]));
-        Log.d(TAG, "(float) Integer.parseInt(arr[1])): " + (float) Integer.parseInt(arr[1]));
+        Log.d(TAG, "Integer.parseInt(arr[0])): " + Integer.parseInt(arr[0]));
+        Log.d(TAG, "Integer.parseInt(arr[1])): " + Integer.parseInt(arr[1]));
+        Log.d(TAG, "///////////////////////////////////////////////////////");
         // arr[0] = 운동 전 혈당
         // arr[1] = 운동 후
 
@@ -121,21 +122,46 @@ public class ViewChartActivity extends AppCompatActivity {
 //        int p2 = rand.nextInt(45) + 40;
 //        float floatP2 = (float) p2;
 
+        float y1 = 0;
+        float y2 = 0;
+        try {
+            y1 = Float.valueOf(arr[0]);
+            y2 = Float.valueOf(arr[1]);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+
+//        float y1 = 0;
+//        float y2 = 0;
+//        try {
+//            y1 = Integer.parseInt(arr[0]);
+//            y2 = Integer.parseInt(arr[0]);
+
+
+//            y1 = Float.parseFloat(arr[0]);
+//            y2 = Float.parseFloat(arr[1]);
+//        } catch (NumberFormatException e) {
+//            e.printStackTrace();
+//        }
+
+        Log.d(TAG, "setChart : y1 : " + y1);
+        Log.d(TAG, "setChart : y2 : " + y2);
         // p3 : 100 ~ 110
 //        int p3 = rand.nextInt(110) + 100;
         int p3 = rand.nextInt(55) + 50;
         float floatP3 = (float) p3;
 
-
-
-//        entry.add(new Entry(cnt1, (float) Float.valueOf(arr[0])));
-//        entry.add(new Entry(cnt2, (float) Float.valueOf(arr[1])));
+//        entry.add(new Entry(cnt1, (float) Float.parseFloat(arr[0])));
+//        entry.add(new Entry(cnt2, (float) Float.parseFloat(arr[1])));
+        entry.add(new Entry(cnt1, y1));
+        entry.add(new Entry(cnt2, y2));
 //        entry.add(new Entry(cnt2, (float) Integer.parseInt(arr[0])));
 //        entry.add(new Entry(cnt2, (float) Integer.parseInt(arr[1])));
 //        entry.add(new Entry(cnt1, floatP1));
 //        entry.add(new Entry(cnt2, floatP2));
-        entry.add(new Entry(cnt1, (float) 90.0));
-        entry.add(new Entry(cnt2, (float) 110.0));
+//        entry.add(new Entry(cnt1, (float) 90.0));
+//        entry.add(new Entry(cnt2, (float) 110.0));
         entry.add(new Entry(cnt3, floatP3));
 
 //        entry.add(new Entry(0, 130));
