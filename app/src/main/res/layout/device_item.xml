@@ -19,23 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/device_image"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignParentStart="true"
-                android:layout_margin="16dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:longClickable="true"
-                android:src="@drawable/circuit" />
-
             <TextView
                 android:id="@+id/device_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/device_image"
                 android:layout_centerHorizontal="true"
                 android:fontFamily="@font/my_font_family"
                 android:gravity="center"
@@ -49,8 +36,8 @@
                 android:id="@+id/device_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/device_image"
-                android:layout_alignStart="@+id/device_name"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/device_name"
                 android:fontFamily="@font/my_font_family"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
@@ -58,11 +45,12 @@
                 android:textSize="20sp"
                 tools:text="connecting" />
 
+
             <ImageView
                 android:id="@+id/device_action_show_activity_tracks"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_below="@id/device_image"
+                android:layout_below="@id/device_status"
                 android:layout_margin="2dp"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
@@ -75,7 +63,7 @@
                 android:id="@+id/device_action_fetch_activity"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_below="@id/device_image"
+                android:layout_below="@id/device_status"
                 android:layout_margin="2dp"
                 android:layout_toEndOf="@id/device_action_show_activity_tracks"
                 android:background="?android:attr/selectableItemBackground"
@@ -86,11 +74,13 @@
                 card_view:srcCompat="@drawable/ic_action_fetch_activity_data" />
 
 
+
+
             <ImageView
                 android:id="@+id/device_info_image"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_below="@id/device_image"
+                android:layout_below="@id/device_status"
                 android:layout_margin="2dp"
                 android:layout_toEndOf="@id/device_action_fetch_activity"
                 android:background="?android:attr/selectableItemBackground"
@@ -104,7 +94,7 @@
                 android:id="@+id/device_info_trashcan"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_below="@id/device_image"
+                android:layout_below="@id/device_status"
                 android:layout_margin="2dp"
                 android:layout_toEndOf="@id/device_info_image"
                 android:background="?android:attr/selectableItemBackground"
