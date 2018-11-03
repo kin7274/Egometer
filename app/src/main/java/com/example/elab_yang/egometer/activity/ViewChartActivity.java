@@ -33,6 +33,8 @@ public class ViewChartActivity extends AppCompatActivity {
     private ArrayList<Entry> entry = new ArrayList<>();
     int cnt = 0;
     int yData = 0;
+    float y1 = 0;
+    float y2 = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,11 +56,24 @@ public class ViewChartActivity extends AppCompatActivity {
         // float형 변환
 //        Log.d(TAG, "setChart Float.valueOf(arr[0]): " + Float.valueOf(arr[0]));
 //        Log.d(TAG, "setChart Float.valueOf(arr[1]): " + Float.valueOf(arr[1]));
+        Log.d(TAG, "onCreate: string -> int");
         Log.d(TAG, "Integer.parseInt(arr[0])): " + Integer.parseInt(arr[0]));
         Log.d(TAG, "Integer.parseInt(arr[1])): " + Integer.parseInt(arr[1]));
         Log.d(TAG, "///////////////////////////////////////////////////////");
         // arr[0] = 운동 전 혈당
         // arr[1] = 운동 후
+
+        Log.d(TAG, "onCreate: string -> float");
+        Log.d(TAG, "Float.parseFloat(arr[0]): " + Float.parseFloat(arr[0]));
+        Log.d(TAG, "Float.parseFloat(arr[1]): " + Float.parseFloat(arr[1]));
+        Log.d(TAG, "///////////////////////////////////////////////////////");
+
+        try {
+            y1 = (float) Float.parseFloat(arr[0]);
+            y2 = (float) Float.parseFloat(arr[1]);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
 
         setToolbar();
         setStatusbar();
@@ -122,14 +137,7 @@ public class ViewChartActivity extends AppCompatActivity {
 //        int p2 = rand.nextInt(45) + 40;
 //        float floatP2 = (float) p2;
 
-        float y1 = 0;
-        float y2 = 0;
-        try {
-            y1 = Float.valueOf(arr[0]);
-            y2 = Float.valueOf(arr[1]);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+
 
 
 //        float y1 = 0;
