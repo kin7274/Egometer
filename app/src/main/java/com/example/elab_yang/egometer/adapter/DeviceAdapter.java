@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.elab_yang.egometer.IndoorBikeRealTimeActivity;
 import com.example.elab_yang.egometer.R;
@@ -58,6 +59,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     HashSet<Device> deviceDatabase = new HashSet<>();
     ArrayList<Device> deviceArrayList;
 
+    String before_bloodsugar = "";
+
     public DeviceAdapter(Context context, List<Device> deviceList) {
         this.context = context;
         this.deviceList = deviceList;
@@ -84,11 +87,11 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         String deviceName = deviceList.get(position).getDeviceName();
         String deviceAddress = deviceList.get(position).getDeviceAddress();
 //        holder.deviceNameLabel.setText(deviceList.get(position).getDeviceName());
-        if(deviceName.equals("KNU EG0")){
+        if (deviceName.equals("KNU EG0")) {
             // 에르고미터
             Log.d(TAG, "onBindViewHolder: 이건 에르고미터");
             holder.deviceNameLabel.setText("에르고미터");
-        } else if(deviceName.equals("HMSoft")){
+        } else if (deviceName.equals("HMSoft")) {
             // 트레드밀
             Log.d(TAG, "onBindViewHolder: 이건 트레드밀");
             holder.deviceNameLabel.setText("트레드밀");
@@ -98,7 +101,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             // deviceFlag true <- ergometer
             holder.fetchActivityData.setVisibility(View.GONE);
             holder.showActivityTracks.setImageResource(R.drawable.ic_activity_tracks);
-        } else {// 동기화
+        } else {
+            // 동기화
             holder.fetchActivityData.setOnClickListener((View v) -> {
                 Log.e("클릭됨", "onClick: 클릭툄" + EGZeroConst.DEVICE_NAME);
                 Intent bsmIntent1 = new Intent(context, TimelineActivity.class);
@@ -110,9 +114,28 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         // 운동하러ㄱ
         holder.showActivityTracks.setOnClickListener(v -> {
             if (deviceName.equals(EGZeroConst.DEVICE_NAME)) {
-                Intent bsmIntent = new Intent(context, IndoorBikeRealTimeActivity.class);
-                bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
-                context.startActivity(bsmIntent);
+                Log.d(TAG, "onBindViewHolder: 운동 전 혈당 입력");
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("운동전 혈당을 입력해주세요")
+                        .setMessage("혈당은 몇인가요?");
+                final EditText et = new EditText(context);
+                builder.setPositiveButton("YES", (dialog, which) -> {
+                    // 운동 전 혈당을 받아서
+                    before_bloodsugar = et.getText().toString();
+
+                    Log.e("클릭됨", "onClick: 클릭툄" + EGZeroConst.DEVICE_NAME);
+                    Intent bsmIntent = new Intent(context, IndoorBikeRealTimeActivity.class);
+                    bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
+                    bsmIntent.putExtra("before_bloodsugar", before_bloodsugar);
+                    context.startActivity(bsmIntent);
+                })
+                        .setView(et)
+                        .create()
+                        .show();
+
+//                Intent bsmIntent = new Intent(context, IndoorBikeRealTimeActivity.class);
+//                bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
+//                context.startActivity(bsmIntent);
             } else {
                 Intent bsmIntent = new Intent(context, DeviceControlActivity.class);
                 bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);

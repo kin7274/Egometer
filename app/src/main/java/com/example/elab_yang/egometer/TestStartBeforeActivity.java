@@ -19,7 +19,6 @@ public class TestStartBeforeActivity extends AppCompatActivity {
     private Handler mHandler;
     TextView top_title_message, mid_title_message;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -308,8 +308,7 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indoor_bike_real_time);
 
-        //
-        showDialog();
+//        showDialog();
         ButterKnife.bind(this);
         chronometer.setTextSize(20);
 
@@ -426,6 +425,9 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 
                 //            Log.d(TAG, "3333333333333333333333333333. EI =" + EI);
                 Intent intent = new Intent(IndoorBikeRealTimeActivity.this, IndoorBikeResultActivity.class);
+
+                Intent bsmintent = getIntent();
+                before_bloodsugar = intent.getExtras().getString("before_bloodsugar");
                 intent.putExtra("before_bloodsugar", before_bloodsugar);
                 intent.putExtra("after_bloodsugar", after_bloodsugar);
                 intent.putExtra("result_time", time);
