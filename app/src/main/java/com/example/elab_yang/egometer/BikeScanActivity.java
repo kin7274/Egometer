@@ -18,6 +18,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -36,6 +37,7 @@ import com.example.elab_yang.egometer.etc.IntentConst;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +47,9 @@ public class BikeScanActivity extends AppCompatActivity implements IActivityBasi
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1000;
     private static final int REQUEST_ENABLE_BT = 1;
     private static final long SCAN_PERIOD = 10000; // Stops scanning after 10 seconds.
+    private TextToSpeech tts;
+    private Handler mHandler;
+
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -67,6 +72,7 @@ public class BikeScanActivity extends AppCompatActivity implements IActivityBasi
         initSetting();
         setStatusbar();
         setSupportActionBar(toolbar);
+        guide_speech();
         toolbar.setNavigationOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(BikeScanActivity.this);
             builder.setTitle("알림");
@@ -120,6 +126,29 @@ public class BikeScanActivity extends AppCompatActivity implements IActivityBasi
         bindView();
     }
 
+    public void guide_speech() {
+        // 음성 기본 설정
+        tts = new TextToSpeech(this, status -> {
+            if (status != TextToSpeech.ERROR) {
+                // 언어 설정
+                tts.setLanguage(Locale.KOREAN);
+                tts.setPitch(1.0f);  // 음성 톤 x1.0
+                tts.setSpeechRate(1.0f);  // 읽는 속도 x1.0
+            }
+        });
+        mHandler = new Handler();
+        runOnUiThread(() -> {
+            // 1초 후
+            mHandler.postDelayed(() -> {
+                try {
+                    tts.speak("장치를 선택해주세요", TextToSpeech.QUEUE_FLUSH, null, null);
+                    // QUEUE_ADD : 위에꺼 다 끝나면
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }, 1000);
+        });
+    }
 
     @TargetApi(Build.VERSION_CODES.M)
     private void checkScanPermission() {
@@ -311,5 +340,9 @@ public class BikeScanActivity extends AppCompatActivity implements IActivityBasi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
     }
 }

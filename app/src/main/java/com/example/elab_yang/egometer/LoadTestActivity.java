@@ -16,9 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dreamwalker.gaugeview.GaugeView;
+import com.example.elab_yang.egometer.activity.TestResultActivity;
 import com.example.elab_yang.egometer.etc.IntentConst;
 import com.example.elab_yang.egometer.service.EZBLEService;
 
@@ -30,13 +32,15 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
 
     private static final String TAG = "LoadTestActivity";
 
+    ProgressBar progressBar;
+
     final static int SET_2_MINUTE = 120000;
 
     @BindView(R.id.cv_countdownView)
     CountdownView countdownView;
 
-    @BindView(R.id.gauge_view)
-    GaugeView gaugeView;
+//    @BindView(R.id.gauge_view)
+//    GaugeView gaugeView;
 
     @BindView(R.id.aim_speed_text_view)
     TextView aimSpeedTextView;
@@ -174,7 +178,7 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
             } else if (EZBLEService.ACTION_INDOOR_BIKE_AVAILABLE.equals(action)) {
                 String nowSpeed = intent.getStringExtra(EZBLEService.EXTRA_DATA);
                 speedTextView.setText(nowSpeed);
-                gaugeView.setTargetValue(Float.parseFloat(nowSpeed));
+//                gaugeView.setTargetValue(Float.parseFloat(nowSpeed));
 //                if (!nowSpeed.equals("0.00")) {
 //                    globalKCal += countSpeed(nowSpeed);
 //                    String tmp = String.format("%3.2f", globalKCal);
@@ -199,6 +203,7 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_test);
         setStatusbar();
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         deviceAddress = getIntent().getStringExtra(IntentConst.FITNESS_LOAD_TEST_DEVICE_ADDRESS);
         Log.e(TAG, "onCreate: " + deviceAddress);
         initSetting();
@@ -208,9 +213,11 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
 
         timer = new CountDownTimer(SET_2_MINUTE, 1000) {
 
-            public void onTick(long millisUntilFinished) {
+            public void onTick(long m) {
 //                mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
 //                gaugeView.setTargetValue(new Random().nextInt(101));
+                Log.d(TAG, "onTick: " + m + "");
+                progressBar.setProgress(100 - (int) (100 * m) / 120000);
             }
 
             public void onFinish() {
@@ -220,7 +227,8 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
                 stageTextView.setText(String.valueOf(testStage) + "단계");
                 timer.start();
                 countdownView.start(SET_2_MINUTE);
-//                mTextField.setText("done!");
+                // 프로그레스바 초기화 : 다시 0
+                progressBar.setProgress((int) (0));
             }
         };
 
@@ -279,6 +287,9 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
         builder.setTitle("알림");
         builder.setMessage("현재 검사 " + stageTextView.getText().toString() + " 진행중입니다.\n검사를 종료하시겠어요?");
         builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
+            // 결과창 view
+            Intent intent = new Intent(LoadTestActivity.this, TestResultActivity.class);
+            startActivity(intent);
             dialog.dismiss();
             finish();
         });
