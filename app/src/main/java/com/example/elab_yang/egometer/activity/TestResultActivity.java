@@ -1,13 +1,17 @@
 package com.example.elab_yang.egometer.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
 
@@ -21,6 +25,7 @@ public class TestResultActivity extends AppCompatActivity {
     TextView text_stage, text_bom_max;  // 운동 부하 검사 결과 단계, 최대심박수
     TextView joong_gang_do_time, go_gang_do_time;  // 중강도, 고강도 시간 입력
     TextView bpm_guide, bpm_guide1, speed_guide, speed_guide1;  // 심박, 속도 가이드 수치 입력
+    Button letsgo, close_btn;  // 바로 운동 시작 버튼, OK~ 버튼
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +93,17 @@ public class TestResultActivity extends AppCompatActivity {
                 num = seekBar.getProgress();
             }
         });
+
+        // 바로 운동하러 ㄱ
+        letsgo = (Button) findViewById(R.id.letsgo);
+        letsgo.setOnClickListener(v -> {
+            // 인텐트로 바로 운동하러 ㄱ
+            Toast.makeText(getApplicationContext(), "바로 운동하러 ㄱ", Toast.LENGTH_SHORT).show();
+        });
+
+        // 부하 검사 종료
+        close_btn = (Button) findViewById(R.id.close_btn);
+        close_btn.setOnClickListener(v -> finish());
     }
 
     public void setToolbar() {
