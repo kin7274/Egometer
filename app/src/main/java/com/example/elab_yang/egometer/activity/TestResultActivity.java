@@ -2,10 +2,15 @@ package com.example.elab_yang.egometer.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -13,6 +18,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.engine.Resource;
 import com.example.elab_yang.egometer.R;
 
 public class TestResultActivity extends AppCompatActivity {
@@ -70,6 +76,26 @@ public class TestResultActivity extends AppCompatActivity {
 
         // 시크바
         seekBar = (SeekBar) findViewById(R.id.seekbar);
+        // thumb 크기 조절
+        ViewTreeObserver vto = seekBar.getViewTreeObserver();
+        vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                Resources res = getResources();
+                Drawable thumb = res.getDrawable(R.drawable.placeholder);
+                int h = (int) (seekBar.getMeasuredHeight() * 1.5);
+                int w = h;
+                Bitmap bitmap = ((BitmapDrawable) thumb).getBitmap();
+                Bitmap bitmapScaled = Bitmap.createScaledBitmap(bitmap, w, h, true);
+                Drawable newThumb = new BitmapDrawable(res, bitmapScaled);
+                newThumb.setBounds(0, 0, newThumb.getIntrinsicWidth(), newThumb.getIntrinsicHeight());
+                seekBar.setThumb(newThumb);
+                seekBar.getViewTreeObserver().removeOnPreDrawListener(this);
+                return true;
+            }
+        });
+
+        // 시크바 이벤트
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

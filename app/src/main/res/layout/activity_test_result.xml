@@ -107,7 +107,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
-
+            <!--android:thumb="@drawable/placeholder"-->
             <SeekBar
                 android:id="@+id/seekbar"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
@@ -119,7 +119,7 @@
                 android:max="20"
                 android:progress="18"
                 android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:thumb="@drawable/placeholder" />
+                android:thumbOffset="@dimen/intro_margin" />
 
             <TextView
                 android:id="@+id/text2"

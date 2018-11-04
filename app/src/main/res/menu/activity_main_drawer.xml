@@ -28,11 +28,17 @@
             android:icon="@drawable/ic_trending_up_black_24dp"
             android:title="BloodSugar Chart" />
 
-        <!--운동부하검사-->
+        <!--운동 부하 검사-->
         <item
             android:id="@+id/nav_load_test"
             android:icon="@drawable/ic_fitness_center_black_24dp"
             android:title="Fitness Load Test" />
+
+        <!--운동 부하 검사 결과-->
+        <item
+            android:id="@+id/nav_result_test"
+            android:icon="@drawable/ic_receipt_black_24dp"
+            android:title="Test Result" />
 
         <!--초보자를 위한 사용가이드-->
         <item

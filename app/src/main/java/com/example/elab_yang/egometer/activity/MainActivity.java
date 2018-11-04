@@ -118,39 +118,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         int id = menuItem.getItemId();
         switch (id) {
-            // 호구조사
             case R.id.nav_profile:
+                // 호구조사
 //                Toast.makeText(getApplicationContext(),"장치 추가", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                 break;
+
             case R.id.nav_add_device:
                 // 장치 추가
 //                Toast.makeText(getApplicationContext(),"장치 추가", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, DeviceChoiceActivity.class));
                 break;
+
             case R.id.nav_db_check:
                 // DB 확인
 //                Toast.makeText(getApplicationContext(),"DB 확인", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, DBChoiceActivity.class));
                 break;
+
             case R.id.nav_bloodsuger:
                 // 혈당 다이어리
 //                Toast.makeText(getApplicationContext(),"DB 확인", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, BloodSugarActivity.class));
                 break;
+
             case R.id.nav_load_test:
-                // 운동부하검사
+                // 운동 부하 검사
                 startActivity(new Intent(MainActivity.this, TestStartBeforeActivity.class));
                 break;
-//            case R.id.nav_guide:
-//                // 사용자가이드
-//                startActivity(new Intent(MainActivity.this, AppGuidenceActivity.class));
-//                break;
+
+            case R.id.nav_result_test:
+                // 운동 부하 검사 결과
+//                Toast.makeText(getApplicationContext(),"환경설정", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, TestResultActivity.class));
+                break;
+
+            case R.id.nav_guide:
+                // 사용자가이드
+                startActivity(new Intent(MainActivity.this, AppGuidenceActivity.class));
+                break;
+
             case R.id.nav_setting:
-                //환경설정
+                // 환경설정
 //                Toast.makeText(getApplicationContext(),"환경설정", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, SettingActivity.class));
                 break;
+
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return false;
