@@ -16,7 +16,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:fontFamily="@font/my_font_family"
-            android:text="명심하세욧"
+            android:text="명심하세욧!!"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="normal" />
@@ -28,21 +28,45 @@
         android:layout_marginTop="?attr/actionBarSize">
 
         <TextView
+            android:layout_margin="8dp"
             android:id="@+id/joogangdo_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/my_font_family"
-            android:hint="9분간 중강도로 속도 00-00km/h, 심박수 0000-0000를 유지하도록 하여야 합니다."
+            android:hint="9분간 중강도로 속도 00-00km/h, 심박수 000-000를 유지하도록 하여야 합니다."
             android:textColor="@color/black"
             android:textSize="30sp" />
 
         <View
+            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:layout_below="@+id/joogangdo_text"
             android:layout_margin="8dp"
             android:background="@color/colorPrimary" />
 
+        <TextView
+            android:layout_margin="8dp"
+            android:id="@+id/gogangdo_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
+            android:fontFamily="@font/my_font_family"
+            android:hint="9분간 중강도로 속도 00-00km/h, 심박수 000-000를 유지하도록 하여야 합니다."
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/next_btn"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gogangdo_text"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/my_font_family"
+            android:text="시작하기"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
     </RelativeLayout>
 
 </RelativeLayout>

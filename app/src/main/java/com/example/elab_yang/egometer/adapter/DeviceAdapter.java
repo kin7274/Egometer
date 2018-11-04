@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.example.elab_yang.egometer.IndoorBikeRealTimeActivity;
 import com.example.elab_yang.egometer.R;
+import com.example.elab_yang.egometer.RemindActivity;
 import com.example.elab_yang.egometer.activity.MainActivity;
 import com.example.elab_yang.egometer.activity.treadmill.DeviceControlActivity;
 import com.example.elab_yang.egometer.activity.treadmill.TimelineActivity;
@@ -114,28 +115,10 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         // 운동하러ㄱ
         holder.showActivityTracks.setOnClickListener(v -> {
             if (deviceName.equals(EGZeroConst.DEVICE_NAME)) {
-                Log.d(TAG, "onBindViewHolder: 운동 전 혈당 입력");
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("운동전 혈당을 입력해주세요")
-                        .setMessage("혈당은 몇인가요?");
-                final EditText et = new EditText(context);
-                builder.setPositiveButton("YES", (dialog, which) -> {
-                    // 운동 전 혈당을 받아서
-                    before_bloodsugar = et.getText().toString();
-
-                    Log.e("클릭됨", "onClick: 클릭툄" + EGZeroConst.DEVICE_NAME);
-                    Intent bsmIntent = new Intent(context, IndoorBikeRealTimeActivity.class);
-                    bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
-                    bsmIntent.putExtra("before_bloodsugar", before_bloodsugar);
-                    context.startActivity(bsmIntent);
-                })
-                        .setView(et)
-                        .create()
-                        .show();
-
 //                Intent bsmIntent = new Intent(context, IndoorBikeRealTimeActivity.class);
-//                bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
-//                context.startActivity(bsmIntent);
+                Intent bsmIntent = new Intent(context, RemindActivity.class);
+                bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
+                context.startActivity(bsmIntent);
             } else {
                 Intent bsmIntent = new Intent(context, DeviceControlActivity.class);
                 bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);

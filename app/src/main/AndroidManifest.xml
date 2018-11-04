@@ -164,6 +164,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
+
+        <!--운동 시작 전 요약-->
+        <activity
+            android:name=".RemindActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
         <!--BLE서비스-->
         <service
             android:name=".service.BluetoothLeService"
