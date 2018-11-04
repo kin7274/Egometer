@@ -1,6 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.TestResultActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="@font/my_font_family"
+            android:text="운동 부하 검사 결과"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/text_stage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/my_font_family"
+            android:gravity="center_horizontal"
+            android:hint="0단계까지 가셨군요"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/text_bom_max"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_stage"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/my_font_family"
+            android:gravity="center_horizontal"
+            android:hint="최대 심박수는 000이네요"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/text_bom_max">
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="중강도"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/joong_gang_do_time"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text1"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="9분"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/bpm_guide"
+                android:layout_width="284dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/text1"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="심박수를 000~000으로 유지"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/speed_guide"
+                android:layout_width="284dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/text1"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="속도를 00km/h로 유지"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+
+            <SeekBar
+                android:id="@+id/seekbar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/joong_gang_do_time"
+                android:layout_centerInParent="true"
+                android:layout_margin="16dp"
+                android:max="20"
+                android:progress="18"
+                android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:thumb="@drawable/placeholder" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/seekbar"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="고강도"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/go_gang_do_time"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text2"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="1분"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/bpm_guide1"
+                android:layout_width="284dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/seekbar"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="심박수를 000~000으로 유지"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/speed_guide1"
+                android:layout_width="284dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/text2"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="속도를 00km/h로 유지"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/letsgo"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/close_btn"
+                android:layout_alignParentStart="true"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="바로 운동하기"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/close_btn"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="종료하기"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
