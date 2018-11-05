@@ -1,6 +1,7 @@
 package com.example.elab_yang.egometer.activity.ergometer;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,17 +24,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.elab_yang.egometer.CustomDialog;
-import com.example.elab_yang.egometer.IndoorBikeRealTimeActivity;
 import com.example.elab_yang.egometer.R;
-import com.example.elab_yang.egometer.activity.treadmill.TimelineActivity;
-import com.example.elab_yang.egometer.model.CardItem;
 import com.example.elab_yang.egometer.model.DB;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-
-import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
 
 public class IndoorBikeResultActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "IndoorBikeResult";
@@ -125,6 +120,12 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
 
     // DB에 저장한다
     public void setDB() {
+        num = String.valueOf(CustomDialog.getnNum());
+        Log.d(TAG, "ddiyong: num : " + num);
+        // String 메모값 가져옴
+        memo = CustomDialog.getMemo();
+        Log.d(TAG, "ddiyong: memo : " + memo);
+
         sql = db.getWritableDatabase();
         // 현재시간 : String getTime
         long now = System.currentTimeMillis();
@@ -133,6 +134,8 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         String getTime = sdf.format(date);
         sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"
                 , getTime, String.valueOf(time) + "초", arr_data[0], arr_data[1], arr_data[2], arr_data[3], before_bloodsugar, after_bloodsugar, num, memo));
+        Log.d(TAG, "setDB: num " + num);
+        Log.d(TAG, "setDB: memo " + memo);
         Toast.makeText(getApplicationContext(), "저장했어유", Toast.LENGTH_SHORT).show();
         sql.close();
     }
@@ -211,13 +214,63 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         final CustomDialog customdialog = new CustomDialog(this);
         customdialog.show();
         customdialog.setOnDismissListener(dialog -> {
+            num = String.valueOf(CustomDialog.getnNum());
+
+            Log.d(TAG, "ddiyong: num!!! " + num);
+            if((num.equals("0"))||(num.equals("1"))){
+                // 쉬워, 할만해
+                // 강도가 너무 낮은거야
+                Toast.makeText(getApplicationContext(), "낮은 강도의 운동을 하고계셔요", Toast.LENGTH_SHORT).show();
+                onCreateDialog(1);
+                // 운동처방
+                // 1. 최대심박 범위를 0.1 올린다.
+                // 2. 부하검사를 다시 진행한다.
+                // 3. 중강도 구간을 30초 줄인다.
+            } else if((num.equals("2"))){
+                // 보통
+                // 강도 적정
+                Toast.makeText(getApplicationContext(), "적정", Toast.LENGTH_SHORT).show();
+//                onCreateDialog();
+            } else {
+                // 힘들어, 듸절거 같애
+                // 강도 너무 높아
+                Toast.makeText(getApplicationContext(), "너무 높은 강도의 운동을 하고계셔요", Toast.LENGTH_SHORT).show();
+                onCreateDialog(2);
+                // 운동처방
+                // 1. 최대심박 범위를 0.1 내린다.
+                // 2. 부하검사를 다시 진행한다.
+                // 3. 중강도 구간을 30초 늘린다.
+            }
 //            Log.d(TAG, "ddiyong: num" + num);
             // int 시크바 가져옴
-            String num = String.valueOf(CustomDialog.getNum());
-            Log.d(TAG, "ddiyong: num : " + num);
-            // String 메모값 가져옴
-            String memo = CustomDialog.getMemo();
-            Log.d(TAG, "ddiyong: memo : " + memo);
+//            num = String.valueOf(CustomDialog.getnNum());
+//            Log.d(TAG, "ddiyong: num : " + num);
+//            // String 메모값 가져옴
+//            memo = CustomDialog.getMemo();
+//            Log.d(TAG, "ddiyong: memo : " + memo);
         });
+    }
+
+    protected Dialog onCreateDialog(int id) {
+        final String [] items = {"1. 최대심박 범위를 0.1씩 내린다.", "2. 운동 부하 검사 재실시", "3. 중강도 구간을 30초 줄이고 고강도 구간을 늘린다."};
+        final String [] items2 = {"1. 최대심박 범위를 0.1씩 올린다.", "2. 운동 부하 검사 재실시", "3. 중강도 구간을 30초 늘이고 고강도 구간을 줄인다."};
+        AlertDialog.Builder builder = new AlertDialog.Builder(IndoorBikeResultActivity.this);
+        builder.setTitle("운동 처방을 내리게따!");
+        if(id == 1){
+        builder.setSingleChoiceItems(items, 0, (DialogInterface dialog, int which) -> {
+                Toast.makeText(IndoorBikeResultActivity.this, items[which], Toast.LENGTH_SHORT).show();
+//            dialog.dismiss(); // 누르면 바로 닫히는 형태
+            });
+        } else {
+                builder.setSingleChoiceItems(items2, 0, (DialogInterface dialog, int which) -> {
+                    Toast.makeText(IndoorBikeResultActivity.this, items2[which], Toast.LENGTH_SHORT).show();
+//            dialog.dismiss(); // 누르면 바로 닫히는 형태
+            });
+        }
+    builder.setPositiveButton("확인", (dialog, which) -> {
+            dialog.dismiss(); // 누르면 바로 닫히는 형태
+        })
+        .show();
+        return null;
     }
 }

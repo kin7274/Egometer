@@ -171,7 +171,8 @@ public class EGOgetDBActivity extends AppCompatActivity {
             Log.d(TAG, i + " = " + lists.get(i).getAfter_bloodsugar());
             Log.d(TAG, i + " = " + lists.get(i).getNum());
             Log.d(TAG, i + " = " + lists.get(i).getMemo());
-            setDB(lists.get(i).getDate(), lists.get(i).getTime(), lists.get(i).getSpeed(), lists.get(i).getDistance(), lists.get(i).getBpm(), lists.get(i).getKcal(), lists.get(i).getBefore_bloodsugar(), lists.get(i).getAfter_bloodsugar(), lists.get(i).getNum(), lists.get(i).getMemo());
+            setDB(lists.get(i).getDate(), lists.get(i).getTime(), lists.get(i).getSpeed(), lists.get(i).getDistance(), lists.get(i).getBpm(), lists.get(i).getKcal(), lists.get(i).getBefore_bloodsugar()
+                    , lists.get(i).getAfter_bloodsugar(), lists.get(i).getNum(), lists.get(i).getMemo());
         }
     }
 

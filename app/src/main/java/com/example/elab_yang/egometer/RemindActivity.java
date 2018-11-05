@@ -2,6 +2,7 @@ package com.example.elab_yang.egometer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
@@ -37,6 +38,7 @@ public class RemindActivity extends AppCompatActivity {
     String deviceAddress = "";
     String before_bloodsugar = "";
 
+    String AAA[] = {"", ""};
     // 실시간 운동 들어가기 전 내 운동 부하 검사 데이터를 간략히 한 번 보여주자
     // 음성 출력도 하자
 
@@ -44,6 +46,15 @@ public class RemindActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remind);
         mContext = this;
+
+
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        String mydata = "";
+        String AAAA = null;
+        AAAA = pref.getString("mydata", mydata);
+        AAA = AAAA.split("/");
+//        AAA[0] = 심박수
+//        AAA[1] = 중강도 시간
 
         // 장치이름을 받아와서
         Intent intent = getIntent();
@@ -70,15 +81,24 @@ public class RemindActivity extends AppCompatActivity {
 
     public void set() {
         // 중강도
-        String time = "9";
+//        String time = "9";
+        String time = AAA[1];
         String speed = "시속 15에서 20키로미터";
-        String bpm1 = "75";
-        String bpm2 = "105";
+//        AAA[0] = 심박수;
+//        AAA[1] = 중강도 시간;
+
+        int bpm1_str =  (int) (Integer.parseInt(AAA[0]) * 0.5);
+        int bpm2_str =  (int) (Integer.parseInt(AAA[0]) * 0.7);
+        String bpm1 = String.valueOf(bpm1_str);
+        String bpm2 = String.valueOf(bpm2_str);
+//        String bpm1 = "75";
+//        String bpm2 = "105";
         joogangdo_text = (TextView) findViewById(R.id.joogangdo_text);
 //        joogangdo_text.setText("9분간 중강도로 속도 00-00km/h, 심박수 000-000를 유지하도록 하여야 합니다.");
-        joogangdo_text.setText(time + "분간 중강도로 속도 " + speed + ", 심박수 " + bpm1 + " - " + bpm2 + "를 유지하도록 하여야 합니다.");
+        joogangdo_text.setText(time + "분간 중강도로 속도 " + speed + ", 심박수 " + bpm1 + "에서 " + bpm2 + "를 유지하도록 하여야 합니다.");
         // 고강도
-        String time1 = "1";
+//        String time1 = "1";
+        String time1 = String.valueOf(10-Integer.parseInt(AAA[1]));
         String speed1 = "시속 20키로미터";
         gogangdo_text = (TextView) findViewById(R.id.gogangdo_text);
 //        gogangdo_text.setText("1분간 고강도로 속도 00km/h 이상, 심박수 000 이상을 유지하도록 하여야 합니다.");

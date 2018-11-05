@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
+import static android.support.constraint.Constraints.TAG;
+
 public class CustomDialog extends Dialog {
 
     private static String memo;
@@ -19,7 +22,7 @@ public class CustomDialog extends Dialog {
     SeekBar seekbar;
     TextView text;
     Button set_btn;
-    static int num = 3;
+    static int num;
 
     public CustomDialog(Context context) {
         super(context);
@@ -31,6 +34,8 @@ public class CustomDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);  //타이틀 바 삭제
         Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setContentView(R.layout.custom_dialog);
+
+        edit = (EditText) findViewById(R.id.edit);
 
         text = (TextView) findViewById(R.id.text);
         text.setText("그냥저냥");
@@ -45,7 +50,8 @@ public class CustomDialog extends Dialog {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 num = seekBar.getProgress();
-                setNum(num);
+                Log.d(TAG, "onProgressChanged: mi, " + num);
+                setnNum(num);
                 if(num == 0){
                     // 0
                     text.setText("넘 ㅜ쉬운데?");
@@ -74,13 +80,14 @@ public class CustomDialog extends Dialog {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // 움직임이 멈췄을때
                 num = seekBar.getProgress();
-                setNum(num);
+//                setnNum(num);
             }
         });
 
         set_btn = (Button) findViewById(R.id.set_btn);
         set_btn.setOnClickListener(v -> {
-            memo = text.getText().toString();
+            setnNum(num);
+            memo = edit.getText().toString();
             setMemo(memo);
             dismiss();
         });
@@ -94,11 +101,11 @@ public class CustomDialog extends Dialog {
         this.memo = memo;
     }
 
-    public static int getNum() {
+    public static int getnNum() {
         return num;
     }
 
-    public void setNum(int num) {
+    public void setnNum(int num) {
         this.num = num;
     }
 }

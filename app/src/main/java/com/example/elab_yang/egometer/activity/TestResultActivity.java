@@ -2,6 +2,7 @@ package com.example.elab_yang.egometer.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
@@ -22,6 +24,7 @@ import com.bumptech.glide.load.engine.Resource;
 import com.example.elab_yang.egometer.R;
 
 public class TestResultActivity extends AppCompatActivity {
+    private static final String TAG = "TestResultActivity";
     SeekBar seekBar;
     Context mContext;
     public int num = 0;
@@ -120,16 +123,18 @@ public class TestResultActivity extends AppCompatActivity {
             }
         });
 
-        // 바로 운동하러 ㄱ
-        letsgo = (Button) findViewById(R.id.letsgo);
-        letsgo.setOnClickListener(v -> {
-            // 인텐트로 바로 운동하러 ㄱ
-            Toast.makeText(getApplicationContext(), "바로 운동하러 ㄱ", Toast.LENGTH_SHORT).show();
-        });
-
         // 부하 검사 종료
         close_btn = (Button) findViewById(R.id.close_btn);
-        close_btn.setOnClickListener(v -> finish());
+        close_btn.setOnClickListener(v -> {
+            // 캐시에 저장
+            SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            String mydata = String.valueOf(bpm) + "/" + String.valueOf(joong_gang_do_time_default);
+            editor.putString("mydata", mydata);
+            Log.d(TAG, "mydata = " + mydata);
+            editor.apply();
+            finish();
+        });
     }
 
     public void setToolbar() {

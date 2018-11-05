@@ -32,6 +32,7 @@
         android:layout_marginTop="?attr/actionBarSize">
 
         <TextView
+            android:layout_marginTop="8dp"
             android:id="@+id/text_stage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -165,19 +166,6 @@
                 android:fontFamily="@font/my_font_family"
                 android:gravity="center_horizontal|center_vertical"
                 android:hint="속도를 00km/h로 유지"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/letsgo"
-                style="?attr/borderlessButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/close_btn"
-                android:layout_alignParentStart="true"
-                android:fontFamily="@font/my_font_family"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="바로 운동하기"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 

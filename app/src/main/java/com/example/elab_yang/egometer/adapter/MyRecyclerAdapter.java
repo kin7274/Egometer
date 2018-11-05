@@ -2,8 +2,6 @@ package com.example.elab_yang.egometer.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -18,9 +16,6 @@ import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.model.CardItem;
 
 import java.util.List;
-
-import static com.example.elab_yang.egometer.R.color.blue;
-import static java.lang.Integer.parseInt;
 
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> implements OnLongClickListener {
     Context mContext;
@@ -77,7 +72,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 //        holder.after_before.setText(String.valueOf(sub_bloodsugar));
 
         holder.cardview.setOnClickListener(v -> {
-            Toast.makeText(mContext, "쌔게...", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, "쌔게...", Toast.LENGTH_SHORT).show();
         });
 
         holder.cardview.setOnLongClickListener(v -> {
