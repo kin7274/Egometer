@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -36,6 +37,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +49,8 @@ import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BI
 
 public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     private static final String TAG = "IndoorBikeRealTimeActiv";
+
+    TextToSpeech tts;
 
     // 운동 전 혈당
     String before_bloodsugar = "";
@@ -106,12 +110,11 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     private ArrayList<Entry> realtimeData = new ArrayList<>();
     private int cnt = 0;
     private int speedCount = 0;
-    String EI;
 
+    String[] AAA;
     float userHeartRate = 190.0f;
     float userMinHeartRate = userHeartRate * 0.5f;
     float userMaxHeartRate = userHeartRate * 0.7f;
-
 
     Bundle bundle = new Bundle();
 
@@ -182,7 +185,6 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 //                emptyLayout.setVisibility(View.VISIBLE);
                     infoLayout.setVisibility(View.GONE);
                     countdownView.setVisibility(View.GONE);
-
                     firstStartFlag = true;
                     //clearUI();
                 } else if (EZBLEService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
@@ -208,6 +210,8 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                         userStateMsgTextView.setText(msg);
                         userStateMsgTextView.setBackgroundColor(Color.RED);
 
+                        tts.speak("운동강도가 낮아", TextToSpeech.QUEUE_FLUSH, null, null);
+
 //                    customWaveView.setmBlowWaveColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.low_stat));
 //                    customWaveView.setmAboveWaveColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.low_stat));
 //                    customWaveView.setBackgroundColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.low_stat));
@@ -215,6 +219,8 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                         String msg = "적절한 운동강도로 운동중입니다.";
                         userStateMsgTextView.setText(msg);
                         userStateMsgTextView.setBackgroundColor(Color.GREEN);
+
+                        tts.speak("적당혀", TextToSpeech.QUEUE_FLUSH, null, null);
 
 //                    customWaveView.setmBlowWaveColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.shopAccent));
 //                    customWaveView.setmAboveWaveColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.shopAccent));
@@ -224,6 +230,8 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                         userStateMsgTextView.setText(msg);
                         userStateMsgTextView.setBackgroundColor(Color.YELLOW);
 
+                        tts.speak("운동강도가 너무 높아", TextToSpeech.QUEUE_FLUSH, null, null);
+
 //                    customWaveView.setmBlowWaveColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.bsp_red));
 //                    customWaveView.setmAboveWaveColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.bsp_red));
 //                    customWaveView.setBackgroundColor(ContextCompat.getColor(IndoorBikeRealTimeActivity.this, R.color.bsp_red));
@@ -231,6 +239,7 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                         String msg = "심박센서 착용 및 위치 확인해주세요.";
                         userStateMsgTextView.setText(msg);
                         userStateMsgTextView.setBackgroundColor(Color.GREEN);
+                        tts.speak("심박센서 다시차", TextToSpeech.QUEUE_FLUSH, null, null);
 
                     }
 
@@ -308,6 +317,8 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indoor_bike_real_time);
 
+        tts_setting();
+
 //        showDialog();
         ButterKnife.bind(this);
         chronometer.setTextSize(20);
@@ -342,6 +353,16 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                 .show();
     }
 
+    public void tts_setting(){
+        tts = new TextToSpeech(this, status -> {
+            if (status != TextToSpeech.ERROR) {
+                tts.setLanguage(Locale.KOREAN);
+                tts.setPitch(1.0f);
+                tts.setSpeechRate(1.0f);
+            }
+        });
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -372,6 +393,8 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         super.onDestroy();
         unbindService(mServiceConnection);
         mBluetoothLeService = null;
+        tts.stop();
+        tts.shutdown();
     }
 
     private void displayData(String data) {
@@ -427,6 +450,14 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 
                 Intent bsmintent = getIntent();
                 before_bloodsugar = bsmintent.getExtras().getString("before_bloodsugar");
+                String AAAA = bsmintent.getExtras().getString("data2");
+                AAA = AAAA.split("/");
+
+//                data2 = time + "/" + bpm1 + "/" + bpm2;
+
+//                AAA[0] : time : 00;
+//                AAA[1] : bpm1 : 000;
+//                AAA[2] : bpm2 : 000;
 
                 Intent intent = new Intent(IndoorBikeRealTimeActivity.this, IndoorBikeResultActivity.class);
                 intent.putExtra("before_bloodsugar", before_bloodsugar);
@@ -444,6 +475,5 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         });
         builder.show()
                 .create();
-
     }
 }

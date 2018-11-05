@@ -24,10 +24,15 @@ import com.bumptech.glide.load.engine.Resource;
 import com.example.elab_yang.egometer.R;
 
 public class TestResultActivity extends AppCompatActivity {
+//        implements View.OnClickListener {
     private static final String TAG = "TestResultActivity";
     SeekBar seekBar;
     Context mContext;
-    public int num = 0;
+    public int num = 18;
+    String stage = "";
+    String bpm = "";
+//    Button min_btn, max_btn;
+
     // seekbar를 위한 초기값
     public int joong_gang_do_time_default = 9;  // 9분
     public int go_gang_do_time_default = 1;  // 1분
@@ -48,22 +53,40 @@ public class TestResultActivity extends AppCompatActivity {
         go_gang_do_time = (TextView) findViewById(R.id.go_gang_do_time);
         go_gang_do_time.setText(String.valueOf(go_gang_do_time_default) + "분");
 
+//        min_btn = (Button) findViewById(R.id.min_btn);
+//        min_btn.setOnClickListener(this);
+//
+//        max_btn = (Button) findViewById(R.id.max_btn);
+//        max_btn.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        stage = intent.getStringExtra("stage");
+        Log.d(TAG, "onCreate: 넘어온값@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        Log.d(TAG, "onCreate: stage = " + stage);
+        bpm = intent.getStringExtra("bpm");
+        Log.d(TAG, "onCreate: bpm = " + bpm);
+
         // 최종 단계
         text_stage = (TextView) findViewById(R.id.text_stage);
-        text_stage.setText("3단계까지 가셨군요");
+        text_stage.setText(stage + "단계까지 가셨군요");
 
         // 최대 심박
         text_bom_max = (TextView) findViewById(R.id.text_bom_max);
-        text_bom_max.setText("최대 심박수는 150이네요");
+        text_bom_max.setText("최대 심박수는 " + bpm + "이네요");
 
         // 중강도
         // 심박 if BPMamx = 150이라면
         // BPMmax 0.5 - 0.7
+        int t = 0;
         bpm_guide = (TextView) findViewById(R.id.bpm_guide);
-        int bpm = 150;
-        double bpm1 = bpm * 0.5;
-        double bpm2 = bpm * 0.7;
-        bpm_guide.setText("심박수는 " + Double.toString(bpm1) + " - " + Double.toString(bpm2) + "를 유지");
+        float bpm1 = Float.parseFloat(bpm) * (0.5f + 0.1f*t);
+        float bpm2 = Float.parseFloat(bpm) * (0.7f + 0.1f*t);
+        String bpm1_str = String.format("%.0f", bpm1);
+        String bpm2_str = String.format("%.0f", bpm2);
+        Log.d(TAG, "onCreate: bpm1_str" + bpm1_str);
+        Log.d(TAG, "onCreate: bpm2_str" + bpm2_str);
+        bpm_guide.setText("심박수는 " + bpm1_str + " - " + bpm2_str + "를 유지");
+
         // 속도
         speed_guide = (TextView) findViewById(R.id.speed_guide);
         speed_guide.setText("속도는 15-20km/h를 유지");
@@ -71,7 +94,7 @@ public class TestResultActivity extends AppCompatActivity {
         // 고강도
         // 심박
         bpm_guide1 = (TextView) findViewById(R.id.bpm_guide1);
-        bpm_guide1.setText("심박수는 " + Double.toString(bpm2) + " 이상을 유지");
+        bpm_guide1.setText("심박수는 " + bpm2_str + " 이상을 유지");
 
         // 속도
         speed_guide1 = (TextView) findViewById(R.id.speed_guide1);
@@ -127,9 +150,12 @@ public class TestResultActivity extends AppCompatActivity {
         close_btn = (Button) findViewById(R.id.close_btn);
         close_btn.setOnClickListener(v -> {
             // 캐시에 저장
+            // stage
+            // 심박수
+            // 시간
             SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
             SharedPreferences.Editor editor = pref.edit();
-            String mydata = String.valueOf(bpm) + "/" + String.valueOf(joong_gang_do_time_default);
+            String mydata = stage + "/" + String.valueOf(bpm) + "/" + String.valueOf(num);
             editor.putString("mydata", mydata);
             Log.d(TAG, "mydata = " + mydata);
             editor.apply();
@@ -166,4 +192,18 @@ public class TestResultActivity extends AppCompatActivity {
             return num / 2 + "분";
         }
     }
+
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()){
+//            case R.id.min_btn:
+//                // 오차 미니멈 추가
+//
+//                break;
+//
+//            case R.id.max_btn:
+//                // 오차 맥시멈 변경
+//                break;
+//        }
+//    }
 }

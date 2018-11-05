@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BloodSugarActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "BloodSugarActivity";
 //    LineChart line_chart;
 //    private LineDataSet lineDataSet;
 //    private LineData lineData;

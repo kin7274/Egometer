@@ -106,18 +106,6 @@
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/guide_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/my_font_family"
-        android:gravity="center"
-        android:text="좋습니다~"
-        android:textColor="@color/black"
-        android:textSize="28sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -206,6 +194,63 @@
             android:orientation="horizontal"
             android:weightSum="2">
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/max_bpm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center"
+                android:text="최대심박"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center"
+                android:text="MAX_BPM"
+                android:textSize="25sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+            <TextView
+                android:id="@+id/min_bpm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center"
+                android:text="최소심박"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/my_font_family"
+                android:gravity="center"
+                android:text="MIN_BPM"
+                android:textSize="25sp" />
+
         </LinearLayout>
+
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>

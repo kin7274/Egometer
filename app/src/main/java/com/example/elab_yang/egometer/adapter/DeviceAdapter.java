@@ -101,7 +101,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         if (deviceName.equals(EGZeroConst.DEVICE_NAME)) {
             // deviceFlag true <- ergometer
             holder.fetchActivityData.setVisibility(View.GONE);
-            holder.showActivityTracks.setImageResource(R.drawable.ic_activity_tracks);
+//            holder.showActivityTracks.setImageResource(R.drawable.ic_activity_tracks);
         } else {
             // 동기화
             holder.fetchActivityData.setOnClickListener((View v) -> {
@@ -182,15 +182,14 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardview;
 
-        ImageView deviceImageView;
         TextView deviceNameLabel;
         TextView deviceStatusLabel;
 
-        ImageView fetchActivityData;
-        ImageView showActivityTracks;
+        TextView fetchActivityData;
+        TextView showActivityTracks;
 
-        ImageView deviceInfoView;
-        ImageView deviceRemove;
+        TextView deviceInfoView;
+        TextView deviceRemove;
 
         ViewHolder(View view) {
             super(view);

@@ -169,6 +169,15 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/go_gang_do_time">
+
+            </RelativeLayout>
+
             <Button
                 android:id="@+id/close_btn"
                 style="?attr/borderlessButtonStyle"

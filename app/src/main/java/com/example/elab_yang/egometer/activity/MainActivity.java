@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_result_test:
                 // 운동 부하 검사 결과
 //                Toast.makeText(getApplicationContext(),"환경설정", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, TestResultActivity.class));
+                startActivity(new Intent(MainActivity.this, TestResult2Activity.class));
                 break;
 
             case R.id.nav_guide:

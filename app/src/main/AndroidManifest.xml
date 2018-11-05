@@ -164,6 +164,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
+        <!--간이 운동 부하 검사 종료 후 결과창-->
+        <activity
+            android:name=".activity.TestResult2Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
 
         <!--운동 시작 전 요약-->
         <activity

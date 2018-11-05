@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import com.example.elab_yang.egometer.CustomDialog;
 import com.example.elab_yang.egometer.R;
+import com.example.elab_yang.egometer.TestStartBeforeActivity;
+import com.example.elab_yang.egometer.activity.TestResultActivity;
 import com.example.elab_yang.egometer.model.DB;
 
 import java.text.SimpleDateFormat;
@@ -49,6 +51,8 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
 
     String num;
     String memo;
+
+    int index;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -229,7 +233,7 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
             } else if((num.equals("2"))){
                 // 보통
                 // 강도 적정
-                Toast.makeText(getApplicationContext(), "적정", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "적정하군요@@~!@@", Toast.LENGTH_SHORT).show();
 //                onCreateDialog();
             } else {
                 // 힘들어, 듸절거 같애
@@ -252,25 +256,79 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
     }
 
     protected Dialog onCreateDialog(int id) {
-        final String [] items = {"1. 최대심박 범위를 0.1씩 내린다.", "2. 운동 부하 검사 재실시", "3. 중강도 구간을 30초 줄이고 고강도 구간을 늘린다."};
-        final String [] items2 = {"1. 최대심박 범위를 0.1씩 올린다.", "2. 운동 부하 검사 재실시", "3. 중강도 구간을 30초 늘이고 고강도 구간을 줄인다."};
+        final String [] items = {"1. 최대심박 범위를 0.1씩 올린다.", "2. 운동 부하 검사 재실시", "3. 중강도 구간을 30초 늘이고 고강도 구간을 줄인다."};
+        final String [] items2 = {"1. 최대심박 범위를 0.1씩 내린다.", "2. 운동 부하 검사 재실시", "3. 중강도 구간을 30초 줄이고 고강도 구간을 늘린다."};
         AlertDialog.Builder builder = new AlertDialog.Builder(IndoorBikeResultActivity.this);
-        builder.setTitle("운동 처방을 내리게따!");
+        builder.setTitle("운동 처방전 - ");
         if(id == 1){
-        builder.setSingleChoiceItems(items, 0, (DialogInterface dialog, int which) -> {
+            builder.setTitle("운동 처방전 - 낮은 운동 강도")
+            .setSingleChoiceItems(items, 0, (DialogInterface dialog, int which) -> {
                 Toast.makeText(IndoorBikeResultActivity.this, items[which], Toast.LENGTH_SHORT).show();
+                index = which;
 //            dialog.dismiss(); // 누르면 바로 닫히는 형태
-            });
+            })
+                    .setPositiveButton("확인", (DialogInterface dialog, int which) -> {
+//                if(index == 0){
+//                    // 심박 범위를 내린다.
+//                    Toast.makeText(getApplicationContext(), "심박 범위 0.1씩 증가", Toast.LENGTH_SHORT).show();
+//                    // 수치변화를 다이얼로그로 보여주자
+//                } else if(index == 1){
+//                    // 운동 부하 검사 재실시
+//                    Toast.makeText(getApplicationContext(), "운동 부하 검사 재실시", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(IndoorBikeResultActivity.this, TestStartBeforeActivity.class);
+//                    startActivity(intent);
+//                } else if(index == 2){
+//                    // 운동 구간 변화
+//                    Toast.makeText(getApplicationContext(), "중강도 구간을 30초 늘이고 고강도 구간을 줄인다", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(IndoorBikeResultActivity.this, TestResultActivity.class);
+//                    startActivity(intent);
+//                }
+                dialog.dismiss(); // 누르면 바로 닫히는 형태
+            })
+                    .show();
         } else {
-                builder.setSingleChoiceItems(items2, 0, (DialogInterface dialog, int which) -> {
-                    Toast.makeText(IndoorBikeResultActivity.this, items2[which], Toast.LENGTH_SHORT).show();
+            builder.setTitle("운동 처방전 - 높은 운동 강도")
+                    .setSingleChoiceItems(items, 0, (DialogInterface dialog, int which) -> {
+                        Toast.makeText(IndoorBikeResultActivity.this, items2[which], Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "onCreateDialog: which " + which);
+                        index = which;
 //            dialog.dismiss(); // 누르면 바로 닫히는 형태
-            });
+                    })
+                    .setPositiveButton("확인", (DialogInterface dialog, int which) -> {
+//                        Log.d(TAG, "onCreateDialog: which!!! " + which);
+//                        Log.d(TAG, "onCreateDialog: index!!! " + index);
+////                        Log.d(TAG, "onCreateDialog: items2[which]!!! " + items2[which]);
+//                        if(index == 0){
+//                            Log.d(TAG, "onCreateDialog: 여기");
+//                            // 심박 범위를 내린다.
+//                            Toast.makeText(getApplicationContext(), "심박 범위 0.1씩 감소", Toast.LENGTH_SHORT).show();
+//                            // 수치변화를 다이얼로그로 보여주자
+//                            dialog.dismiss();
+////                            finish();
+//                        } else if(index == 1){
+//                            Log.d(TAG, "onCreateDialog: 여기1");
+//                            // 운동 부하 검사 재실시
+//                            Toast.makeText(getApplicationContext(), "운동 부하 검사 재실시", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(IndoorBikeResultActivity.this, TestStartBeforeActivity.class);
+//                            startActivity(intent);
+//                            dialog.dismiss();
+//                            // TODO: 2018-11-05 저장은 할꺼야?
+//                            finish();
+//                        } else if(index == 2){
+//                            // 운동 구간 변화
+//                            Log.d(TAG, "onCreateDialog: 여기2");
+//                            Toast.makeText(getApplicationContext(), "중강도 구간을 30초 줄이고 고강도 구간을 늘린다", Toast.LENGTH_SHORT).show();
+//                            Intent intent2 = new Intent(IndoorBikeResultActivity.this, TestResultActivity.class);
+//                            startActivity(intent2);
+//                            dialog.dismiss();
+//                            // TODO: 2018-11-05 저장은 할꺼야?
+//                            finish();
+//                        }
+                        dialog.dismiss(); // 누르면 바로 닫히게
+                    })
+                    .show();
         }
-    builder.setPositiveButton("확인", (dialog, which) -> {
-            dialog.dismiss(); // 누르면 바로 닫히는 형태
-        })
-        .show();
+
         return null;
     }
 }
