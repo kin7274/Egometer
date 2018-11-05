@@ -52,6 +52,9 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
     Handler mHandler;
     private TextToSpeech tts;
 
+    String num;
+    String memo;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +131,8 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         Date date = new Date(now);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String getTime = sdf.format(date);
-        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", getTime, String.valueOf(time) + "초", arr_data[0], arr_data[1], arr_data[2], arr_data[3], before_bloodsugar, after_bloodsugar));
+        sql.execSQL(String.format("INSERT INTO tb_egometer VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"
+                , getTime, String.valueOf(time) + "초", arr_data[0], arr_data[1], arr_data[2], arr_data[3], before_bloodsugar, after_bloodsugar, num, memo));
         Toast.makeText(getApplicationContext(), "저장했어유", Toast.LENGTH_SHORT).show();
         sql.close();
     }
@@ -207,11 +211,13 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         final CustomDialog customdialog = new CustomDialog(this);
         customdialog.show();
         customdialog.setOnDismissListener(dialog -> {
+//            Log.d(TAG, "ddiyong: num" + num);
             // int 시크바 가져옴
-            int num = CustomDialog.getNum();
-
+            String num = String.valueOf(CustomDialog.getNum());
+            Log.d(TAG, "ddiyong: num : " + num);
             // String 메모값 가져옴
             String memo = CustomDialog.getMemo();
+            Log.d(TAG, "ddiyong: memo : " + memo);
         });
     }
 }

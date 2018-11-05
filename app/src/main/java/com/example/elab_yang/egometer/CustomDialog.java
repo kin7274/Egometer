@@ -74,11 +74,13 @@ public class CustomDialog extends Dialog {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // 움직임이 멈췄을때
                 num = seekBar.getProgress();
+                setNum(num);
             }
         });
 
         set_btn = (Button) findViewById(R.id.set_btn);
         set_btn.setOnClickListener(v -> {
+            memo = text.getText().toString();
             setMemo(memo);
             dismiss();
         });

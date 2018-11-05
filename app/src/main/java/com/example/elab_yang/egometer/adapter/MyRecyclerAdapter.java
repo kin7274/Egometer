@@ -50,6 +50,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         TextView kcal = holder.kcal;
         TextView before_bloodsugar = holder.before_bloodsugar;
         TextView after_bloodsugar = holder.after_bloodsugar;
+        TextView num = holder.num;
+        TextView memo = holder.memo;
         TextView after_before = holder.after_before;
 
         holder.date.setText(item.getDate());
@@ -60,6 +62,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         holder.kcal.setText(item.getKcal());
         holder.before_bloodsugar.setText(item.getBefore_bloodsugar());
         holder.after_bloodsugar.setText(item.getAfter_bloodsugar());
+        holder.num.setText(item.getNum());
+        holder.memo.setText(item.getMemo());
 
         int sub_bloodsugar = Integer.parseInt(item.getAfter_bloodsugar()) - Integer.parseInt(item.getBefore_bloodsugar());
         if (sub_bloodsugar >= 0) {
@@ -104,7 +108,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardview;
-        TextView date, time, speed, distance, bpm, kcal, before_bloodsugar, after_bloodsugar, after_before;
+        TextView date, time, speed, distance, bpm, kcal, before_bloodsugar, after_bloodsugar, after_before, num, memo;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -118,6 +122,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             before_bloodsugar = (TextView) itemView.findViewById(R.id.before_bloodsugar);
             after_bloodsugar = (TextView) itemView.findViewById(R.id.after_bloodsugar);
             after_before = (TextView) itemView.findViewById(R.id.after_before);
+            num = (TextView) itemView.findViewById(R.id.num);
+            memo = (TextView) itemView.findViewById(R.id.memo);
             cardview.setOnClickListener(v -> {
             });
             itemView.setOnClickListener(v -> {
