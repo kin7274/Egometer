@@ -58,6 +58,12 @@ public class RemindActivity extends AppCompatActivity {
 //        AAA[1] = 최대 심박수
 //        AAA[2] = 중강도 시간
 
+        // TODO: 2018-11-07 13:48 캐시 저장 형식 변경
+        // [0] : 단계
+        // [1] : min bpm
+        // [2] : max bpm
+        // [3] : 중강도 시간
+
         // 장치이름을 받아와서
         Intent intent = getIntent();
         deviceAddress = intent.getExtras().getString(REAL_TIME_INDOOR_BIKE_DEVICE);
@@ -81,39 +87,43 @@ public class RemindActivity extends AppCompatActivity {
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
 
+    // [0] : 단계
+    // [1] : min bpm
+    // [2] : max bpm
+    // [3] : 중강도 시간
+
     public void set() {
         // 중강도
 //        String time = "9";
-        String time = seekbar_data_convert(Integer.parseInt(AAA[2]));
+        String time = seekbar_data_convert(Integer.parseInt(AAA[3]));
         String speed = "시속 15에서 20키로미터";
-//        AAA[0] = stage
-//        AAA[1] = 최대 심박수
-//        AAA[2] = 중강도 시간
 
-        double min = 0.5;
-        double max = 0.7;
+//        double min = 0.5;
+//        double max = 0.7;
 
-        int bpm1_str =  (int) (Integer.parseInt(AAA[1]) * min);
-        int bpm2_str =  (int) (Integer.parseInt(AAA[1]) * max);
-        String bpm1 = String.valueOf(bpm1_str);
-        String bpm2 = String.valueOf(bpm2_str);
+//        int bpm1_str =  (int) (Integer.parseInt(AAA[1]) * min);
+//        int bpm2_str =  (int) (Integer.parseInt(AAA[1]) * max);
+//        String bpm1 = String.valueOf(bpm1_str);
+//        String bpm2 = String.valueOf(bpm2_str);
 //        String bpm1 = "75";
 //        String bpm2 = "105";
         joogangdo_text = (TextView) findViewById(R.id.joogangdo_text);
 //        joogangdo_text.setText("9분간 중강도로 속도 00-00km/h, 심박수 000-000를 유지하도록 하여야 합니다.");
-        joogangdo_text.setText(time + "간 중강도로 속도 " + speed + ", 심박수 " + bpm1 + "에서 " + bpm2 + "를 유지하도록 하여야 합니다.");
+//        joogangdo_text.setText(time + "간 중강도로 속도 " + speed + ", 심박수 " + bpm1 + "에서 " + bpm2 + "를 유지하도록 하여야 합니다.");
+        joogangdo_text.setText(time + "간 중강도로 속도 " + speed + ", 심박수 " + AAA[1] + "에서 " + AAA[2] + "를 유지하도록 하여야 합니다.");
         // 고강도
 //        String time1 = "1";
-        Log.d(TAG, "set: AAA[2] " + AAA[2]);
-        Log.d(TAG, "set: Integer.parseInt(AAA[2]) " + Integer.parseInt(AAA[2]));
+        Log.d(TAG, "set: AAA[3] " + AAA[3]);
+        Log.d(TAG, "set: Integer.parseInt(AAA[3]) " + Integer.parseInt(AAA[3]));
 
-        String time1 = seekbar_data_convert(20-Integer.parseInt(AAA[2]));
+        String time1 = seekbar_data_convert(20 - Integer.parseInt(AAA[3]));
         String speed1 = "시속 20키로미터";
         gogangdo_text = (TextView) findViewById(R.id.gogangdo_text);
 //        gogangdo_text.setText("1분간 고강도로 속도 00km/h 이상, 심박수 000 이상을 유지하도록 하여야 합니다.");
-        gogangdo_text.setText(time1 + "간 고강도로 속도 " + speed1 + " 이상, 심박수 " + bpm2 + " 이상을 유지하도록 하여야 합니다.");
+//        gogangdo_text.setText(time1 + "간 고강도로 속도 " + speed1 + " 이상, 심박수 " + bpm2 + " 이상을 유지하도록 하여야 합니다.");
+        gogangdo_text.setText(time1 + "간 고강도로 속도 " + speed1 + " 이상, 심박수 " + AAA[2] + " 이상을 유지하도록 하여야 합니다.");
 
-        data2 = time + "/" + bpm1 + "/" + bpm2;
+//        data2 = time + "/" + bpm1 + "/" + bpm2;
 
         next_btn = (Button) findViewById(R.id.next_btn);
         next_btn.setOnClickListener(v -> {
@@ -129,7 +139,7 @@ public class RemindActivity extends AppCompatActivity {
                 Intent intent = new Intent(RemindActivity.this, IndoorBikeRealTimeActivity.class);
                 intent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
                 intent.putExtra("before_bloodsugar", before_bloodsugar);
-                intent.putExtra("data2", data2);
+                intent.putExtra("mydata", AAAA);
                 startActivity(intent);
                 finish();
             })

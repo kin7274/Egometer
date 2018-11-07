@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.load.engine.Resource;
 import com.example.elab_yang.egometer.R;
 
-public class TestResultActivity extends AppCompatActivity {
+public class TestResultActivity extends AppCompatActivity implements View.OnClickListener {
 //        implements View.OnClickListener {
     private static final String TAG = "TestResultActivity";
     SeekBar seekBar;
@@ -31,7 +31,11 @@ public class TestResultActivity extends AppCompatActivity {
     public int num = 18;
     String stage = "";
     String bpm = "";
-//    Button min_btn, max_btn;
+
+    Button bpm_up, bpm_zero, bpm_down;
+
+    int t = 0;
+    //    Button min_btn, max_btn;
 
     // seekbar를 위한 초기값
     public int joong_gang_do_time_default = 9;  // 9분
@@ -41,6 +45,10 @@ public class TestResultActivity extends AppCompatActivity {
     TextView bpm_guide, bpm_guide1, speed_guide, speed_guide1;  // 심박, 속도 가이드 수치 입력
     Button letsgo, close_btn;  // 바로 운동 시작 버튼, OK~ 버튼
 
+    float bpm1, bpm2;
+
+    String bpm1_str, bpm2_str;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +56,7 @@ public class TestResultActivity extends AppCompatActivity {
         mContext = this;
         setToolbar();
         setStatusbar();
+        set();
         joong_gang_do_time = (TextView) findViewById(R.id.joong_gang_do_time);
         joong_gang_do_time.setText(String.valueOf(joong_gang_do_time_default) + "분");
         go_gang_do_time = (TextView) findViewById(R.id.go_gang_do_time);
@@ -77,15 +86,14 @@ public class TestResultActivity extends AppCompatActivity {
         // 중강도
         // 심박 if BPMamx = 150이라면
         // BPMmax 0.5 - 0.7
-        int t = 0;
         bpm_guide = (TextView) findViewById(R.id.bpm_guide);
-        float bpm1 = Float.parseFloat(bpm) * (0.5f + 0.1f*t);
-        float bpm2 = Float.parseFloat(bpm) * (0.7f + 0.1f*t);
-        String bpm1_str = String.format("%.0f", bpm1);
-        String bpm2_str = String.format("%.0f", bpm2);
-        Log.d(TAG, "onCreate: bpm1_str" + bpm1_str);
-        Log.d(TAG, "onCreate: bpm2_str" + bpm2_str);
-        bpm_guide.setText("심박수는 " + bpm1_str + " - " + bpm2_str + "를 유지");
+//        bpm1 = Float.parseFloat(bpm) * (0.5f + 0.1f*t);
+//        bpm2 = Float.parseFloat(bpm) * (0.7f + 0.1f*t);
+//        String bpm1_str = String.format("%.0f", bpm1);
+//        String bpm2_str = String.format("%.0f", bpm2);
+//        Log.d(TAG, "onCreate: bpm1_str" + bpm1_str);
+//        Log.d(TAG, "onCreate: bpm2_str" + bpm2_str);
+//        bpm_guide.setText("심박수는 " + bpm1_str + " - " + bpm2_str + "를 유지");
 
         // 속도
         speed_guide = (TextView) findViewById(R.id.speed_guide);
@@ -94,7 +102,11 @@ public class TestResultActivity extends AppCompatActivity {
         // 고강도
         // 심박
         bpm_guide1 = (TextView) findViewById(R.id.bpm_guide1);
-        bpm_guide1.setText("심박수는 " + bpm2_str + " 이상을 유지");
+//        bpm_guide1.setText("심박수는 " + bpm2_str + " 이상을 유지");
+
+
+        set_bpm();
+
 
         // 속도
         speed_guide1 = (TextView) findViewById(R.id.speed_guide1);
@@ -155,7 +167,7 @@ public class TestResultActivity extends AppCompatActivity {
             // 시간
             SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
             SharedPreferences.Editor editor = pref.edit();
-            String mydata = stage + "/" + String.valueOf(bpm) + "/" + String.valueOf(num);
+            String mydata = stage + "/" + bpm1_str + "/" + bpm2_str+ "/" + String.valueOf(num);
             editor.putString("mydata", mydata);
             Log.d(TAG, "mydata = " + mydata);
             editor.apply();
@@ -176,6 +188,29 @@ public class TestResultActivity extends AppCompatActivity {
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
 
+    public void set(){
+        bpm_up = (Button) findViewById(R.id.bpm_up);
+        bpm_up.setOnClickListener(this);
+
+        bpm_zero = (Button) findViewById(R.id.bpm_zero);
+        bpm_zero.setOnClickListener(this);
+
+        bpm_down = (Button) findViewById(R.id.bpm_down);
+        bpm_down.setOnClickListener(this);
+    }
+
+    public void set_bpm(){
+        bpm1 = Float.parseFloat(bpm) * (0.5f + 0.1f*t);
+        bpm2 = Float.parseFloat(bpm) * (0.7f + 0.1f*t);
+        bpm1_str = String.format("%.0f", bpm1);
+        bpm2_str = String.format("%.0f", bpm2);
+        Log.d(TAG, "onCreate: bpm1_str" + bpm1_str);
+        Log.d(TAG, "onCreate: bpm2_str" + bpm2_str);
+        bpm_guide.setText("심박수는 " + bpm1_str + " - " + bpm2_str + "를 유지");
+
+        bpm_guide1.setText("심박수는 " + bpm2_str + " 이상을 유지");
+    }
+
     String seekbar_data_convert(int num) {
         if (num % 2 == 1) {
             // 나머지값이 있으면 이건 홀수니까
@@ -191,6 +226,32 @@ public class TestResultActivity extends AppCompatActivity {
         } else {
             return num / 2 + "분";
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.bpm_up:
+                t++;
+                Log.d(TAG, "onClick: t" + String.valueOf(t));
+                set_bpm();
+                break;
+
+            case R.id.bpm_zero:
+                t = 0;
+                Log.d(TAG, "onClick: t" + String.valueOf(t));
+                set_bpm();
+
+                break;
+
+            case R.id.bpm_down:
+                t--;
+                Log.d(TAG, "onClick: t" + String.valueOf(t));
+                set_bpm();
+
+                break;
+        }
+
     }
 
 //    @Override

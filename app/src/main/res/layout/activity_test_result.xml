@@ -178,6 +178,50 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/close_btn">
+
+                <Button
+                    android:id="@+id/bpm_up"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/bpm_down"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="-48dp"
+                    android:fontFamily="@font/my_font_family"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="범위 올리기"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/bpm_zero"
+                    android:layout_toRightOf="@+id/bpm_up"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/my_font_family"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="범위 원래대로"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/bpm_down"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/bpm_zero"
+                    android:fontFamily="@font/my_font_family"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="범위 내리기"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
             <Button
                 android:id="@+id/close_btn"
                 style="?attr/borderlessButtonStyle"

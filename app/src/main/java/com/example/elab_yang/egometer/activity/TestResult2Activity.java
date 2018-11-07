@@ -19,6 +19,13 @@ public class TestResult2Activity extends AppCompatActivity {
         String AAAA = pref.getString("mydata", mydata);
 
         TextView dididi = (TextView) findViewById(R.id.dididi);
+
+//        String mydata = stage + "/" + bpm1_str + "/" + bpm2_str+ "/" + String.valueOf(num);
+        // [0] : 단계
+        // [1] : min bpm
+        // [2] : max bpm
+        // [3] : 중강도 시간
+
         dididi.setText(AAAA);
     }
 }

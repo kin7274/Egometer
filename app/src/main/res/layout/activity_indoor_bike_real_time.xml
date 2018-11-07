@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/layout"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".activity.chart.IndoorBikeRealTimeActivity">
+    tools:context=".IndoorBikeRealTimeActivity">
 
     <LinearLayout
         android:id="@+id/info_layout"
@@ -81,7 +82,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="운동 상태"
+        android:text="목표값"
         app:layout_constraintBottom_toBottomOf="@+id/home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/home"

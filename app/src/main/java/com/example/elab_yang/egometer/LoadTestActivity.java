@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -74,6 +75,7 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
 
     Handler mHandler;
 
+    LinearLayout layout;
 //    String[] hr = new String[100];
 
     BluetoothGattCharacteristic mNotifyCharacteristic;
@@ -131,28 +133,28 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
 
             } else if (EZBLEService.ACTION_HEART_RATE_AVAILABLE.equals(action)) {
                 Log.e(TAG, "onReceive:  실시간 화면에서 심박수 받앗어요 ");
-                    for (int i = 0; i < 10; i++) {
-                        String hr = intent.getStringExtra(EZBLEService.EXTRA_DATA);
-                        heartRateTextView.setText(hr);
-                        Log.d(TAG, "i = " + i + "/ hr[i]" + hr);
+                for (int i = 0; i < 10; i++) {
+                    String hr = intent.getStringExtra(EZBLEService.EXTRA_DATA);
+                    heartRateTextView.setText(hr);
+                    Log.d(TAG, "i = " + i + "/ hr[i]" + hr);
 
-                        hrr[i] = Integer.parseInt(hr);
-                        Log.d(TAG, "/ hrr[i]" + hrr[i]);
+                    hrr[i] = Integer.parseInt(hr);
+                    Log.d(TAG, "/ hrr[i]" + hrr[i]);
 
-                        // TODO: 2018-11-05 find_max_bpm;
-                        find_max_bpm();
+                    // TODO: 2018-11-05 find_max_bpm;
+                    find_max_bpm();
 
-                        // TODO: 2018-11-05 find_min_bpm;
-                        find_min_bpm();
+                    // TODO: 2018-11-05 find_min_bpm;
+                    find_min_bpm();
 
-                        Log.d(TAG, "onBackPressed: hrr.length" + hrr.length);
+                    Log.d(TAG, "onBackPressed: hrr.length" + hrr.length);
 
 //                        hr[i] = intent.getStringExtra(EZBLEService.EXTRA_DATA);
 //                        heartRateTextView.setText(hr[i]);
 
-                        // TODO: 2018-11-05 max치 구한다. 최대심박수
-                        // TODO: 2018-11-05 평균치 구한다. DB 저장용
-                    }
+                    // TODO: 2018-11-05 max치 구한다. 최대심박수
+                    // TODO: 2018-11-05 평균치 구한다. DB 저장용
+                }
             } else if (EZBLEService.ACTION_INDOOR_BIKE_AVAILABLE.equals(action)) {
                 String nowSpeed = intent.getStringExtra(EZBLEService.EXTRA_DATA);
                 speedTextView.setText(nowSpeed);
@@ -171,11 +173,18 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
 //                Log.d(TAG, "onReceive: Integer.parseInt(nowSpeed) : " + Integer.parseInt(nowSpeed.replace("km/h","")));
 //                Log.d(TAG, "onReceive: Integer.parseInt(String.valueOf(aimSpeed)) : " + Integer.parseInt(String.valueOf(aimSpeed)));
 //                Log.d(TAG, "onReceive: Integer.parseInt(String.valueOf(aimSpeed)) +5 : " + Integer.parseInt(String.valueOf(aimSpeed)) +5);
-                            if(Float.parseFloat(nowSpeed) < aimSpeed){
+                            if (Float.parseFloat(nowSpeed) < aimSpeed) {
                                 // 속도가 느려..
-                                tts.speak("느려", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else if(Float.parseFloat(nowSpeed) > ((int) aimSpeed) + 5) {
-                                tts.speak("빨라", TextToSpeech.QUEUE_FLUSH, null, null);
+                                layout.setBackgroundResource(R.color.weaker_red);
+
+                                tts.speak("느려요", TextToSpeech.QUEUE_FLUSH, null, null);
+                            } else if (Float.parseFloat(nowSpeed) > ((int) aimSpeed) + 5) {
+                                tts.speak("빨라요", TextToSpeech.QUEUE_FLUSH, null, null);
+                                layout.setBackgroundResource(R.color.weaker_blue);
+
+                            } else {
+                                // 적당혀
+                                layout.setBackgroundResource(R.color.weaker_green);
                             }
 
                         } catch (Exception e) {
@@ -203,7 +212,7 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
 
     public void find_min_bpm() {
         for (int i = 0; i < hrr.length; i++) {
-            if(hrr[i] < bpm_min){
+            if (hrr[i] < bpm_min) {
                 bpm_min = hrr[i];
                 min_bpm.setText(String.valueOf(bpm_min));
             }
@@ -217,6 +226,8 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
         setStatusbar();
 
         tts_setting();
+
+        layout = (LinearLayout) findViewById(R.id.layout);
 
         max_bpm = (TextView) findViewById(R.id.max_bpm);
         min_bpm = (TextView) findViewById(R.id.min_bpm);
@@ -256,12 +267,14 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
 //        countdownView.start(SET_2_MINUTE);
     }
 
-    public void tts_setting(){
+    public void tts_setting() {
         tts = new TextToSpeech(this, status -> {
             if (status != TextToSpeech.ERROR) {
                 tts.setLanguage(Locale.KOREAN);
                 tts.setPitch(1.0f);
-                tts.setSpeechRate(1.0f);
+//                tts.setSpeechRate(1.0f);
+//                tts.setSpeechRate(0.5f);
+                tts.setSpeechRate(0.8f);
             }
         });
     }
@@ -325,7 +338,7 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
 //            int bpm = 150;
 
 //            intent.putExtra("bpm", String.valueOf(testStage));
-            intent.putExtra("bpm",max_bpm.getText().toString());
+            intent.putExtra("bpm", max_bpm.getText().toString());
             startActivity(intent);
             dialog.dismiss();
             finish();
