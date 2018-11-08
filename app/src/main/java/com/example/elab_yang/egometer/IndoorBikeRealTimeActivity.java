@@ -276,38 +276,43 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                         heartRateTextView.setText(str_hr);
                     }
 
-                    float userHR = (float) hr[4];
-                    if (flag == 0) {
-                        // 중강도
-                        if (userHR > 0.0f && userHR < min_bpm) {
-                            String msg = "운동강도를 올릴 필요가 있습니다.";
-                            layout.setBackgroundResource(R.color.weaker_red);
+                    if(hr[4] != 0){
+                        float userHR = (float) hr[4];
+                        if (flag == 0) {
+                            // 중강도
+                            if (userHR > 0.0f && userHR < min_bpm) {
+                                String msg = "운동강도를 올릴 필요가 있습니다.";
+                                layout.setBackgroundResource(R.color.weaker_red);
 
-                            tts.speak("운동강도가 낮아", TextToSpeech.QUEUE_FLUSH, null, null);
-                        } else if (userHR >= min_bpm && userHR < max_bpm) {
-                            String msg = "적절한 운동강도로 운동중입니다.";
+                                tts.speak("운동강도가 낮아", TextToSpeech.QUEUE_FLUSH, null, null);
+                            } else if (userHR >= min_bpm && userHR < max_bpm) {
+                                String msg = "적절한 운동강도로 운동중입니다.";
 
-                            layout.setBackgroundResource(R.color.weaker_green);
+                                layout.setBackgroundResource(R.color.weaker_green);
 
-                            tts.speak("적당혀", TextToSpeech.QUEUE_FLUSH, null, null);
+                                tts.speak("적당혀", TextToSpeech.QUEUE_FLUSH, null, null);
 
-                        } else if (userHR >= max_bpm) {
-                            String msg = "운동강도가 초과됬습니다. 속도를 낮추고나 W를 낮춰주세요";
-                            layout.setBackgroundResource(R.color.weaker_blue);
+                            } else if (userHR >= max_bpm) {
+                                String msg = "운동강도가 초과됬습니다. 속도를 낮추고나 W를 낮춰주세요";
+                                layout.setBackgroundResource(R.color.weaker_blue);
 
-                            tts.speak("운동강도가 너무 높아", TextToSpeech.QUEUE_FLUSH, null, null);
+                                tts.speak("운동강도가 너무 높아", TextToSpeech.QUEUE_FLUSH, null, null);
+                            }
+
+                        } else {
+                            // 고강도
+                            if (userHR > 0.0f && userHR < max_bpm) {
+                                String msg = "운동강도를 올릴 필요가 있습니다.";
+                                tts.speak("운동강도가 낮아", TextToSpeech.QUEUE_FLUSH, null, null);
+                            }
                         }
-
+                        if (userHR == 0.0f) {
+                            tts.speak("심박센서 다시차", TextToSpeech.QUEUE_FLUSH, null, null);
+                        }
                     } else {
-                        // 고강도
-                        if (userHR > 0.0f && userHR < max_bpm) {
-                            String msg = "운동강도를 올릴 필요가 있습니다.";
-                            tts.speak("운동강도가 낮아", TextToSpeech.QUEUE_FLUSH, null, null);
-                        }
+                        Log.d(TAG, "onReceive: 배열 차는 중");
                     }
-                    if (userHR == 0.0f) {
-                        tts.speak("심박센서 다시차", TextToSpeech.QUEUE_FLUSH, null, null);
-                    }
+                    
 
                 } else if (EZBLEService.ACTION_INDOOR_BIKE_AVAILABLE.equals(action)) {
 
