@@ -4,12 +4,21 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorPrimaryPurle">#3700B3</color>
 
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="gray">#E0E0E0</color>
+    <color name="yellow">#ffff00</color>
+    <color name="lime">#69F0AE</color>
+    <color name="weaker_yellow">#fff176</color>
     <color name="white">#ffffff</color>
     <color name="black">#000</color>
-
     <color name="red">#ff0000</color>
+    <color name="blue">#0000ff</color>
+    <color name="background">#f0fffbeb</color>
+    <color name="ella_tapbar">#ffabab</color>
+    <color name="ella_page_background">#f4899b</color>
+    <color name="weaker_blue">#ce48daf1</color>
+
     <color name="weaker_red">#fc9090</color>
     <color name="weaker_green">#58f952</color>
-    <color name="weaker_blue">#3c6af2</color>
-    <color name="blue">#0000ff</color>
 </resources>
