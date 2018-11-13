@@ -12,7 +12,7 @@
         android:weightSum="2">
 
         <RelativeLayout
-            android:id="@+id/choice1_ergometer"
+            android:id="@+id/select_ergometer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
@@ -45,7 +45,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/choice2_treadmill"
+            android:id="@+id/select_treadmill"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">

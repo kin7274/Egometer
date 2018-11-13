@@ -1,4 +1,4 @@
-package com.example.elab_yang.egometer.activity;
+package com.example.elab_yang.egometer.activity.navi;
 
 import android.content.Intent;
 import android.graphics.Color;

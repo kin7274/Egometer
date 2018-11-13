@@ -38,8 +38,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
-        <!--에르고미터 스캔-->
-        <activity android:name=".BikeScanActivity" />
+        <!--운동부하검사 에르고미터 스캔-->
+        <activity
+            android:name=".BikeScanActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <!--선택1. 에르고미터 스캔-->
         <activity
@@ -116,7 +119,7 @@
 
         <!--View Chart-->
         <activity
-            android:name=".activity.ViewChartActivity"
+            android:name=".activity.navi.ViewChartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
@@ -135,7 +138,7 @@
 
         <!--VIEW 혈당차트-->
         <activity
-            android:name=".activity.BloodSugarActivity"
+            android:name=".activity.navi.BloodSugarActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
@@ -159,13 +162,13 @@
 
         <!--간이 운동 부하 검사 종료 후 결과창-->
         <activity
-            android:name=".activity.TestResultActivity"
+            android:name=".activity.fitnesstest.TestResultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
         <!--간이 운동 부하 검사 종료 후 결과창-->
         <activity
-            android:name=".activity.TestResult2Activity"
+            android:name=".activity.fitnesstest.TestResult2Activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 

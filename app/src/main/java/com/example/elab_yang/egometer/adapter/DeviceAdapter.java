@@ -18,7 +18,6 @@
 package com.example.elab_yang.egometer.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -28,15 +27,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.elab_yang.egometer.IndoorBikeRealTimeActivity;
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.RemindActivity;
-import com.example.elab_yang.egometer.activity.MainActivity;
 import com.example.elab_yang.egometer.activity.treadmill.DeviceControlActivity;
 import com.example.elab_yang.egometer.activity.treadmill.TimelineActivity;
 import com.example.elab_yang.egometer.etc.EGZeroConst;
@@ -82,6 +77,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
+
+    // TODO: 2018-11-14  쫌 꼬인거같은데??
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
@@ -105,10 +102,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         } else {
             // 동기화
             holder.fetchActivityData.setOnClickListener((View v) -> {
-                Log.e("클릭됨", "onClick: 클릭툄" + EGZeroConst.DEVICE_NAME);
-                Intent bsmIntent1 = new Intent(context, TimelineActivity.class);
-                bsmIntent1.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
-                context.startActivity(bsmIntent1);
+                Intent bsmIntent = new Intent(context, DeviceControlActivity.class);
+                bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
+                context.startActivity(bsmIntent);
             });
         }
 
@@ -120,26 +116,10 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
                 bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
                 context.startActivity(bsmIntent);
             } else {
-                Intent bsmIntent = new Intent(context, DeviceControlActivity.class);
-                bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
-                context.startActivity(bsmIntent);
-            }
-        });
-
-        // 설명
-        holder.deviceInfoView.setOnClickListener(v -> {
-            if (deviceName.equals(EGZeroConst.DEVICE_NAME)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle(EGZeroConst.DEVICE_NAME);
-                builder.setMessage("에르고미터입니다");
-                builder.setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss());
-                builder.show();
-            } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("트레드밀입니다");
-                builder.setMessage("트레드밀입니다");
-                builder.setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss());
-                builder.show();
+                Log.e("클릭됨", "onClick: 클릭툄" + EGZeroConst.DEVICE_NAME);
+                Intent bsmIntent1 = new Intent(context, TimelineActivity.class);
+                bsmIntent1.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
+                context.startActivity(bsmIntent1);
             }
         });
 
@@ -185,21 +165,18 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         TextView deviceNameLabel;
         TextView deviceStatusLabel;
 
-        TextView fetchActivityData;
         TextView showActivityTracks;
+        TextView fetchActivityData;
 
-        TextView deviceInfoView;
-        TextView deviceRemove;
+        ImageView deviceRemove;
 
         ViewHolder(View view) {
             super(view);
             cardview = view.findViewById(R.id.card_view);
-
             deviceNameLabel = view.findViewById(R.id.device_name);
             deviceStatusLabel = view.findViewById(R.id.device_status);
-            fetchActivityData = view.findViewById(R.id.device_action_fetch_activity);
             showActivityTracks = view.findViewById(R.id.device_action_show_activity_tracks);
-            deviceInfoView = view.findViewById(R.id.device_info_image);
+            fetchActivityData = view.findViewById(R.id.device_action_fetch_activity);
             deviceRemove = view.findViewById(R.id.device_info_trashcan);
         }
     }

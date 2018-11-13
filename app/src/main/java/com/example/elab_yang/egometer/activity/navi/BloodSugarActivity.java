@@ -1,4 +1,4 @@
-package com.example.elab_yang.egometer.activity;
+package com.example.elab_yang.egometer.activity.navi;
 
 import android.content.Context;
 import android.database.Cursor;

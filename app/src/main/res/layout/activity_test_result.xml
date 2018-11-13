@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.TestResultActivity">
+    tools:context=".activity.fitnesstest.TestResultActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:fontFamily="@font/my_font_family"
-            android:text="운동 부하 검사 결과"
+            android:text="장치를 검색합니다."
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="normal" />

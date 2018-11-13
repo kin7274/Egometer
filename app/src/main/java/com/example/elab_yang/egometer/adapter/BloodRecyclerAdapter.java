@@ -14,15 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.elab_yang.egometer.R;
-import com.example.elab_yang.egometer.activity.ViewChartActivity;
-import com.example.elab_yang.egometer.activity.treadmill.TimelineActivity;
+import com.example.elab_yang.egometer.activity.navi.ViewChartActivity;
 import com.example.elab_yang.egometer.model.Blood;
-import com.github.mikephil.charting.charts.Chart;
 
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
-import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
 
 public class BloodRecyclerAdapter extends RecyclerView.Adapter<BloodRecyclerAdapter.ViewHolder> implements OnLongClickListener {
     Context context;

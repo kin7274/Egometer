@@ -61,7 +61,7 @@ public class EGOScanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tradmill_scan);
+        setContentView(R.layout.activity_scan);
         setStatusbar();
         preferences = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
         bleDeviceList = new ArrayList<>();

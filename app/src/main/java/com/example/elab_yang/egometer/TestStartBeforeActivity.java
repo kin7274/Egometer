@@ -13,28 +13,47 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-public class TestStartBeforeActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class TestStartBeforeActivity extends AppCompatActivity implements IActivityBasicSetting {
     private TextToSpeech tts;
     Context mContext;
     private Handler mHandler;
-    TextView message1, message2;
+
+    @BindView(R.id.message1)
+    TextView message1;
+
+    @BindView(R.id.message2)
+    TextView message2;
+
+    @BindView(R.id.start_button)
+    Button start_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_test_start_before);
-        message1 = (TextView) findViewById(R.id.message1);
-        message2 = (TextView) findViewById(R.id.message2);
-        // 1초 후 음성 start;
+        initSetting();
+    }
+
+    @Override
+    public void bindView() {
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initSetting() {
+        mContext = this;
+        bindView();
+        removeStatebar();
+        // 1초 딜레이
         guide_speech();
-        // 운동부하검사 시작 버튼;
-        Button start_button = (Button) findViewById(R.id.start_button);
-        start_button.setOnClickListener(v -> {
-            startActivity(new Intent(TestStartBeforeActivity.this, BikeScanActivity.class));
-            finish();
-        });
+    }
+
+    public void removeStatebar() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     public void guide_speech() {
@@ -60,6 +79,14 @@ public class TestStartBeforeActivity extends AppCompatActivity {
                 }
             }, 1000);
         });
+    }
+
+    // 운동부하검사 시작 버튼;
+    @OnClick(R.id.start_button)
+    void Click() {
+        startActivity(new Intent(TestStartBeforeActivity.this, BikeScanActivity.class));
+        finish();
+        // 운동부하검사 시작 버튼;
     }
 
     @Override

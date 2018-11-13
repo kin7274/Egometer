@@ -50,11 +50,10 @@ public class BikeScanActivity extends AppCompatActivity implements IActivityBasi
     private TextToSpeech tts;
     private Handler mHandler;
 
-
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    @BindView(R.id.tool_bar)
+    @BindView(R.id.my_toolbar)
     Toolbar toolbar;
     DeviceScanAdapterV2 adapter;
     ArrayList<BluetoothDevice> bleDeviceList;
@@ -182,8 +181,7 @@ public class BikeScanActivity extends AppCompatActivity implements IActivityBasi
     }
 
     private void scanLeDevice(final boolean enable) {
-        if (!bluetoothAdapter.isEnabled()) { // TODO: 2018-10-06 블루투스 오류 처리 하기
-
+        if (!bluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
 

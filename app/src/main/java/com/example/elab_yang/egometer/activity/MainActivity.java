@@ -25,6 +25,8 @@ import com.example.elab_yang.egometer.IActivityBasicSetting;
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.TestStartBeforeActivity;
 import com.example.elab_yang.egometer.activity.appInfo.AppGuidenceActivity;
+import com.example.elab_yang.egometer.activity.fitnesstest.TestResult2Activity;
+import com.example.elab_yang.egometer.activity.navi.BloodSugarActivity;
 import com.example.elab_yang.egometer.adapter.DeviceAdapter;
 import com.example.elab_yang.egometer.model.Device;
 
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements IActivityBasicSet
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    @BindView(R.id.text_emptydevice)
+    @BindView(R.id.emptydevice)
     TextView emptydevice;
 
     @BindView(R.id.drawer_layout)
@@ -97,13 +99,16 @@ public class MainActivity extends AppCompatActivity implements IActivityBasicSet
     }
 
     public void setDevice() {
+        Log.e(TAG, "setDevice: 1");
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         deviceDatabase = Paper.book("device").read("user_device");
+        Log.e(TAG, "setDevice: 2");
         if (deviceDatabase != null) {
+            Log.e(TAG, "setDevice: 3");
             if (deviceDatabase.size() != 0) {
+                Log.e(TAG, "setDevice: 5");
                 deviceArrayList = new ArrayList<>(deviceDatabase);
-
                 deviceAdapter = new DeviceAdapter(this, deviceArrayList);
                 recyclerView.setAdapter(deviceAdapter);
                 for (int i = 0; i < deviceArrayList.size(); i++) {
@@ -111,9 +116,15 @@ public class MainActivity extends AppCompatActivity implements IActivityBasicSet
                     Log.e(TAG, "onCreate: " + device.getDeviceName() + ", " + device.getDeviceAddress());
                 }
             }
+            Log.e(TAG, "setDevice: 6");
+//            emptydevice.setVisibility(View.VISIBLE);
+
         } else {
-            Log.e(TAG, "onCreate: " + "등록된 장비 없음");
+            // // TODO: 2018-11-14 기묘하네...
+            Log.e(TAG, "setDevice: 4");
+            Log.d(TAG, "setDevice: 장치x");
             emptydevice.setVisibility(View.VISIBLE);
+//            notemptydevice.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -139,11 +150,11 @@ public class MainActivity extends AppCompatActivity implements IActivityBasicSet
             case R.id.nav_profile:
                 // 호구조사
 //                Toast.makeText(getApplicationContext(),"장치 추가", Toast.LENGTH_SHORT).show();
-
                 SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                 if (pref.getString("user_data0", "").equals("")) {
                     Snackbar.make(this.getWindow().getDecorView().getRootView(),
                             "먼저! 환경설정 -> 개인정보 입력해주세요", 3000).setAction("확인", v -> startActivity(new Intent(getApplicationContext(), EditProfileActivity.class))).show();
+
                     // 기존값이 없구나
                 } else {
                     startActivity(new Intent(this, ProfileActivity.class));
@@ -179,10 +190,10 @@ public class MainActivity extends AppCompatActivity implements IActivityBasicSet
                 startActivity(new Intent(this, TestResult2Activity.class));
                 break;
 
-            case R.id.nav_guide:
-                // 사용자가이드
-                startActivity(new Intent(this, AppGuidenceActivity.class));
-                break;
+//            case R.id.nav_guide:
+//                // 사용자가이드
+//                startActivity(new Intent(this, AppGuidenceActivity.class));
+//                break;
 
             case R.id.nav_setting:
                 // 환경설정

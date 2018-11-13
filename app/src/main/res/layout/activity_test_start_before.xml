@@ -12,35 +12,35 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
 
-        <LinearLayout
-            android:layout_marginTop="50dp"
+        <ImageView
+            android:layout_margin="16dp"
+            android:id="@+id/title_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:orientation="vertical">
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/beforetest" />
 
-            <TextView
-                android:id="@+id/message1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:fontFamily="@font/my_font_family"
-                android:text="@string/message1"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+        <TextView
+            android:id="@+id/message1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_image"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/my_font_family"
+            android:text="@string/message1"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
 
-            <TextView
-                android:id="@+id/message2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:fontFamily="@font/my_font_family"
-                android:text="시작할까요?"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/message2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/message1"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/my_font_family"
+            android:text="시작할까요?"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
     </RelativeLayout>
 
     <Button

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.TestResultActivity">
+    tools:context=".activity.fitnesstest.TestResultActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -169,7 +169,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/close_btn">
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/go_gang_do_time">
 
                 <Button
                     android:id="@+id/bpm_up"
@@ -187,10 +188,10 @@
 
                 <Button
                     android:id="@+id/bpm_zero"
-                    android:layout_toRightOf="@+id/bpm_up"
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/bpm_up"
                     android:fontFamily="@font/my_font_family"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="범위 원래대로"
@@ -210,18 +211,6 @@
                     android:textSize="20sp" />
             </RelativeLayout>
 
-            <Button
-                android:id="@+id/close_btn"
-                style="?attr/borderlessButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:fontFamily="@font/my_font_family"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="종료하기"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
         </RelativeLayout>
     </RelativeLayout>
 
