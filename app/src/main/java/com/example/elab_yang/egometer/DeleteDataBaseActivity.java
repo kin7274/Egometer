@@ -10,57 +10,48 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.example.elab_yang.egometer.model.DB;
-import com.example.elab_yang.egometer.model.DB2;
+import com.example.elab_yang.egometer.activity.database.ERGO_DBHelper;
+import com.example.elab_yang.egometer.activity.database.TREAD_DBHelper;
 
-public class DeleteDataBaseActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class DeleteDataBaseActivity extends AppCompatActivity implements IActivityBasicSetting {
     private static final String TAG = "DeleteDataBaseActivity";
     Context mContext;
-    DB db;  // ergo
-    DB2 db2;  // tread
+    ERGO_DBHelper ERGODbHelper;  // ergo
+    TREAD_DBHelper TREADDbHelper;  // tread
     SQLiteDatabase sql;
+
+    @BindView(R.id.txt_ergo)
+    TextView txt_ergo;
+
+    @BindView(R.id.txt_tread)
+    TextView txt_tread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deletedb);
-        mContext = this;
-//        setToolbar();
-        setStatusbar();
-        db = new DB(this);
-        db2 = new DB2(this);
-
-        TextView txt_ergo = (TextView) findViewById(R.id.txt_ergo);
-        txt_ergo.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setTitle("ERGO")
-                    .setMessage("저장된 내용을 전부 지울까요?")
-                    .setPositiveButton("네", (dialog, which) -> {
-                        Log.d(TAG, "onClick: ergo 클리어;;;");
-                        sql = db.getWritableDatabase();
-                        db.onUpgrade(sql, 1, 2);
-                    })
-                    .setNegativeButton("아니오", (dialog, which) -> Log.d(TAG, "onClick: ergo 휴 다행"))
-                    .show()
-                    .create();
-        });
-        TextView txt_tread = (TextView) findViewById(R.id.txt_tread);
-        txt_tread.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setTitle("TREAD")
-                    .setMessage("저장된 내용을 전부 지울까요?")
-                    .setPositiveButton("네", (dialog, which) -> {
-                        Log.d(TAG, "onClick: TREAD 클리어;;;");
-                        sql = db2.getWritableDatabase();
-                        db2.onUpgrade(sql, 1, 2);
-                    })
-                    .setNegativeButton("아니오", (dialog, which) -> Log.d(TAG, "onClick: TREAD 휴 다행"))
-                    .show()
-                    .create();
-        });
+        initSetting();
     }
 
-//    public void setToolbar() {
+    @Override
+    public void bindView() {
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initSetting() {
+        bindView();
+        setStatusbar();
+        mContext = this;
+        ERGODbHelper = new ERGO_DBHelper(this);
+        TREADDbHelper = new TREAD_DBHelper(this);
+    }
+
+    //    public void setToolbar() {
 //        Toolbar mytoolbar = (Toolbar) findViewById(R.id.my_toolbar);
 //        setSupportActionBar(mytoolbar);
 //        getSupportActionBar().setTitle("");
@@ -71,5 +62,47 @@ public class DeleteDataBaseActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
+    }
+
+    @OnClick(R.id.txt_ergo)
+    void click1() {
+        showYourDialog(0);
+    }
+
+    @OnClick(R.id.txt_tread)
+    void click2() {
+        showYourDialog(1);
+    }
+
+    public void showYourDialog(final int flag) {
+        if (flag == 0) {
+            // ergo
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("에르고미터")
+                    .setCancelable(false)
+                    .setMessage("저장된 내용을 전부 지우겠습니까?")
+                    .setPositiveButton("네", (dialog, which) -> {
+                        Log.d(TAG, "onClick: ergo 클리어;;;");
+                        sql = ERGODbHelper.getWritableDatabase();
+                        ERGODbHelper.onUpgrade(sql, 1, 2);
+                    })
+                    .setNegativeButton("아니오", (dialog, which) -> Log.d(TAG, "onClick: ergo 휴 다행"))
+                    .show()
+                    .create();
+        } else {
+            //tread
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("트레드밀")
+                    .setCancelable(false)
+                    .setMessage("저장된 내용을 전부 지우겠습니까?")
+                    .setPositiveButton("네", (dialog, which) -> {
+                        Log.d(TAG, "onClick: TREAD 클리어;;;");
+                        sql = TREADDbHelper.getWritableDatabase();
+                        TREADDbHelper.onUpgrade(sql, 1, 2);
+                    })
+                    .setNegativeButton("아니오", (dialog, which) -> Log.d(TAG, "onClick: TREAD 휴 다행"))
+                    .show()
+                    .create();
+        }
     }
 }

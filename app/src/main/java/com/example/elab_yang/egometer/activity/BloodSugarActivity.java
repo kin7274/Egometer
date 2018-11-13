@@ -4,30 +4,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.adapter.BloodRecyclerAdapter;
-import com.example.elab_yang.egometer.adapter.MyRecyclerAdapter;
-import com.example.elab_yang.egometer.adapter.MyRecyclerAdapter2;
 import com.example.elab_yang.egometer.model.Blood;
-import com.example.elab_yang.egometer.model.CardItem;
-import com.example.elab_yang.egometer.model.CardItem2;
-import com.example.elab_yang.egometer.model.DB;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
+import com.example.elab_yang.egometer.activity.database.ERGO_DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +31,7 @@ public class BloodSugarActivity extends AppCompatActivity {
 
     Context mContext;
     // 에르고미터 디비
-    DB db;
+    ERGO_DBHelper db;
     SQLiteDatabase sql;
     String str;
     String[] arr = {"", "", "", "", "", "", "" , "", "", "", "", ""};
@@ -70,7 +57,7 @@ public class BloodSugarActivity extends AppCompatActivity {
 //        setChart(yData);
 //        setChart();
 
-        db = new DB(this);
+        db = new ERGO_DBHelper(this);
         sql = db.getReadableDatabase();
         long count = DatabaseUtils.queryNumEntries(sql, "tb_egometer");
         // rows_count = DB내 행의 갯수

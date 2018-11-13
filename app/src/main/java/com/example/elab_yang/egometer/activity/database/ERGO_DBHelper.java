@@ -1,11 +1,11 @@
-package com.example.elab_yang.egometer.model;
+package com.example.elab_yang.egometer.activity.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DB extends SQLiteOpenHelper {
-    public DB(Context context) {
+public class ERGO_DBHelper extends SQLiteOpenHelper {
+    public ERGO_DBHelper(Context context) {
         super(context, "egometer", null, 1);
     }
 

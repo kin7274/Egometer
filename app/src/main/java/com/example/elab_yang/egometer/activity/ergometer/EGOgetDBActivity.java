@@ -22,7 +22,7 @@ import com.example.elab_yang.egometer.IActivityBasicSetting;
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.adapter.MyRecyclerAdapter;
 import com.example.elab_yang.egometer.model.CardItem;
-import com.example.elab_yang.egometer.model.DB;
+import com.example.elab_yang.egometer.activity.database.ERGO_DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ public class EGOgetDBActivity extends AppCompatActivity implements IActivityBasi
     Button add_btn;
 
     Context mContext;
-    DB db;
+    ERGO_DBHelper db;
     SQLiteDatabase sql;
     String data;
 
@@ -68,7 +68,7 @@ public class EGOgetDBActivity extends AppCompatActivity implements IActivityBasi
         setStatusbar();
         setRecyclerView();
 
-        db = new DB(this);
+        db = new ERGO_DBHelper(this);
         getDB();
     }
 

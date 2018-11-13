@@ -3,17 +3,14 @@ package com.example.elab_yang.egometer.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.activity.ergometer.EGOgetDBActivity;
 import com.example.elab_yang.egometer.activity.treadmill.TREADgetDBActivity;
-import com.example.elab_yang.egometer.model.DB2;
 
 public class DBChoiceActivity extends AppCompatActivity {
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,16 +24,16 @@ import butterknife.OnClick;
 public class SettingActivity extends AppCompatActivity implements IActivityBasicSetting {
 
     @BindView(R.id.layout1)
-    LinearLayout layout1;
+    RelativeLayout layout1;
 
     @BindView(R.id.layout2)
-    LinearLayout layout2;
+    RelativeLayout layout2;
 
     @BindView(R.id.layout3)
-    LinearLayout layout3;
+    RelativeLayout layout3;
 
     @BindView(R.id.layout4)
-    LinearLayout layout4;
+    RelativeLayout layout4;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +58,6 @@ public class SettingActivity extends AppCompatActivity implements IActivityBasic
         Toolbar mytoolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(mytoolbar);
         getSupportActionBar().setTitle("");
-        TextView bar_title = (TextView) findViewById(R.id.bar_title);
     }
 
     public void setStatusbar() {
@@ -66,7 +66,6 @@ public class SettingActivity extends AppCompatActivity implements IActivityBasic
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
-
 
     @OnClick({R.id.layout1, R.id.layout2, R.id.layout3, R.id.layout4})
     void Click(View v) {
@@ -83,12 +82,12 @@ public class SettingActivity extends AppCompatActivity implements IActivityBasic
 
             case R.id.layout3:
                 // 앱 평가하기
-                Toast.makeText(getApplicationContext(), "업데이트 예정 : 앱 평가하기", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "업데이트 예정", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.layout4:
                 // 앱 소개하기
-                Toast.makeText(getApplicationContext(), "업데이트 예정 : 앱 소개하기", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "업데이트 예정", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

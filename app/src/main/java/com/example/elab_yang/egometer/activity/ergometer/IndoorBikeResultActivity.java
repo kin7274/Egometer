@@ -25,9 +25,7 @@ import android.widget.Toast;
 
 import com.example.elab_yang.egometer.CustomDialog;
 import com.example.elab_yang.egometer.R;
-import com.example.elab_yang.egometer.TestStartBeforeActivity;
-import com.example.elab_yang.egometer.activity.TestResultActivity;
-import com.example.elab_yang.egometer.model.DB;
+import com.example.elab_yang.egometer.activity.database.ERGO_DBHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,7 +33,7 @@ import java.util.Date;
 public class IndoorBikeResultActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "IndoorBikeResult";
     Context mContext;
-    DB db;
+    ERGO_DBHelper db;
     SQLiteDatabase sql;
     int time = 0;
     // 운동 전 혈당
@@ -63,7 +61,7 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         setStatusbar();
         set();
         eval();
-        db = new DB(this);
+        db = new ERGO_DBHelper(this);
 
 //        showDialog();
     }

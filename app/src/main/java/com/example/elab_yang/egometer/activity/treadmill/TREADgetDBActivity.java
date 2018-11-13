@@ -22,17 +22,15 @@ import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.adapter.MyRecyclerAdapter2;
-import com.example.elab_yang.egometer.model.CardItem;
 import com.example.elab_yang.egometer.model.CardItem2;
-import com.example.elab_yang.egometer.model.DB;
-import com.example.elab_yang.egometer.model.DB2;
+import com.example.elab_yang.egometer.activity.database.TREAD_DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TREADgetDBActivity extends AppCompatActivity {
     Context mContext;
-    DB2 db;
+    TREAD_DBHelper db;
     SQLiteDatabase sql;
 
     Button add_btn;
@@ -50,7 +48,7 @@ public class TREADgetDBActivity extends AppCompatActivity {
         mContext = this;
         setStatusbar();
         setRecyclerView();
-        db = new DB2(this);
+        db = new TREAD_DBHelper(this);
         setSpinner();
 //        getDB();
         add_btn = (Button) findViewById(R.id.add_btn);

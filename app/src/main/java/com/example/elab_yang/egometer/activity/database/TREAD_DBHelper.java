@@ -1,11 +1,11 @@
-package com.example.elab_yang.egometer.model;
+package com.example.elab_yang.egometer.activity.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DB2 extends SQLiteOpenHelper {
-    public DB2(Context context) {
+public class TREAD_DBHelper extends SQLiteOpenHelper {
+    public TREAD_DBHelper(Context context) {
         super(context, "treadmill", null, 1);
     }
 

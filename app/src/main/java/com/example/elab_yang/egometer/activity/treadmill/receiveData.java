@@ -5,22 +5,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.example.elab_yang.egometer.R;
-import com.example.elab_yang.egometer.activity.MainActivity;
 import com.example.elab_yang.egometer.adapter.MyRecyclerAdapter2;
 import com.example.elab_yang.egometer.model.CardItem2;
-import com.example.elab_yang.egometer.model.DB;
-import com.example.elab_yang.egometer.model.DB2;
+import com.example.elab_yang.egometer.activity.database.TREAD_DBHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class receiveData extends AppCompatActivity {
-    DB2 db;
+    TREAD_DBHelper db;
     SQLiteDatabase sql;
 
     String data;
@@ -34,7 +30,7 @@ public class receiveData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getdb);
 //        setRecyclerView();
-        db = new DB2(this);
+        db = new TREAD_DBHelper(this);
         Intent intent = getIntent();
         data = intent.getStringExtra("BLE");
         // & = end bit로 구분
