@@ -103,7 +103,7 @@ public class TestResult2Activity extends AppCompatActivity implements IActivityB
         mContext = this;
         initSetting();
     }
-
+ 
     public void set_bpm() {
         bpm1 = Float.parseFloat(bpm) * (0.5f + 0.05f * t);
         bpm2 = Float.parseFloat(bpm) * (0.7f + 0.05f * t);
