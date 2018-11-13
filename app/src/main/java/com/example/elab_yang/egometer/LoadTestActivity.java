@@ -35,6 +35,14 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
 
     private static final String TAG = "LoadTestActivity";
 
+    int total_bpm = 0;
+
+    int cnt = 0;
+    int cnt1 = 0;
+
+    int bpm_avg = 0;
+
+    int finish_sig = 0;
     TextToSpeech tts;
 
     ProgressBar progressBar;
@@ -53,7 +61,6 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
     @BindView(R.id.stage_text_view)
     TextView stageTextView;
 
-
     @BindView(R.id.heart_rate_text_view)
     TextView heartRateTextView;
     @BindView(R.id.speed_text_view)
@@ -61,17 +68,19 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
 
     CountDownTimer timer;
 
+    String hr;
+
     String deviceAddress, deviceName;
 
-    float aimSpeed = 20.0f;
+    float aimSpeed = 15.0f;
     int testStage = 1;
 
-    TextView max_bpm, min_bpm;
+    TextView max_bpm, avg_bpm;
 
-    int[] hrr = new int[10];
+    int[] hrr = new int[5];
+    int[] nowSpeedd = new int[5];
 
     int bpm_max = 0;
-    int bpm_min = 150;
 
     Handler mHandler;
 
@@ -132,92 +141,73 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
                 Log.e(TAG, "onReceive: " + intent.getStringExtra(EZBLEService.EXTRA_DATA));
 
             } else if (EZBLEService.ACTION_HEART_RATE_AVAILABLE.equals(action)) {
-                Log.e(TAG, "onReceive:  실시간 화면에서 심박수 받앗어요 ");
-                for (int i = 0; i < 10; i++) {
-                    String hr = intent.getStringExtra(EZBLEService.EXTRA_DATA);
-                    heartRateTextView.setText(hr);
-                    Log.d(TAG, "i = " + i + "/ hr[i]" + hr);
+                hr = intent.getStringExtra(EZBLEService.EXTRA_DATA);
+                heartRateTextView.setText(hr);
+                Log.d(TAG, "onReceive: hr = " + hr);
+                hrr[cnt % 5] = Integer.parseInt(hr);
+                // hrr[0] = 140;
 
-                    hrr[i] = Integer.parseInt(hr);
-                    Log.d(TAG, "/ hrr[i]" + hrr[i]);
+                // avg
+                total_bpm = total_bpm + hrr[cnt % 5];
+                bpm_avg = total_bpm / (cnt + 1);
+                avg_bpm.setText(String.valueOf(bpm_avg));
 
-                    // TODO: 2018-11-05 find_max_bpm;
-                    find_max_bpm();
-
-                    // TODO: 2018-11-05 find_min_bpm;
-                    find_min_bpm();
-
-                    Log.d(TAG, "onBackPressed: hrr.length" + hrr.length);
-
-//                        hr[i] = intent.getStringExtra(EZBLEService.EXTRA_DATA);
-//                        heartRateTextView.setText(hr[i]);
-
-                    // TODO: 2018-11-05 max치 구한다. 최대심박수
-                    // TODO: 2018-11-05 평균치 구한다. DB 저장용
+                // max
+                if (hrr[cnt % 5] > bpm_max) {
+                    bpm_max = hrr[cnt % 5];
                 }
+                max_bpm.setText(String.valueOf(bpm_max));
+                cnt++;
             } else if (EZBLEService.ACTION_INDOOR_BIKE_AVAILABLE.equals(action)) {
                 String nowSpeed = intent.getStringExtra(EZBLEService.EXTRA_DATA);
                 speedTextView.setText(nowSpeed);
+                Log.d(TAG, "onReceive: nowSpeed = " + nowSpeed);
+//                nowSpeedd[cnt1] = (Integer.parseInt(nowSpeed)*100)/100;
 
-                mHandler = new Handler();
-                runOnUiThread(() -> {
-                    // 3초마다
-                    mHandler.postDelayed(() -> {
-                        try {
+                if (cnt1 % 5 == 0) {
+                    Log.d(TAG, "onReceive: nowSpeed " + nowSpeed);
+                    Log.d(TAG, "onReceive: Float.parseFloat(nowSpeed " + Float.parseFloat(nowSpeed));
+                    Log.d(TAG, "onReceive: aimSpeed " + aimSpeed);
+                    Log.d(TAG, "onReceive: ((int) aimSpeed) + 5 " + ((int) aimSpeed) + 5);
 
-                            // 00.00
-                            Log.d(TAG, "onReceive: nowSpeed " + nowSpeed);
-                            Log.d(TAG, "onReceive: Float.parseFloat(nowSpeed " + Float.parseFloat(nowSpeed));
-                            Log.d(TAG, "onReceive: aimSpeed " + aimSpeed);
-                            Log.d(TAG, "onReceive: ((int) aimSpeed) + 5 " + ((int) aimSpeed) + 5);
-//                Log.d(TAG, "onReceive: Integer.parseInt(nowSpeed) : " + Integer.parseInt(nowSpeed.replace("km/h","")));
-//                Log.d(TAG, "onReceive: Integer.parseInt(String.valueOf(aimSpeed)) : " + Integer.parseInt(String.valueOf(aimSpeed)));
-//                Log.d(TAG, "onReceive: Integer.parseInt(String.valueOf(aimSpeed)) +5 : " + Integer.parseInt(String.valueOf(aimSpeed)) +5);
-                            if (Float.parseFloat(nowSpeed) < aimSpeed) {
-                                // 속도가 느려..
-                                layout.setBackgroundResource(R.color.weaker_red);
+                    if (Float.parseFloat(nowSpeed) < aimSpeed) {
+                        // 속도가 느려..
+                        layout.setBackgroundResource(R.color.weaker_red);
+                        tts.speak("느려요", TextToSpeech.QUEUE_FLUSH, null, null);
 
-                                tts.speak("느려요", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else if (Float.parseFloat(nowSpeed) > ((int) aimSpeed) + 5) {
-                                tts.speak("빨라요", TextToSpeech.QUEUE_FLUSH, null, null);
-                                layout.setBackgroundResource(R.color.weaker_blue);
-
+                        if (Float.parseFloat(nowSpeed) == 0) {
+                            if (finish_sig == 5) {
+                                // 종료
+                                finish_exercise();
+                                finish();
                             } else {
-                                // 적당혀
-                                layout.setBackgroundResource(R.color.weaker_green);
+                                finish_sig++;
                             }
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        } else {
+                            finish_sig = 0;
                         }
-                    }, 3000);
-                });
 
+                    } else if (Float.parseFloat(nowSpeed) > ((int) aimSpeed) + 5) {
+                        tts.speak("빨라요", TextToSpeech.QUEUE_FLUSH, null, null);
+                        layout.setBackgroundResource(R.color.weaker_blue);
 
-            } else if (EZBLEService.ACTION_TREADMILL_AVAILABLE.equals(action)) {
+                    } else {
+                        // 적당혀
+                        layout.setBackgroundResource(R.color.weaker_green);
+                    }
+
+                } else {
+                    cnt1++;
+                }
+            } else if (EZBLEService.ACTION_TREADMILL_AVAILABLE.equals(action))
+
+            {
                 String totalDistance = intent.getStringExtra(EZBLEService.EXTRA_DATA);
 //                totalDistanceTextView.setText(totalDistance);
             }
         }
     };
 
-    public void find_max_bpm() {
-        for (int i = 0; i < hrr.length; i++) {
-            if (hrr[i] > bpm_max) {
-                bpm_max = hrr[i];
-                max_bpm.setText(String.valueOf(bpm_max));
-            }
-        }
-    }
-
-    public void find_min_bpm() {
-        for (int i = 0; i < hrr.length; i++) {
-            if (hrr[i] < bpm_min) {
-                bpm_min = hrr[i];
-                min_bpm.setText(String.valueOf(bpm_min));
-            }
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,7 +220,7 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
         layout = (LinearLayout) findViewById(R.id.layout);
 
         max_bpm = (TextView) findViewById(R.id.max_bpm);
-        min_bpm = (TextView) findViewById(R.id.min_bpm);
+        avg_bpm = (TextView) findViewById(R.id.avg_bpm);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         deviceAddress = getIntent().getStringExtra(IntentConst.FITNESS_LOAD_TEST_DEVICE_ADDRESS);
@@ -330,16 +320,7 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
         builder.setTitle("알림");
         builder.setMessage("현재 검사 " + stageTextView.getText().toString() + " 진행중입니다.\n검사를 종료하시겠어요?");
         builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
-            // 결과창 view
-            Intent intent = new Intent(LoadTestActivity.this, TestResultActivity.class);
-            // 몇 단계
-            intent.putExtra("stage", String.valueOf(testStage));
-            // 최대심박수
-//            int bpm = 150;
-
-//            intent.putExtra("bpm", String.valueOf(testStage));
-            intent.putExtra("bpm", max_bpm.getText().toString());
-            startActivity(intent);
+            finish_exercise();
             dialog.dismiss();
             finish();
         });
@@ -347,5 +328,18 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
         builder.setCancelable(false);
         builder.show();
 //        super.onBackPressed();
+    }
+
+    public void finish_exercise() {
+        // 결과창 view
+        Intent intent = new Intent(LoadTestActivity.this, TestResultActivity.class);
+        // 몇 단계
+        intent.putExtra("stage", String.valueOf(testStage));
+        // 최대심박수
+//            int bpm = 150;
+
+//            intent.putExtra("bpm", String.valueOf(testStage));
+        intent.putExtra("bpm", max_bpm.getText().toString());
+        startActivity(intent);
     }
 }

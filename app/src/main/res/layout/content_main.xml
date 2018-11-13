@@ -14,10 +14,10 @@
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="48dp"/>
+        tools:layout_editor_absoluteY="48dp" />
 
     <TextView
-        android:id="@+id/textview"
+        android:id="@+id/text_emptydevice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -26,6 +26,7 @@
         android:text="등록된 장치가 없습니다."
         android:textColor="@color/black"
         android:textSize="30sp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp" />

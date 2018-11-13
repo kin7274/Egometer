@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/layout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="7"
@@ -106,7 +106,6 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -202,25 +201,25 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/max_bpm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:fontFamily="@font/my_font_family"
-                android:gravity="center"
-                android:text="최대심박"
-                android:textColor="@color/black"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/max_bpm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/my_font_family"
+                    android:gravity="center"
+                    android:hint="최대 심박수"
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/my_font_family"
-                android:gravity="center"
-                android:text="MAX_BPM"
-                android:textSize="25sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/my_font_family"
+                    android:gravity="center"
+                    android:text="최대심박"
+                    android:textSize="25sp" />
 
             </LinearLayout>
 
@@ -230,28 +229,29 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
-            <TextView
-                android:id="@+id/min_bpm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:fontFamily="@font/my_font_family"
-                android:gravity="center"
-                android:text="최소심박"
-                android:textColor="@color/black"
-                android:textSize="28sp"
-                android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/my_font_family"
-                android:gravity="center"
-                android:text="MIN_BPM"
-                android:textSize="25sp" />
+                <TextView
+                    android:id="@+id/avg_bpm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/my_font_family"
+                    android:gravity="center"
+                    android:hint="평균심박"
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/my_font_family"
+                    android:gravity="center"
+                    android:text="평균 심박수"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
     </LinearLayout>
 </LinearLayout>

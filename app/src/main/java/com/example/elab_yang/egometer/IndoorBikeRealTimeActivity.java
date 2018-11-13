@@ -56,6 +56,8 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 
     ConstraintLayout layout;
 
+    int bpm_avg = 0;
+    int total_bpm = 0;
     // 운동 전 혈당
     String before_bloodsugar = "";
     // 운동 후 혈당
@@ -122,6 +124,8 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     private LineData lineData;
     private ArrayList<Entry> realtimeData = new ArrayList<>();
     private int cnt = 0;
+    private int cnt1 = 0;
+    private int cnt2 = 0;
     private int speedCount = 0;
 
     String[] AAA;
@@ -264,26 +268,28 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 //                    Log.e(TAG, "onReceive:  실시간 화면에서 심박수 받앗어요 ");
 //                    String hr = intent.getStringExtra(EZBLEService.EXTRA_DATA);
 //                    heartRateTextView.setText(hr);
-//                    setLineChartData(hr);
 //
 //                    float userHR = Float.parseFloat(hr);
+                    String str_hr = intent.getStringExtra(EZBLEService.EXTRA_DATA);
+                    heartRateTextView.setText(str_hr);
+                    setLineChartData(str_hr);
+                    // 일단 view에 넣어두고
 
+                    // 인트로 변환해 비교하기위해
+                    hr[cnt1%5] = Integer.parseInt(str_hr);
 
-                    for (int i = 0; i < 5; i++) {
-                        Log.e(TAG, "onReceive:  실시간 화면에서 심박수 받앗어요 ");
-                        String str_hr = intent.getStringExtra(EZBLEService.EXTRA_DATA);
-                        hr[i] = Integer.parseInt(str_hr);
-                        heartRateTextView.setText(str_hr);
-                    }
+                    // avg
+                    total_bpm = total_bpm + hr[cnt1%5];
+                    bpm_avg = total_bpm / (cnt1+1);
+//                    avg_bpm.setText(String.valueOf(bpm_avg));
 
-                    if(hr[4] != 0){
-                        float userHR = (float) hr[4];
+                    if(cnt1%5 == 0){
+                        float userHR = (float) hr[cnt1%5];
+                        // 중강도
                         if (flag == 0) {
-                            // 중강도
                             if (userHR > 0.0f && userHR < min_bpm) {
                                 String msg = "운동강도를 올릴 필요가 있습니다.";
                                 layout.setBackgroundResource(R.color.weaker_red);
-
                                 tts.speak("운동강도가 낮아", TextToSpeech.QUEUE_FLUSH, null, null);
                             } else if (userHR >= min_bpm && userHR < max_bpm) {
                                 String msg = "적절한 운동강도로 운동중입니다.";
@@ -299,8 +305,8 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                                 tts.speak("운동강도가 너무 높아", TextToSpeech.QUEUE_FLUSH, null, null);
                             }
 
-                        } else {
                             // 고강도
+                        } else {
                             if (userHR > 0.0f && userHR < max_bpm) {
                                 String msg = "운동강도를 올릴 필요가 있습니다.";
                                 tts.speak("운동강도가 낮아", TextToSpeech.QUEUE_FLUSH, null, null);
@@ -310,10 +316,8 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                             tts.speak("심박센서 다시차", TextToSpeech.QUEUE_FLUSH, null, null);
                         }
                     } else {
-                        Log.d(TAG, "onReceive: 배열 차는 중");
+                        cnt1++;
                     }
-                    
-
                 } else if (EZBLEService.ACTION_INDOOR_BIKE_AVAILABLE.equals(action)) {
 
                     String nowSpeed = intent.getStringExtra(EZBLEService.EXTRA_DATA);
@@ -410,7 +414,6 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         countdownView = (CountdownView) findViewById(R.id.cv_countdownView);
 //        showDialog();
         ButterKnife.bind(this);
-
 
         min_bpm = Float.parseFloat(AAA[1]);
         max_bpm = Float.parseFloat(AAA[2]);
@@ -544,7 +547,7 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                 // 이동거리
                 String total_distance = totalDistanceTextView.getText().toString();
                 // 평균BPM
-                String avg_bpm = heartRateTextView.getText().toString();
+                String avg_bpm = String.valueOf(bpm_avg);
                 // 소모 칼로리
                 String kcal = kcalTextview.getText().toString();
 //            Log.d(TAG, "평균쇽도 = " + avg_speed);

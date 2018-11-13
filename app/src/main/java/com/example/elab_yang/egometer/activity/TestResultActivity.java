@@ -241,14 +241,12 @@ public class TestResultActivity extends AppCompatActivity implements View.OnClic
                 t = 0;
                 Log.d(TAG, "onClick: t" + String.valueOf(t));
                 set_bpm();
-
                 break;
 
             case R.id.bpm_down:
                 t--;
                 Log.d(TAG, "onClick: t" + String.valueOf(t));
                 set_bpm();
-
                 break;
         }
 

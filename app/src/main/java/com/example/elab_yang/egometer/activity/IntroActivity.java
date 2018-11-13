@@ -30,7 +30,8 @@ public class IntroActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Button next_btn = (Button) findViewById(R.id.next_btn);
         next_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(IntroActivity.this, DeviceScanActivity.class);
+//            Intent intent = new Intent(IntroActivity.this, DeviceScanActivity.class);
+            Intent intent = new Intent(IntroActivity.this, MainActivity.class);
             startActivity(intent);
         });
     }

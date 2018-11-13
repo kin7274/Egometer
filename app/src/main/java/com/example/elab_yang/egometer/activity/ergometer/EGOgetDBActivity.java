@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.elab_yang.egometer.IActivityBasicSetting;
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.adapter.MyRecyclerAdapter;
 import com.example.elab_yang.egometer.model.CardItem;
@@ -26,80 +27,57 @@ import com.example.elab_yang.egometer.model.DB;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EGOgetDBActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class EGOgetDBActivity extends AppCompatActivity implements IActivityBasicSetting {
     private static final String TAG = "getDBActivity";
+
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerview;
+
+    @BindView(R.id.add_btn)
+    Button add_btn;
 
     Context mContext;
     DB db;
     SQLiteDatabase sql;
     String data;
 
-    Button add_btn;
-
     List<CardItem> lists;
     private MyRecyclerAdapter mAdapter;
-    RecyclerView recycler_view;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getdb);
+        initSetting();
+    }
+
+    @Override
+    public void bindView() {
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initSetting() {
+        mContext = this;
+        bindView();
         setToolbar();
         setStatusbar();
-        mContext = this;
         setRecyclerView();
 
-        add_btn = (Button) findViewById(R.id.add_btn);
-        add_btn.setOnClickListener(v -> {
-//            selectDialog();
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            View view = LayoutInflater.from(EGOgetDBActivity.this)
-                    .inflate(R.layout.edit_box, null, false);
-            builder.setView(view);
-
-            final Button ButtonSubmit = (Button) view.findViewById(R.id.button_dialog_submit);
-            final EditText edit1 = (EditText) view.findViewById(R.id.edit1);
-            final EditText edit2 = (EditText) view.findViewById(R.id.edit2);
-            final EditText edit3 = (EditText) view.findViewById(R.id.edit3);
-            final EditText edit4 = (EditText) view.findViewById(R.id.edit4);
-            final EditText edit5 = (EditText) view.findViewById(R.id.edit5);
-            final EditText edit6 = (EditText) view.findViewById(R.id.edit6);
-            final EditText edit7 = (EditText) view.findViewById(R.id.edit7);
-            final EditText edit8 = (EditText) view.findViewById(R.id.edit8);
-            final EditText edit9 = (EditText) view.findViewById(R.id.edit9);
-            ButtonSubmit.setText("삽입");
-            final AlertDialog dialog = builder.create();
-            ButtonSubmit.setOnClickListener(v1 -> {
-                String strEdit1 = edit1.getText().toString();
-                String strEdit2 = edit2.getText().toString();
-                String strEdit3 = edit3.getText().toString();
-                String strEdit4 = edit4.getText().toString();
-                String strEdit5 = edit5.getText().toString();
-                String strEdit6 = edit6.getText().toString();
-                String strEdit7 = edit7.getText().toString();
-                String strEdit8 = edit8.getText().toString();
-                String strEdit9 = edit9.getText().toString();
-                // 디뽈트값
-                lists.add(new CardItem(strEdit1, strEdit1, strEdit2, strEdit3, strEdit4, strEdit5, strEdit6, strEdit7, strEdit8, strEdit9));
-                mAdapter.notifyDataSetChanged();
-                dialog.dismiss();
-            });
-
-            dialog.show();
-        });
         db = new DB(this);
         getDB();
     }
 
-    // 툴바
     public void setToolbar() {
         Toolbar mytoolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(mytoolbar);
         getSupportActionBar().setTitle("");
     }
 
-    // 상태바 색 변경
     public void setStatusbar() {
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -108,14 +86,12 @@ public class EGOgetDBActivity extends AppCompatActivity {
     }
 
     public void setRecyclerView() {
-        // 객체 생성
-        recycler_view = (RecyclerView) findViewById(R.id.recycler_view);
-        recycler_view.setHasFixedSize(false);
+        recyclerview.setHasFixedSize(false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         // 반대로 쌓기
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
-        recycler_view.setLayoutManager(layoutManager);
+        recyclerview.setLayoutManager(layoutManager);
         // 배열 null 예외처리
         try {
             lists = new ArrayList<>();
@@ -123,7 +99,7 @@ public class EGOgetDBActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         mAdapter = new MyRecyclerAdapter(lists);
-        recycler_view.setAdapter(mAdapter);
+        recyclerview.setAdapter(mAdapter);
     }
 
     public void getDB() {
@@ -183,7 +159,44 @@ public class EGOgetDBActivity extends AppCompatActivity {
         sql.close();
     }
 
-    //
+
+    @OnClick(R.id.add_btn)
+    void onClick() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = LayoutInflater.from(EGOgetDBActivity.this)
+                .inflate(R.layout.edit_box, null, false);
+        builder.setView(view);
+
+        final Button ButtonSubmit = (Button) view.findViewById(R.id.button_dialog_submit);
+        final EditText edit1 = (EditText) view.findViewById(R.id.edit1);
+        final EditText edit2 = (EditText) view.findViewById(R.id.edit2);
+        final EditText edit3 = (EditText) view.findViewById(R.id.edit3);
+        final EditText edit4 = (EditText) view.findViewById(R.id.edit4);
+        final EditText edit5 = (EditText) view.findViewById(R.id.edit5);
+        final EditText edit6 = (EditText) view.findViewById(R.id.edit6);
+        final EditText edit7 = (EditText) view.findViewById(R.id.edit7);
+        final EditText edit8 = (EditText) view.findViewById(R.id.edit8);
+        final EditText edit9 = (EditText) view.findViewById(R.id.edit9);
+        ButtonSubmit.setText("삽입");
+        final AlertDialog dialog = builder.create();
+        ButtonSubmit.setOnClickListener(v1 -> {
+            String strEdit1 = edit1.getText().toString();
+            String strEdit2 = edit2.getText().toString();
+            String strEdit3 = edit3.getText().toString();
+            String strEdit4 = edit4.getText().toString();
+            String strEdit5 = edit5.getText().toString();
+            String strEdit6 = edit6.getText().toString();
+            String strEdit7 = edit7.getText().toString();
+            String strEdit8 = edit8.getText().toString();
+            String strEdit9 = edit9.getText().toString();
+            // 디뽈트값
+            lists.add(new CardItem(strEdit1, strEdit1, strEdit2, strEdit3, strEdit4, strEdit5, strEdit6, strEdit7, strEdit8, strEdit9));
+            mAdapter.notifyDataSetChanged();
+            dialog.dismiss();
+        });
+        dialog.show();
+    }
+
     @Override
     public void onBackPressed() {
         set_setDB();

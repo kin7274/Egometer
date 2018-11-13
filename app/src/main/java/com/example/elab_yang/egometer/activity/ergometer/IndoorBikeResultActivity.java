@@ -217,11 +217,12 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
     public void ddiyong() {
         final CustomDialog customdialog = new CustomDialog(this);
         customdialog.show();
+        customdialog.setCancelable(false);
         customdialog.setOnDismissListener(dialog -> {
             num = String.valueOf(CustomDialog.getnNum());
 
             Log.d(TAG, "ddiyong: num!!! " + num);
-            if((num.equals("0"))||(num.equals("1"))){
+            if ((num.equals("0")) || (num.equals("1"))) {
                 // 쉬워, 할만해
                 // 강도가 너무 낮은거야
                 Toast.makeText(getApplicationContext(), "낮은 강도의 운동을 하고계셔요", Toast.LENGTH_SHORT).show();
@@ -230,7 +231,7 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
                 // 1. 최대심박 범위를 0.1 올린다.
                 // 2. 부하검사를 다시 진행한다.
                 // 3. 중강도 구간을 30초 줄인다.
-            } else if((num.equals("2"))){
+            } else if ((num.equals("2"))) {
                 // 보통
                 // 강도 적정
                 Toast.makeText(getApplicationContext(), "적정하군요@@~!@@", Toast.LENGTH_SHORT).show();
@@ -256,17 +257,18 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
     }
 
     protected Dialog onCreateDialog(int id) {
-        final String [] items = {"1. 최대심박 범위를 0.1씩 올린다.", "2. 운동 부하 검사 재실시", "3. 중강도 구간을 30초 늘이고 고강도 구간을 줄인다."};
-        final String [] items2 = {"1. 최대심박 범위를 0.1씩 내린다.", "2. 운동 부하 검사 재실시", "3. 중강도 구간을 30초 줄이고 고강도 구간을 늘린다."};
+        final String[] items = {"1. 최대심박 범위를 0.1씩 올린다.", "2. 운동 부하 검사 재실시", "3. 중강도 구간을 30초 늘이고 고강도 구간을 줄인다."};
+        final String[] items2 = {"1. 최대심박 범위를 0.1씩 내린다.", "2. 운동 부하 검사 재실시", "3. 중강도 구간을 30초 줄이고 고강도 구간을 늘린다."};
         AlertDialog.Builder builder = new AlertDialog.Builder(IndoorBikeResultActivity.this);
+        builder.setCancelable(false);
         builder.setTitle("운동 처방전 - ");
-        if(id == 1){
+        if (id == 1) {
             builder.setTitle("운동 처방전 - 낮은 운동 강도")
-            .setSingleChoiceItems(items, 0, (DialogInterface dialog, int which) -> {
-                Toast.makeText(IndoorBikeResultActivity.this, items[which], Toast.LENGTH_SHORT).show();
-                index = which;
+                    .setSingleChoiceItems(items, 0, (DialogInterface dialog, int which) -> {
+                        Toast.makeText(IndoorBikeResultActivity.this, items[which], Toast.LENGTH_SHORT).show();
+                        index = which;
 //            dialog.dismiss(); // 누르면 바로 닫히는 형태
-            })
+                    })
                     .setPositiveButton("확인", (DialogInterface dialog, int which) -> {
 //                if(index == 0){
 //                    // 심박 범위를 내린다.
@@ -283,8 +285,8 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
 //                    Intent intent = new Intent(IndoorBikeResultActivity.this, TestResultActivity.class);
 //                    startActivity(intent);
 //                }
-                dialog.dismiss(); // 누르면 바로 닫히는 형태
-            })
+                        dialog.dismiss(); // 누르면 바로 닫히는 형태
+                    })
                     .show();
         } else {
             builder.setTitle("운동 처방전 - 높은 운동 강도")

@@ -17,7 +17,7 @@ public class TestStartBeforeActivity extends AppCompatActivity {
     private TextToSpeech tts;
     Context mContext;
     private Handler mHandler;
-    TextView top_title_message, mid_title_message;
+    TextView message1, message2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +25,8 @@ public class TestStartBeforeActivity extends AppCompatActivity {
         mContext = this;
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_test_start_before);
-        top_title_message = (TextView) findViewById(R.id.top_title_message);
-        mid_title_message = (TextView) findViewById(R.id.mid_title_message);
+        message1 = (TextView) findViewById(R.id.message1);
+        message2 = (TextView) findViewById(R.id.message2);
         // 1초 후 음성 start;
         guide_speech();
         // 운동부하검사 시작 버튼;
@@ -52,16 +52,15 @@ public class TestStartBeforeActivity extends AppCompatActivity {
             // 1초 후
             mHandler.postDelayed(() -> {
                 try {
-                    tts.speak(top_title_message.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, null);
+                    tts.speak(message1.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, null);
                     // QUEUE_ADD : 위에꺼 다 끝나면
-                    tts.speak(mid_title_message.getText().toString(), TextToSpeech.QUEUE_ADD, null, null);
+                    tts.speak(message2.getText().toString(), TextToSpeech.QUEUE_ADD, null, null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }, 1000);
         });
     }
-
 
     @Override
     protected void onDestroy() {

@@ -20,8 +20,8 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:fontFamily="@font/my_font_family"
-            android:text="Setting"
-            android:textColor="#ffffff"
+            android:text="정보 설정"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="normal" />
     </android.support.v7.widget.Toolbar>
@@ -40,7 +40,7 @@
             android:weightSum="2">
 
             <!--개인정보 수정-->
-            <android.support.constraint.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/layout1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -70,20 +70,13 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_person_black_24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    tools:layout_editor_absoluteX="61dp"
+                    tools:layout_editor_absoluteY="107dp" />
 
-            </android.support.constraint.ConstraintLayout>
-
+            </LinearLayout>
             <!--DB삭제-->
-            <android.support.constraint.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/layout2"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -123,8 +116,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </android.support.constraint.ConstraintLayout>
-
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -135,7 +127,7 @@
             android:weightSum="2">
 
             <!--앱 평가하기-->
-            <android.support.constraint.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/layout3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -175,10 +167,10 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
 
             <!--앱 소개하기-->
-            <android.support.constraint.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/layout4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -218,7 +210,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
 
         </LinearLayout>
 

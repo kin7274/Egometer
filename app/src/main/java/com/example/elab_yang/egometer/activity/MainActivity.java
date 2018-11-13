@@ -1,9 +1,9 @@
 package com.example.elab_yang.egometer.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,36 +20,58 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.example.elab_yang.egometer.IActivityBasicSetting;
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.TestStartBeforeActivity;
+import com.example.elab_yang.egometer.activity.appInfo.AppGuidenceActivity;
 import com.example.elab_yang.egometer.adapter.DeviceAdapter;
 import com.example.elab_yang.egometer.model.Device;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.paperdb.Paper;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements IActivityBasicSetting, NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
     private static final long RIPPLE_DURATION = 250;
-    Context mContext;
+
+    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+
+    @BindView(R.id.text_emptydevice)
+    TextView emptydevice;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+
     DeviceAdapter deviceAdapter;
     HashSet<Device> deviceDatabase = new HashSet<>();
     ArrayList<Device> deviceArrayList;
-    TextView textview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mContext = this;
-        setStatusbar();
-        textview = (TextView) findViewById(R.id.textview);
-        textview.setVisibility(View.GONE);
-        setNavi();
+        initSetting();
+    }
+
+    @Override
+    public void bindView() {
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initSetting() {
         Paper.init(this);
+        bindView();
+        setStatusbar();
+        setNavi();
         setDevice();
     }
 
@@ -60,22 +82,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
 
-    public void setNavi(){
+    public void setNavi() {
+        // toolbar
         Toolbar mytoolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(mytoolbar);
         getSupportActionBar().setTitle("");
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, mytoolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void setDevice(){
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+    public void setDevice() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         deviceDatabase = Paper.book("device").read("user_device");
@@ -89,17 +109,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Device device = deviceArrayList.get(i);
                     Log.e(TAG, "onCreate: " + device.getDeviceName() + ", " + device.getDeviceAddress());
                 }
-
             }
         } else {
             Log.e(TAG, "onCreate: " + "등록된 장비 없음");
-            textview.setVisibility(View.VISIBLE);
+            emptydevice.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -115,56 +133,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         int id = menuItem.getItemId();
         switch (id) {
             case R.id.nav_profile:
                 // 호구조사
 //                Toast.makeText(getApplicationContext(),"장치 추가", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                startActivity(new Intent(this, ProfileActivity.class));
                 break;
 
             case R.id.nav_add_device:
                 // 장치 추가
 //                Toast.makeText(getApplicationContext(),"장치 추가", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, DeviceChoiceActivity.class));
+                startActivity(new Intent(this, DeviceChoiceActivity.class));
                 break;
 
             case R.id.nav_db_check:
                 // DB 확인
 //                Toast.makeText(getApplicationContext(),"DB 확인", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, DBChoiceActivity.class));
+                startActivity(new Intent(this, DBChoiceActivity.class));
                 break;
 
             case R.id.nav_bloodsuger:
                 // 혈당 다이어리
 //                Toast.makeText(getApplicationContext(),"DB 확인", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, BloodSugarActivity.class));
+                startActivity(new Intent(this, BloodSugarActivity.class));
                 break;
 
             case R.id.nav_load_test:
                 // 운동 부하 검사
-                startActivity(new Intent(MainActivity.this, TestStartBeforeActivity.class));
+                startActivity(new Intent(this, TestStartBeforeActivity.class));
                 break;
 
             case R.id.nav_result_test:
                 // 운동 부하 검사 결과
 //                Toast.makeText(getApplicationContext(),"환경설정", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, TestResult2Activity.class));
+                startActivity(new Intent(this, TestResult2Activity.class));
                 break;
 
             case R.id.nav_guide:
                 // 사용자가이드
-                startActivity(new Intent(MainActivity.this, AppGuidenceActivity.class));
+                startActivity(new Intent(this, AppGuidenceActivity.class));
                 break;
 
             case R.id.nav_setting:
                 // 환경설정
 //                Toast.makeText(getApplicationContext(),"환경설정", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                startActivity(new Intent(this, SettingActivity.class));
                 break;
-
-
         }
         drawer.closeDrawer(GravityCompat.START);
         return false;

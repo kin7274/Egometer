@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".TestStartBeforeActivity">
 
     <RelativeLayout
@@ -21,24 +22,24 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/top_title_message"
+                android:id="@+id/message1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:fontFamily="@font/my_font_family"
-                android:text="@string/fitness_load_test_start_message"
+                android:text="@string/message1"
                 android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/mid_title_message"
+                android:id="@+id/message2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:fontFamily="@font/my_font_family"
-                android:text="@string/fitness_load_test_start_message2"
+                android:text="시작할까요?"
                 android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:textSize="30sp" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -52,6 +53,6 @@
         android:fontFamily="@font/my_font_family"
         android:text="시작하기"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="30sp" />
 
 </RelativeLayout>
