@@ -1,9 +1,11 @@
 package com.example.elab_yang.egometer.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -137,7 +139,15 @@ public class MainActivity extends AppCompatActivity implements IActivityBasicSet
             case R.id.nav_profile:
                 // 호구조사
 //                Toast.makeText(getApplicationContext(),"장치 추가", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, ProfileActivity.class));
+
+                SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                if (pref.getString("user_data0", "").equals("")) {
+                    Snackbar.make(this.getWindow().getDecorView().getRootView(),
+                            "먼저! 환경설정 -> 개인정보 입력해주세요", 3000).setAction("확인", v -> startActivity(new Intent(getApplicationContext(), EditProfileActivity.class))).show();
+                    // 기존값이 없구나
+                } else {
+                    startActivity(new Intent(this, ProfileActivity.class));
+                }
                 break;
 
             case R.id.nav_add_device:
