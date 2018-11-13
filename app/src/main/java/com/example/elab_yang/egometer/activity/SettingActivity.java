@@ -8,9 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.elab_yang.egometer.DeleteDataBaseActivity;
@@ -72,7 +70,7 @@ public class SettingActivity extends AppCompatActivity implements IActivityBasic
         switch (v.getId()) {
             case R.id.layout1:
                 // 개인정보 입력
-                startActivity(new Intent(this, ProfileActivity.class));
+                startActivity(new Intent(this, EditProfileActivity.class));
                 break;
 
             case R.id.layout2:

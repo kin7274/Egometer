@@ -145,6 +145,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
+        <!--환경설정-->
+        <activity
+            android:name=".activity.EditProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
         <!--DELETE DATABASESS-->
         <activity
             android:name=".DeleteDataBaseActivity"

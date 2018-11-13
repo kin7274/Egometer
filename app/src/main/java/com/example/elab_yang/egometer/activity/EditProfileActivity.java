@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.elab_yang.egometer.IActivityBased;
@@ -14,8 +15,10 @@ import com.example.elab_yang.egometer.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class ProfileActivity extends AppCompatActivity implements IActivityBased {
+public class EditProfileActivity extends AppCompatActivity implements IActivityBased {
+    private static final String TAG = "EditProfileActivity";
 
     @BindView(R.id.user_name)
     EditText user_name;
@@ -35,13 +38,16 @@ public class ProfileActivity extends AppCompatActivity implements IActivityBased
     @BindView(R.id.user_height)
     EditText user_height;
 
-    String user_data_name, user_data_age, user_data_blood_min,
-            user_data_blood_max, user_data_weight, user_data_height;
+    @BindView(R.id.set_btn)
+    Button set_btn;
+
+    // 저장값
+    String[] user_data = {"", "", "", "", "", ""};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_edit_profile);
         initSetting();
     }
 
@@ -55,7 +61,6 @@ public class ProfileActivity extends AppCompatActivity implements IActivityBased
         bindView();
         setToolbar();
         setStatusbar();
-        getCache();
     }
 
     public void setToolbar() {
@@ -71,33 +76,18 @@ public class ProfileActivity extends AppCompatActivity implements IActivityBased
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
     }
 
-    // 저장된 cache값을 가져와
-    public void getCache() {
-        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-        user_data_name = pref.getString("user_data0", "");
-        user_data_age = pref.getString("user_data1", "");
-        user_data_blood_min = pref.getString("user_data2", "");
-        user_data_blood_max = pref.getString("user_data3", "");
-        user_data_weight = pref.getString("user_data4", "");
-        user_data_height = pref.getString("user_data5", "");
-
-        user_name.setText(user_data_name);
-        user_age.setText(user_data_age);
-        user_blood_min.setText(user_data_blood_min);
-        user_blood_max.setText(user_data_blood_max);
-        user_weight.setText(user_data_weight);
-        user_height.setText(user_data_height);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    // 저장하기 버튼 클릭 시
+    @OnClick(R.id.set_btn)
+    void onClick() {
+        // TODO: 2018-11-12 입력칸 빈 null값 처리
+        // string 가져와 모두다 캐시에 저ㅡ장
         set_cache();
+        finish();
     }
 
     // 후루룹쩝쩝
+    // 모두 긁어서 캐시에 저장한다!
     public void set_cache() {
-        // TODO: 2018-11-12 빈 값 표시 
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("user_data0", user_name.getText().toString());
