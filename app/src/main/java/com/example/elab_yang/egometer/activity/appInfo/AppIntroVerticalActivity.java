@@ -32,7 +32,7 @@ public class AppIntroVerticalActivity extends VerticalIntro {
         // 1페이지
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.gray)
-//                .image(R.mipmap.ther)
+                .image(R.mipmap.intro1)
                 .title("이모든솔루션 - 유산소 운동 관리 프로그램")
                 .titleSize(30)
                 .titleColor(R.color.black)
@@ -44,7 +44,7 @@ public class AppIntroVerticalActivity extends VerticalIntro {
         // 2페이지
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.colorPrimary)
-//                .image(R.mipmap.anal)
+                .image(R.mipmap.intro2)
                 .title("운동 데이터 자동 저장")
                 .titleSize(30)
                 .titleColor(R.color.white)
@@ -56,7 +56,7 @@ public class AppIntroVerticalActivity extends VerticalIntro {
         // 3페이지
         addIntroItem(new VerticalIntroItem.Builder()
                 .backgroundColor(R.color.lime)
-//                .image(R.mipmap.kiosk)
+                .image(R.mipmap.intro3)
                 .title("개개인에 맞게 운동 프로그램 작성! 코칭!")
                 .titleSize(30)
                 .titleColor(R.color.black)
