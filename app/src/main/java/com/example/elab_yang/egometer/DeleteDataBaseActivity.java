@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.elab_yang.egometer.activity.database.ERGO_DBHelper;
 import com.example.elab_yang.egometer.activity.database.TREAD_DBHelper;
@@ -85,6 +86,7 @@ public class DeleteDataBaseActivity extends AppCompatActivity implements IActivi
                         Log.d(TAG, "onClick: ergo 클리어;;;");
                         sql = ERGODbHelper.getWritableDatabase();
                         ERGODbHelper.onUpgrade(sql, 1, 2);
+                        Toast.makeText(getApplicationContext(), "에르고미터 데이터 초기화", Toast.LENGTH_SHORT).show();
                     })
                     .setNegativeButton("아니오", (dialog, which) -> Log.d(TAG, "onClick: ergo 휴 다행"))
                     .show()
@@ -99,6 +101,7 @@ public class DeleteDataBaseActivity extends AppCompatActivity implements IActivi
                         Log.d(TAG, "onClick: TREAD 클리어;;;");
                         sql = TREADDbHelper.getWritableDatabase();
                         TREADDbHelper.onUpgrade(sql, 1, 2);
+                        Toast.makeText(getApplicationContext(), "트레드밀 데이터 초기화", Toast.LENGTH_SHORT).show();
                     })
                     .setNegativeButton("아니오", (dialog, which) -> Log.d(TAG, "onClick: TREAD 휴 다행"))
                     .show()
