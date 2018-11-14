@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:fontFamily="@font/my_font_family"
-            android:text="장치를 검색합니다."
+            android:text="운동 프로그램 작성"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="normal" />
@@ -199,10 +199,11 @@
 
                 <Button
                     android:id="@+id/bpm_zero"
-                    android:layout_toRightOf="@+id/bpm_up"
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
                     android:fontFamily="@font/my_font_family"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="범위 원래대로"
@@ -214,7 +215,8 @@
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/bpm_zero"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
                     android:fontFamily="@font/my_font_family"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="범위 내리기"

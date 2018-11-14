@@ -38,7 +38,7 @@ public class CustomDialog extends Dialog {
         edit = (EditText) findViewById(R.id.edit);
 
         text = (TextView) findViewById(R.id.text);
-        text.setText("그냥저냥");
+        text.setText("6 : 너무 가볍다");
 
         // 0 : 넘 ㅜ쉬운데?
         // 1 : 이정도면 할만해
@@ -52,21 +52,53 @@ public class CustomDialog extends Dialog {
                 num = seekBar.getProgress();
                 Log.d(TAG, "onProgressChanged: mi, " + num);
                 setnNum(num);
-                if(num == 0){
-                    // 0
-                    text.setText("넘 ㅜ쉬운데?");
-                } else if(num == 1){
-                    // 1
-                    text.setText("이정도면 할만해");
-                } else if(num == 2){
-                    // 2
-                    text.setText("그냥저냥");
-                } else if(num == 3){
-                    // 3
-                    text.setText("좀 힘들어");
-                } else {
-                    // 4
-                    text.setText("매우 힘들얼");
+
+                switch (num) {
+                    case 0:
+                        text.setText("6 : 너무 가볍다");
+                        break;
+                    case 1:
+                        text.setText("7 : 가볍다");
+                        break;
+                    case 2:
+                        text.setText("8 : 가볍다");
+                        break;
+                    case 3:
+                        text.setText("9 : 가볍다");
+                        break;
+                    case 4:
+                        text.setText("10 : 가볍다");
+                        break;
+                    case 5:
+                        text.setText("11 : 가볍다");
+                        break;
+                    case 6:
+                        text.setText("12 : 조금 힘들다");
+                        break;
+                    case 7:
+                        text.setText("13 : 조금 힘들다");
+                        break;
+                    case 8:
+                        text.setText("14 : 힘들다");
+                        break;
+                    case 9:
+                        text.setText("15 : 힘들다");
+                        break;
+                    case 10:
+                        text.setText("16 : 매우 힘들다");
+                        break;
+                    case 11:
+                        text.setText("17 : 매우 힘들다");
+                        break;
+                    case 12:
+                        text.setText("18 : 최고 힘들다");
+                        break;
+                    case 13:
+                        text.setText("19 : 최고 힘들다");
+                        break;
+                    case 14:
+                        text.setText("20 : 최고 힘들다");
+                        break;
                 }
             }
 

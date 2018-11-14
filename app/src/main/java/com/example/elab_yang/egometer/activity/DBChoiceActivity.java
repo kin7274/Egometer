@@ -13,6 +13,7 @@ import com.example.elab_yang.egometer.IActivityBasicSetting;
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.activity.ergometer.EGOgetDBActivity;
 import com.example.elab_yang.egometer.activity.treadmill.TREADScanActivIty;
+import com.example.elab_yang.egometer.activity.treadmill.TREADgetDBActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +44,7 @@ public class DBChoiceActivity extends AppCompatActivity implements IActivityBasi
 
             case R.id.select_treadmill:
                 Toast.makeText(getApplicationContext(), "트레드밀 운동 기록을 열겠습니다.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, TREADScanActivIty.class));
+                startActivity(new Intent(this, TREADgetDBActivity.class));
                 break;
         }
     }

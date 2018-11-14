@@ -21,7 +21,7 @@ public class AppIntroVerticalActivity extends VerticalIntro {
     protected void onStart() {
         super.onStart();
         // 처음이 아니네?
-        check_first();
+//        check_first();
     }
 
     @Override
@@ -96,7 +96,7 @@ public class AppIntroVerticalActivity extends VerticalIntro {
     @Override
     protected void onDonePressed() {
         // first_or_second = true;
-        check_exec();
+//        check_exec();
         // 전환
         startActivity(new Intent(this, MainActivity.class));
         Log.d(TAG, "onDonePressed: AppIntroVerticalActivity -> MainActivity");
@@ -104,21 +104,21 @@ public class AppIntroVerticalActivity extends VerticalIntro {
     }
 
     // 처음 사용자인가?
-    private void check_first() {
-        pref = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
-        if (pref.getBoolean("first_or_second", false)) {
-            Log.d(TAG, "check_first: 응 아니야");
+//    private void check_first() {
+//        pref = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
+//        if (pref.getBoolean("first_or_second", false)) {
+//            Log.d(TAG, "check_first: 응 아니야");
+////            startActivity(new Intent(this, MainActivity.class));
 //            startActivity(new Intent(this, MainActivity.class));
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        }
-    }
+//            finish();
+//        }
+//    }
 
     // 실행
-    private void check_exec() {
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putBoolean("first_or_second", true);
-        editor.apply();
-    }
+//    private void check_exec() {
+//        SharedPreferences.Editor editor = pref.edit();
+//        editor.putBoolean("first_or_second", true);
+//        editor.apply();
+//    }
 }
 

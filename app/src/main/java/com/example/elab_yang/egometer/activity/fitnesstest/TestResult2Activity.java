@@ -24,6 +24,7 @@ import com.example.elab_yang.egometer.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 // [0] : 단계
@@ -34,10 +35,9 @@ import butterknife.ButterKnife;
 //        dididi.setText(AAAA);
 
 
-public class TestResult2Activity extends AppCompatActivity implements IActivityBasicSetting, View.OnClickListener {
+public class TestResult2Activity extends AppCompatActivity implements IActivityBasicSetting {
     //        implements View.OnClickListener {
     private static final String TAG = "TestResultActivity";
-    SeekBar seekBar;
     Context mContext;
     public int num = 18;
     String stage = "";
@@ -51,13 +51,6 @@ public class TestResult2Activity extends AppCompatActivity implements IActivityB
 
     @BindView(R.id.bpm_down)
     Button bpm_down;
-
-    // 운동 부하 검사 결과 단계, 최대심박수
-    @BindView(R.id.text_stage)
-    TextView text_stage;
-
-    @BindView(R.id.text_bom_max)
-    TextView text_bom_max;
 
     // 중강도, 고강도 시간 입력
     @BindView(R.id.joong_gang_do_time)
@@ -78,6 +71,12 @@ public class TestResult2Activity extends AppCompatActivity implements IActivityB
 
     @BindView(R.id.speed_guide1)
     TextView speed_guide1;
+
+    @BindView(R.id.text_bom_max)
+    TextView text_bom_max;
+
+    @BindView(R.id.seekbar)
+    SeekBar seekBar;
 
     int t = 0;
 
@@ -103,61 +102,6 @@ public class TestResult2Activity extends AppCompatActivity implements IActivityB
         mContext = this;
         initSetting();
     }
- 
-    public void set_bpm() {
-        bpm1 = Float.parseFloat(bpm) * (0.5f + 0.05f * t);
-        bpm2 = Float.parseFloat(bpm) * (0.7f + 0.05f * t);
-        bpm1_str = String.format("%.0f", bpm1);
-        bpm2_str = String.format("%.0f", bpm2);
-        Log.d(TAG, "bpm1_str" + bpm1_str);
-        Log.d(TAG, "bpm2_str" + bpm2_str);
-        bpm_guide.setText("심박수는 " + bpm1_str + " - " + bpm2_str + "를 유지");
-
-        bpm_guide1.setText("심박수는 " + bpm2_str + " 이상을 유지");
-    }
-
-    String seekbar_data_convert(int num) {
-        if (num % 2 == 1) {
-            // 나머지값이 있으면 이건 홀수니까
-            if (num / 2 == 0) {
-                return "30초";
-            } else {
-                return num / 2 + "분 30초";
-            }
-        }
-        // 짝수
-        if (num / 2 == 0) {
-            return "-";
-        } else {
-            return num / 2 + "분";
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.bpm_up:
-                t++;
-                Log.d(TAG, "onClick: t" + String.valueOf(t));
-                set_bpm();
-                break;
-
-            case R.id.bpm_zero:
-                t = 0;
-                Log.d(TAG, "onClick: t" + String.valueOf(t));
-                set_bpm();
-
-                break;
-
-            case R.id.bpm_down:
-                t--;
-                Log.d(TAG, "onClick: t" + String.valueOf(t));
-                set_bpm();
-
-                break;
-        }
-
-    }
 
     @Override
     public void bindView() {
@@ -169,6 +113,7 @@ public class TestResult2Activity extends AppCompatActivity implements IActivityB
         bindView();
         setToolbar();
         setStatusbar();
+        dd();
     }
 
     public void setToolbar() {
@@ -184,79 +129,33 @@ public class TestResult2Activity extends AppCompatActivity implements IActivityB
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryPurle));
     }
 
-
     public void dd() {
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         AAAA = pref.getString("mydata", mydata);
+        Log.d(TAG, "dd: AAAA = " + AAAA);
         if (AAAA.equals("")) {
             // 운동부하검서를 먼저 진행해주세요.
-
 
         } else {
             abc = AAAA.split("/");
 //            abc[0] : 단계
+//            abc[1] : 검사로 나온 최대값
+//            abc[2] : 최소심박
+//            abc[3] : 최대심박
+//            abc[4] : 중강도시간
 
-//            abc[1] : 최소심박
-//            abc[2] : 최대심박
-//            abc[3] : 중강도시간
+            joong_gang_do_time.setText(String.valueOf(seekbar_data_convert(Integer.parseInt(abc[4]))) );
+            go_gang_do_time.setText(seekbar_data_convert((int) 20 - Integer.parseInt(abc[4])));
 
-            joong_gang_do_time = (TextView) findViewById(R.id.joong_gang_do_time);
-            joong_gang_do_time.setText(String.valueOf(joong_gang_do_time_default) + "분");
-            go_gang_do_time = (TextView) findViewById(R.id.go_gang_do_time);
-            go_gang_do_time.setText(String.valueOf(go_gang_do_time_default) + "분");
 
-//        min_btn = (Button) findViewById(R.id.min_btn);
-//        min_btn.setOnClickListener(this);
-//
-//        max_btn = (Button) findViewById(R.id.max_btn);
-//        max_btn.setOnClickListener(this);
+            text_bom_max.setText("최대 심박수는 " + abc[1] + "이네요");
+            bpm_guide1.setText("심박수는 " + abc[2] + " 이상을 유지");
 
-            Intent intent = getIntent();
-            stage = intent.getStringExtra("stage");
-            Log.d(TAG, "onCreate: 넘어온값@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            Log.d(TAG, "onCreate: stage = " + stage);
-            bpm = intent.getStringExtra("bpm");
-            Log.d(TAG, "onCreate: bpm = " + bpm);
-
-            // 최종 단계
-//            text_stage = (TextView) findViewById(R.id.text_stage);
-//            text_stage.setText(stage + "단계까지 가셨군요");
-
-            // 최대 심박
-            text_bom_max = (TextView) findViewById(R.id.text_bom_max);
-            text_bom_max.setText("최대 심박수는 " + bpm + "이네요");
-
-            // 중강도
-            // 심박 if BPMamx = 150이라면
-            // BPMmax 0.5 - 0.7
-            bpm_guide = (TextView) findViewById(R.id.bpm_guide);
-//        bpm1 = Float.parseFloat(bpm) * (0.5f + 0.1f*t);
-//        bpm2 = Float.parseFloat(bpm) * (0.7f + 0.1f*t);
-//        String bpm1_str = String.format("%.0f", bpm1);
-//        String bpm2_str = String.format("%.0f", bpm2);
-//        Log.d(TAG, "onCreate: bpm1_str" + bpm1_str);
-//        Log.d(TAG, "onCreate: bpm2_str" + bpm2_str);
-//        bpm_guide.setText("심박수는 " + bpm1_str + " - " + bpm2_str + "를 유지");
-
-            // 속도
-            speed_guide = (TextView) findViewById(R.id.speed_guide);
             speed_guide.setText("속도는 15-20km/h를 유지");
-
-            // 고강도
-            // 심박
-            bpm_guide1 = (TextView) findViewById(R.id.bpm_guide1);
-//        bpm_guide1.setText("심박수는 " + bpm2_str + " 이상을 유지");
-
-
             set_bpm();
-
-
-            // 속도
-            speed_guide1 = (TextView) findViewById(R.id.speed_guide1);
             speed_guide1.setText("속도는 20km/h 이상 유지");
 
             // 시크바
-            seekBar = (SeekBar) findViewById(R.id.seekbar);
             // thumb 크기 조절
             ViewTreeObserver vto = seekBar.getViewTreeObserver();
             vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -303,15 +202,72 @@ public class TestResult2Activity extends AppCompatActivity implements IActivityB
         }
     }
 
+    String seekbar_data_convert(int num) {
+        if (num % 2 == 1) {
+            // 나머지값이 있으면 이건 홀수니까
+            if (num / 2 == 0) {
+                return "30초";
+            } else {
+                return num / 2 + "분 30초";
+            }
+        }
+        // 짝수
+        if (num / 2 == 0) {
+            return "-";
+        } else {
+            return num / 2 + "분";
+        }
+    }
+
+    @OnClick({R.id.bpm_down, R.id.bpm_zero, R.id.bpm_up})
+    void Click(View v) {
+        switch (v.getId()) {
+            case R.id.bpm_up:
+                t++;
+                Log.d(TAG, "onClick: t" + String.valueOf(t));
+                set_bpm();
+                break;
+
+            case R.id.bpm_zero:
+                t = 0;
+                Log.d(TAG, "onClick: t" + String.valueOf(t));
+                set_bpm();
+
+                break;
+
+            case R.id.bpm_down:
+                t--;
+                Log.d(TAG, "onClick: t" + String.valueOf(t));
+                set_bpm();
+
+                break;
+        }
+    }
+
+    public void set_bpm() {
+//        bpm1 = Float.parseFloat(abc[1]) * (0.5f + 0.05f * t);
+//        bpm2 = Float.parseFloat(abc[1]) * (0.7f + 0.05f * t);
+
+        bpm1 = Float.parseFloat(abc[2] + 0.05f *t);
+        bpm2 = Float.parseFloat(abc[3] + 0.05f *t);
+        bpm1_str = String.format("%.0f", bpm1);
+        bpm2_str = String.format("%.0f", bpm2);
+        Log.d(TAG, "bpm1_str" + bpm1_str);
+        Log.d(TAG, "bpm2_str" + bpm2_str);
+        bpm_guide.setText("심박수는 " + bpm1_str + " - " + bpm2_str + "를 유지");
+
+        bpm_guide1.setText("심박수는 " + bpm2_str + " 이상을 유지");
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         pref = TestResult2Activity.this.getSharedPreferences("pref", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        mydata = stage + "/" + bpm1_str + "/" + bpm2_str + "/" + String.valueOf(num);
+        mydata = abc[0] + "/" + abc[1] + "/" + bpm1_str + "/" + bpm2_str + "/" + String.valueOf(num);
         editor.putString("mydata", mydata);
         Log.d(TAG, "mydata = " + mydata);
         editor.apply();
-        TestResult2Activity.this.finish();
+        finish();
     }
 }

@@ -35,7 +35,6 @@
             android:id="@+id/text_bom_max"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_stage"
             android:layout_margin="8dp"
             android:fontFamily="@font/my_font_family"
             android:gravity="center_horizontal"

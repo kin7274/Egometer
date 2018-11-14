@@ -23,6 +23,10 @@ import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.adapter.MyRecyclerAdapter;
 import com.example.elab_yang.egometer.model.CardItem;
 import com.example.elab_yang.egometer.activity.database.ERGO_DBHelper;
+import com.example.elab_yang.egometer.model.EventCard;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +51,8 @@ public class EGOgetDBActivity extends AppCompatActivity implements IActivityBasi
 
     List<CardItem> lists;
     private MyRecyclerAdapter mAdapter;
+
+    EventBus bus = EventBus.getDefault();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,5 +207,58 @@ public class EGOgetDBActivity extends AppCompatActivity implements IActivityBasi
     public void onBackPressed() {
         set_setDB();
         finish();
+    }
+
+    @Subscribe
+    public void getEventFromAdapter(EventCard event) {
+        Log.e(TAG, "getEventFromAdapter22 : " + event.getPosistion() + event.getDate() + event.getTime() + event.getSpeed() + event.getDistance() +
+                event.getBpm() + event.getKcal() + event.getBefore_bloodsugar() + event.getAfter_bloodsugar() + event.getNum() + event.getMemo());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = LayoutInflater.from(EGOgetDBActivity.this).inflate(R.layout.db_refresh_edit_box, null, false);
+        builder.setView(view);
+        final Button ButtonSubmit = (Button) view.findViewById(R.id.button_dialog_submit);
+        final EditText edit1 = (EditText) view.findViewById(R.id.edit1);
+        final EditText edit2 = (EditText) view.findViewById(R.id.edit2);
+        final EditText edit3 = (EditText) view.findViewById(R.id.edit3);
+        final EditText edit4 = (EditText) view.findViewById(R.id.edit4);
+        final EditText edit5 = (EditText) view.findViewById(R.id.edit5);
+        final EditText edit6 = (EditText) view.findViewById(R.id.edit6);
+        final EditText edit7 = (EditText) view.findViewById(R.id.edit7);
+        final EditText edit8 = (EditText) view.findViewById(R.id.edit8);
+        final EditText edit9 = (EditText) view.findViewById(R.id.edit9);
+        final EditText edit10 = (EditText) view.findViewById(R.id.edit10);
+
+        // 기존값 가져오기
+        edit1.setText(event.getDate());
+        edit2.setText(event.getTime());
+        edit3.setText(event.getSpeed());
+        edit4.setText(event.getDistance());
+        edit5.setText(event.getBpm());
+        edit6.setText(event.getMemo());
+        edit7.setText(event.getMemo());
+        edit8.setText(event.getMemo());
+        edit9.setText(event.getMemo());
+        edit10.setText(event.getMemo());
+        ButtonSubmit.setText("삽입");
+        final AlertDialog dialog = builder.create();
+        ButtonSubmit.setOnClickListener(v1 -> {
+            String strEdit1 = edit1.getText().toString();
+            String strEdit2 = edit2.getText().toString();
+            String strEdit3 = edit3.getText().toString();
+            String strEdit4 = edit4.getText().toString();
+            String strEdit5 = edit5.getText().toString();
+            String strEdit6 = edit5.getText().toString();
+            String strEdit7 = edit5.getText().toString();
+            String strEdit8 = edit5.getText().toString();
+            String strEdit9 = edit5.getText().toString();
+            String strEdit10 = edit5.getText().toString();
+            // 디뽈트값
+//            lists.set(event.getPosistion(), new CardItem(setImage(""), null, null, null, null, null, setImage2("")));
+            lists.set(event.getPosistion(), new CardItem(strEdit1, strEdit2, strEdit3, strEdit4, strEdit5, strEdit6, strEdit7, strEdit8, strEdit9, strEdit10));
+            mAdapter.notifyDataSetChanged();
+            dialog.dismiss();
+        });
+        dialog.show();
     }
 }

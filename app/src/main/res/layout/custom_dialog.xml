@@ -15,27 +15,37 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal|center_vertical"
             android:fontFamily="@font/my_font_family"
-            android:text="운동 자가평가. 난이도"
+            android:text="RPE : 운동자각도 평가"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/title1"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:fontFamily="@font/my_font_family"
+            android:text="(6-20단계 중 선택)"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/text"
-            android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="91dp"
             android:background="@color/red"
             android:fontFamily="@font/my_font_family"
             android:text="중간"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <SeekBar
             android:id="@+id/seekbar"
@@ -43,8 +53,8 @@
             android:layout_width="match_parent"
             android:layout_below="@+id/text"
             android:layout_height="wrap_content"
-            android:max="4"
-            android:progress="2"
+            android:max="14"
+            android:progress="1"
             android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
             android:tickMark="@drawable/tickmark" />
 
@@ -58,7 +68,7 @@
             android:fontFamily="@font/my_font_family"
             android:text="메모 가능!!!"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/edit"
@@ -72,7 +82,7 @@
             android:inputType="text"
             android:textColor="@color/black"
             android:textDirection="locale"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/set_btn"
@@ -84,6 +94,6 @@
             android:fontFamily="@font/my_font_family"
             android:text="저장하기"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
     </RelativeLayout>
 </RelativeLayout>

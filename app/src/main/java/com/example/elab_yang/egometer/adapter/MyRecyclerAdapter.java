@@ -15,14 +15,18 @@ import android.widget.Toast;
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.model.CardItem;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> implements OnLongClickListener {
     Context mContext;
     private final List<CardItem> mDataList;
+    EventBus bus;
 
     public MyRecyclerAdapter(List<CardItem> dataList) {
         mDataList = dataList;
+        bus = EventBus.getDefault();
     }
 
     @Override

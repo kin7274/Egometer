@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activity.MainActivity">
 
@@ -13,11 +14,11 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="270dp"
+            android:layout_width="309dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_margin="8dp"
+            android:layout_marginTop="16dp"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:layout_editor_absoluteX="57dp"
             tools:layout_editor_absoluteY="16dp" />
@@ -29,14 +30,11 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:fontFamily="@font/my_font_family"
-            android:gravity="center_horizontal"
+            android:gravity="center_horizontal|center_vertical"
             android:text="등록된 장치가 없습니다."
             android:textColor="@color/black"
             android:textSize="30sp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/recycler_view"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="0dp" />
+            android:visibility="gone" />
 
     </RelativeLayout>
 

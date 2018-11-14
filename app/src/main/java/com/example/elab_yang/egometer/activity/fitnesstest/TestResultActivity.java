@@ -26,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TestResultActivity extends AppCompatActivity implements IActivityBasicSetting, View.OnClickListener {
+public class TestResultActivity extends AppCompatActivity implements IActivityBasicSetting {
     private static final String TAG = "TestResultActivity";
     Context mContext;
 
@@ -90,7 +90,7 @@ public class TestResultActivity extends AppCompatActivity implements IActivityBa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_result2);
+        setContentView(R.layout.activity_test_result);
         mContext = this;
         initSetting();
     }
@@ -105,6 +105,7 @@ public class TestResultActivity extends AppCompatActivity implements IActivityBa
         bindView();
         setToolbar();
         setStatusbar();
+        onon();
     }
 
     public void setToolbar() {
@@ -149,8 +150,9 @@ public class TestResultActivity extends AppCompatActivity implements IActivityBa
         }
     }
 
-    @Override
-    public void onClick(View v) {
+
+    @OnClick({R.id.bpm_down, R.id.bpm_zero, R.id.bpm_up})
+    void Click(View v) {
         switch (v.getId()) {
             case R.id.bpm_up:
                 t++;
@@ -162,118 +164,94 @@ public class TestResultActivity extends AppCompatActivity implements IActivityBa
                 t = 0;
                 Log.d(TAG, "onClick: t" + String.valueOf(t));
                 set_bpm();
-
                 break;
 
             case R.id.bpm_down:
                 t--;
                 Log.d(TAG, "onClick: t" + String.valueOf(t));
                 set_bpm();
-
                 break;
         }
     }
 
-    public void dd() {
-        pref = getSharedPreferences("pref", MODE_PRIVATE);
-        AAAA = pref.getString("mydata", mydata);
-        if (AAAA.equals("")) {
-            // 운동부하검서를 먼저 진행해주세요.
+    public void onon() {
+        joong_gang_do_time.setText(String.valueOf(joong_gang_do_time_default) + "분");
+        go_gang_do_time.setText(String.valueOf(go_gang_do_time_default) + "분");
+
+        Intent intent = getIntent();
+        stage = intent.getStringExtra("stage");
+        Log.d(TAG, "onCreate: 넘어온값@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        Log.d(TAG, "onCreate: stage = " + stage);
+        bpm = intent.getStringExtra("bpm");
+        Log.d(TAG, "onCreate: bpm = " + bpm);
 
 
-        } else {
-            abc = AAAA.split("/");
-//            abc[0] : 단계
+        text_stage.setText(stage + "단계까지 가셨군요");
 
-//            abc[1] : 최소심박
-//            abc[2] : 최대심박
-//            abc[3] : 중강도시간
-
-            joong_gang_do_time.setText(String.valueOf(joong_gang_do_time_default) + "분");
-            go_gang_do_time.setText(String.valueOf(go_gang_do_time_default) + "분");
-
-//        min_btn = (Button) findViewById(R.id.min_btn);
-//        min_btn.setOnClickListener(this);
-//
-//        max_btn = (Button) findViewById(R.id.max_btn);
-//        max_btn.setOnClickListener(this);
-
-            Intent intent = getIntent();
-            stage = intent.getStringExtra("stage");
-            Log.d(TAG, "onCreate: 넘어온값@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            Log.d(TAG, "onCreate: stage = " + stage);
-            bpm = intent.getStringExtra("bpm");
-            Log.d(TAG, "onCreate: bpm = " + bpm);
-
-            // 최종 단계
-//            text_stage = (TextView) findViewById(R.id.text_stage);
-//            text_stage.setText(stage + "단계까지 가셨군요");
-
-            // 최대 심박
-            text_bom_max.setText("최대 심박수는 " + bpm + "이네요");
-            // 속도
-            speed_guide.setText("속도는 15-20km/h를 유지");
-            // 고강도
-            // 심박
+        // 최대 심박
+        text_bom_max.setText("최대 심박수는 " + bpm + "이네요");
+        // 속도
+        speed_guide.setText("속도는 15-20km/h를 유지");
+        // 고강도
+        // 심박
 //        bpm_guide1.setText("심박수는 " + bpm2_str + " 이상을 유지");
 
-            set_bpm();
+        set_bpm();
 
-            // 속도
-            speed_guide1.setText("속도는 20km/h 이상 유지");
+        // 속도
+        speed_guide1.setText("속도는 20km/h 이상 유지");
 
-            // 시크바
-            // thumb 크기 조절
-            ViewTreeObserver vto = seekBar.getViewTreeObserver();
-            vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    Resources res = getResources();
-                    Drawable thumb = res.getDrawable(R.drawable.placeholder);
-                    int h = (int) (seekBar.getMeasuredHeight() * 1.5);
-                    int w = h;
-                    Bitmap bitmap = ((BitmapDrawable) thumb).getBitmap();
-                    Bitmap bitmapScaled = Bitmap.createScaledBitmap(bitmap, w, h, true);
-                    Drawable newThumb = new BitmapDrawable(res, bitmapScaled);
-                    newThumb.setBounds(0, 0, newThumb.getIntrinsicWidth(), newThumb.getIntrinsicHeight());
-                    seekBar.setThumb(newThumb);
-                    seekBar.getViewTreeObserver().removeOnPreDrawListener(this);
-                    return true;
-                }
-            });
+        // 시크바
+        // thumb 크기 조절
+        ViewTreeObserver vto = seekBar.getViewTreeObserver();
+        vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                Resources res = getResources();
+                Drawable thumb = res.getDrawable(R.drawable.placeholder);
+                int h = (int) (seekBar.getMeasuredHeight() * 1.5);
+                int w = h;
+                Bitmap bitmap = ((BitmapDrawable) thumb).getBitmap();
+                Bitmap bitmapScaled = Bitmap.createScaledBitmap(bitmap, w, h, true);
+                Drawable newThumb = new BitmapDrawable(res, bitmapScaled);
+                newThumb.setBounds(0, 0, newThumb.getIntrinsicWidth(), newThumb.getIntrinsicHeight());
+                seekBar.setThumb(newThumb);
+                seekBar.getViewTreeObserver().removeOnPreDrawListener(this);
+                return true;
+            }
+        });
 
-            // 시크바 이벤트
-            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    // 상태가 변경되었을때
-                    num = seekBar.getProgress();
+        // 시크바 이벤트
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // 상태가 변경되었을때
+                num = seekBar.getProgress();
 //                joong_gang_do_time.setText(new StringBuilder().append(num));
 //                go_gang_do_time.setText(new StringBuilder().append(10 - num));
-                    joong_gang_do_time.setText(new StringBuilder().append(seekbar_data_convert(num)));
-                    go_gang_do_time.setText(new StringBuilder().append(seekbar_data_convert(20 - num)));
-                }
+                joong_gang_do_time.setText(new StringBuilder().append(seekbar_data_convert(num)));
+                go_gang_do_time.setText(new StringBuilder().append(seekbar_data_convert(20 - num)));
+            }
 
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                    // 움직임이 시작될때
-                    num = seekBar.getProgress();
-                }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // 움직임이 시작될때
+                num = seekBar.getProgress();
+            }
 
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    // 움직임이 멈췄을때
-                    num = seekBar.getProgress();
-                }
-            });
-        }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // 움직임이 멈췄을때
+                num = seekBar.getProgress();
+            }
+        });
     }
 
     @OnClick(R.id.close_btn)
     void Click() {
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        mydata = stage + "/" + bpm1_str + "/" + bpm2_str + "/" + String.valueOf(num);
+        mydata = stage + "/" + bpm + "/" + bpm1_str + "/" + bpm2_str + "/" + String.valueOf(num);
         editor.putString("mydata", mydata);
         Log.d(TAG, "mydata = " + mydata);
         editor.apply();

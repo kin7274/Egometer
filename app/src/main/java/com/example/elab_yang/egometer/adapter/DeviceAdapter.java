@@ -19,6 +19,7 @@ package com.example.elab_yang.egometer.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -43,6 +44,7 @@ import java.util.List;
 
 import io.paperdb.Paper;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
 
 public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder> {
@@ -78,7 +80,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     }
 
 
-    // TODO: 2018-11-14  쫌 꼬인거같은데??
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
@@ -112,6 +113,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         holder.showActivityTracks.setOnClickListener(v -> {
             if (deviceName.equals(EGZeroConst.DEVICE_NAME)) {
 //                Intent bsmIntent = new Intent(context, IndoorBikeRealTimeActivity.class);
+
+
+                //
                 Intent bsmIntent = new Intent(context, RemindActivity.class);
                 bsmIntent.putExtra(REAL_TIME_INDOOR_BIKE_DEVICE, deviceAddress);
                 context.startActivity(bsmIntent);

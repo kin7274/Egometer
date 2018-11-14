@@ -88,7 +88,6 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
         String extra = intent.getExtras().getString("result_extra");
         arr_data = extra.split("&");
 
-        // 객체 생성
         txt_time = (TextView) findViewById(R.id.txt_time);
         txt_AvgSpeed = (TextView) findViewById(R.id.txt_AvgSpeed);
         txt_Distance = (TextView) findViewById(R.id.txt_Distance);
@@ -102,9 +101,9 @@ public class IndoorBikeResultActivity extends AppCompatActivity implements View.
 
         // 클릭 이벤트
         txt_time.setOnClickListener(this);
-        txt_AvgSpeed.setOnClickListener(this);
+        txt_AvgSpeed.setOnClickListener(this);  //
         txt_Distance.setOnClickListener(this);
-        txt_AvgBPM.setOnClickListener(this);
+        txt_AvgBPM.setOnClickListener(this);  //
         txt_Kcal.setOnClickListener(this);
         txt_before_bloodsugar.setOnClickListener(this);
         txt_after_bloodsugar.setOnClickListener(this);

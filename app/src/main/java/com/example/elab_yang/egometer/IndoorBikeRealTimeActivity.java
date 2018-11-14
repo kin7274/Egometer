@@ -4,11 +4,9 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -24,7 +22,7 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,12 +47,11 @@ import cn.iwgang.countdownview.CountdownView;
 import static android.graphics.Color.RED;
 import static com.example.elab_yang.egometer.etc.IntentConst.REAL_TIME_INDOOR_BIKE_DEVICE;
 
-public class IndoorBikeRealTimeActivity extends AppCompatActivity {
+public class IndoorBikeRealTimeActivity extends AppCompatActivity implements IActivityBasicSetting {
     private static final String TAG = "IndoorBikeRealTimeActiv";
 
     TextToSpeech tts;
 
-    ConstraintLayout layout;
 
     int bpm_avg = 0;
     int total_bpm = 0;
@@ -69,39 +66,38 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     String mDeviceAddress;
     private boolean mConnected = false;
 
-    @BindView(R.id.text_view)
-    TextView textView;
-
-    @BindView(R.id.textView2)
-    TextView kcalTextview;
-
-    @BindView(R.id.textView3)
-    TextView nowSpeedTextView;
-
-    @BindView(R.id.textView9)
-    TextView totalDistanceTextView;
-
-//    @BindView(R.id.textView11)
-//    TextView userStateMsgTextView; //운동상태
-
-    @BindView(R.id.textView13)
-    TextView heartRateTextView; //심박수
+    @BindView(R.id.layout)
+    RelativeLayout layout;
 
     @BindView(R.id.textView6)
     TextView meanSpeedTextView; //평균속도
 
-    //    @BindView(R.id.chronometer)
-    Chronometer chronometer;
+    @BindView(R.id.heart_rate_text_view)
+    TextView heartRateTextView; //심박수
 
+    @BindView(R.id.text_stage)
+    TextView text_stage;
+
+    @BindView(R.id.text_aim_bpm)
+    TextView text_aim_bpm;
+
+    @BindView(R.id.txt_Kcal)
+    TextView kcalTextview;
+
+    @BindView(R.id.speed_text_view)
+    TextView nowSpeedTextView;
+
+    @BindView(R.id.bpm_avg)
+    TextView text_avg_bpm;
+
+    @BindView(R.id.avg_distance)
+    TextView totalDistanceTextView;
+
+    @BindView(R.id.chronometer)
+    Chronometer chronometer;
 
     @BindView(R.id.line_chart)
     LineChart lineChart;
-
-    @BindView(R.id.info_layout)
-    LinearLayout infoLayout;
-
-    @BindView(R.id.home)
-    ImageView backButton;
 
 //    @BindView(R.id.cv_countdownView)
 //    CountdownView countdownView;
@@ -125,7 +121,6 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     private ArrayList<Entry> realtimeData = new ArrayList<>();
     private int cnt = 0;
     private int cnt1 = 0;
-    private int cnt2 = 0;
     private int speedCount = 0;
 
     String[] AAA;
@@ -137,7 +132,7 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 
     int flag = 0;
 
-    long elapsedMillis;
+    //    long elapsedMillis;
     long seconds;
 
     Handler mHandler;
@@ -147,6 +142,7 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     int workoutTime;
     int workoutIntense;
 
+    int cntcnt = 0;
     int[] hr = new int[5];
 
     int num = 0;
@@ -199,22 +195,22 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
                 final String action = intent.getAction();
                 if (EZBLEService.ACTION_GATT_CONNECTED.equals(action)) {
-                    mConnected = true;
+//                    mConnected = true;
                     //updateConnectionState(R.string.connected);
                     invalidateOptionsMenu();
 //                emptyLayout.setVisibility(View.GONE);
-                    infoLayout.setVisibility(View.VISIBLE);
-                    countdownView.setVisibility(View.VISIBLE);
+//                    infoLayout.setVisibility(View.VISIBLE);
+//                    countdownView.setVisibility(View.VISIBLE);
 
                 } else if (EZBLEService.ACTION_GATT_DISCONNECTED.equals(action)) {
-                    mConnected = false;
+//                    mConnected = false;
                     chronometer.stop();
-                    countdownView.pause();
+//                    countdownView.pause();
                     //updateConnectionState(R.string.disconnected);
                     invalidateOptionsMenu();
 //                emptyLayout.setVisibility(View.VISIBLE);
-                    infoLayout.setVisibility(View.GONE);
-                    countdownView.setVisibility(View.GONE);
+//                    infoLayout.setVisibility(View.GONE);
+//                    countdownView.setVisibility(View.GONE);
                     firstStartFlag = true;
                     //clearUI();
                 } else if (EZBLEService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
@@ -225,42 +221,11 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                     start_set_chronometer();
                     Log.d(TAG, "onReceive: chronometer start");
 
-//                    if(seconds < 1800000){
-//                        mHandler = new Handler();
-//                        runOnUiThread(() -> {
-//                            // 10초 후
-//                            mHandler.postDelayed(() -> {
-//                                try {
-//                                    elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-//                                    seconds = ((int) elapsedMillis / 1000) * 1000;
-//                                    Log.d(TAG, "onReceive: seconds" + seconds);
-//
-//                                    if(seconds >= 10000 && seconds <20000){
-//                                        Log.d(TAG, "onReceive: 10 - 20초 사이");
-//                                        flag = 1;
-////                                        textView11.setText("1번째 고강도" + "&" + AAAA);
-//                                        tts.speak("고강도 시작", TextToSpeech.QUEUE_FLUSH, null, null);
-//                                        Toast.makeText(IndoorBikeRealTimeActivity.this, "막해", Toast.LENGTH_SHORT).show();
-//                                    } else if(seconds >= 20000 && seconds <30000){
-//                                        Log.d(TAG, "onReceive: 20 - 30초 사이");
-//                                        flag = 1;
-////                                        textView11.setText("2번째 중강도" + "&" + AAAA);
-//                                        tts.speak("즁강도 시작", TextToSpeech.QUEUE_FLUSH, null, null);
-//                                        Toast.makeText(IndoorBikeRealTimeActivity.this, "막해", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                } catch (Exception e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }, 5000);
-//                        });
+//                    countdownView.start(workoutTime * 1000);
+//                    if (firstStartFlag) {
+//                        countdownView.restart();
+//                        firstStartFlag = false;
 //                    }
-
-
-                    countdownView.start(workoutTime * 1000);
-                    if (firstStartFlag) {
-                        countdownView.restart();
-                        firstStartFlag = false;
-                    }
                 } else if (EZBLEService.ACTION_DATA_AVAILABLE.equals(action)) {
                     Log.e(TAG, "onReceive: " + intent.getStringExtra(EZBLEService.EXTRA_DATA));
                     displayData(intent.getStringExtra(EZBLEService.EXTRA_DATA));
@@ -269,6 +234,7 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 //                    String hr = intent.getStringExtra(EZBLEService.EXTRA_DATA);
 //                    heartRateTextView.setText(hr);
 //
+                    Log.d(TAG, "onReceive: cntcnt = " + cntcnt);
 //                    float userHR = Float.parseFloat(hr);
                     String str_hr = intent.getStringExtra(EZBLEService.EXTRA_DATA);
                     heartRateTextView.setText(str_hr);
@@ -276,48 +242,21 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                     // 일단 view에 넣어두고
 
                     // 인트로 변환해 비교하기위해
-                    hr[cnt1%5] = Integer.parseInt(str_hr);
+                    hr[cntcnt % 5] = Integer.parseInt(str_hr);
 
                     // avg
-                    total_bpm = total_bpm + hr[cnt1%5];
-                    bpm_avg = total_bpm / (cnt1+1);
-//                    avg_bpm.setText(String.valueOf(bpm_avg));
+                    total_bpm = total_bpm + hr[cntcnt % 5];
+                    Log.d(TAG, "onReceive: totalbpm = " + total_bpm);
+                    bpm_avg = total_bpm/(cntcnt + 1);
+                    Log.d(TAG, "onReceive: cntcnt = " + cntcnt);
 
-                    if(cnt1%5 == 0){
-                        float userHR = (float) hr[cnt1%5];
-                        // 중강도
-                        if (flag == 0) {
-                            if (userHR > 0.0f && userHR < min_bpm) {
-                                String msg = "운동강도를 올릴 필요가 있습니다.";
-                                layout.setBackgroundResource(R.color.weaker_red);
-                                tts.speak("운동강도가 낮아", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else if (userHR >= min_bpm && userHR < max_bpm) {
-                                String msg = "적절한 운동강도로 운동중입니다.";
+                    Log.d(TAG, "onReceive: bpm_avg = " + bpm_avg);
+                    Log.d(TAG, "onReceive: total_bpm/(cntcnt + 1) = " + total_bpm/(cntcnt + 1));
 
-                                layout.setBackgroundResource(R.color.weaker_green);
 
-                                tts.speak("적당혀", TextToSpeech.QUEUE_FLUSH, null, null);
+                    text_avg_bpm.setText(String.valueOf(bpm_avg));
+                    cntcnt++;
 
-                            } else if (userHR >= max_bpm) {
-                                String msg = "운동강도가 초과됬습니다. 속도를 낮추고나 W를 낮춰주세요";
-                                layout.setBackgroundResource(R.color.weaker_blue);
-
-                                tts.speak("운동강도가 너무 높아", TextToSpeech.QUEUE_FLUSH, null, null);
-                            }
-
-                            // 고강도
-                        } else {
-                            if (userHR > 0.0f && userHR < max_bpm) {
-                                String msg = "운동강도를 올릴 필요가 있습니다.";
-                                tts.speak("운동강도가 낮아", TextToSpeech.QUEUE_FLUSH, null, null);
-                            }
-                        }
-                        if (userHR == 0.0f) {
-                            tts.speak("심박센서 다시차", TextToSpeech.QUEUE_FLUSH, null, null);
-                        }
-                    } else {
-                        cnt1++;
-                    }
                 } else if (EZBLEService.ACTION_INDOOR_BIKE_AVAILABLE.equals(action)) {
 
                     String nowSpeed = intent.getStringExtra(EZBLEService.EXTRA_DATA);
@@ -333,7 +272,6 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                         meanSpeedTextView.setText(meanSpeedMsg);
                         speedCount++;
                     }
-
 
                 } else if (EZBLEService.ACTION_TREADMILL_AVAILABLE.equals(action)) {
                     String totalDistance = intent.getStringExtra(EZBLEService.EXTRA_DATA);
@@ -390,7 +328,7 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indoor_bike_real_time);
-
+        initSetting();
         tts_setting();
 
         Intent bsmintent = getIntent();
@@ -400,27 +338,31 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 //        AAA[1] : min bpm;
 //        AAA[2] : max bpm;
 
-        num = Integer.parseInt(AAA[3]);
+        num = Integer.parseInt(AAA[4]);
         def_num = num * 30;
 
-        textView11 = (TextView) findViewById(R.id.textView11);
-        textView11.setText("중강도 1번 : " + AAAA);
+//        textView11 = (TextView) findViewById(R.id.textView11);
+        text_stage.setText("중강도 1번");
+        text_aim_bpm.setText(AAA[2] + " - " + AAA[3]);
+
         tts.speak("중강도 시작", TextToSpeech.QUEUE_FLUSH, null, null);
 
-        chronometer = (Chronometer) findViewById(R.id.chronometer);
+//        chronometer = (Chronometer) findViewById(R.id.chronometer);
 
-        layout = (ConstraintLayout) findViewById(R.id.layout);
+//        layout = (ConstraintLayout) findViewById(R.id.layout);
 
-        countdownView = (CountdownView) findViewById(R.id.cv_countdownView);
+//        countdownView = (CountdownView) findViewById(R.id.cv_countdownView);
 //        showDialog();
         ButterKnife.bind(this);
 
-        min_bpm = Float.parseFloat(AAA[1]);
-        max_bpm = Float.parseFloat(AAA[2]);
+        min_bpm = Float.parseFloat(AAA[2]);
+        max_bpm = Float.parseFloat(AAA[3]);
 //        Log.d(TAG, "onCreate: Float.parseFloat(AAA[1])" + Float.parseFloat(AAA[1]));
 //        Log.d(TAG, "onCreate: Float.parseFloat(AAA[2])" + Float.parseFloat(AAA[2]));
         Log.d(TAG, "onCreate: min_bpm = " + min_bpm);
         Log.d(TAG, "onCreate: max_bpm = " + max_bpm);
+
+
 
 
         chronometer.setTextSize(20);
@@ -435,13 +377,13 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 
         long time = 30 * 60 * 1000;  // 1800000초 = 30분
 
-        countdownView.setVisibility(View.GONE);
-        countdownView.start(time);
+//        countdownView.setVisibility(View.GONE);
+//        countdownView.start(time);
 //        flag = 0 : 중강도;
 //        flag = 1 : 고강도;
 
         initChart();
-        infoLayout.setVisibility(View.GONE);
+//        infoLayout.setVisibility(View.GONE);
     }
 
     // 운동 전 혈당입력
@@ -508,17 +450,8 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
 
     private void displayData(String data) {
         if (data != null) {
-            textView.append(data);
+//            textView.append(data);
         }
-    }
-
-    @OnClick(R.id.home)
-    public void onClickButton() {
-//        finish();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("알림")
-                .setMessage("운동을 종료하시겠어요?")
-                .setPositiveButton("네", (dialog, which) -> finish());
     }
 
     @Override
@@ -543,13 +476,17 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                 int time = (int) (long) (SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000;
                 //            Log.d(TAG, "운동시간 = " + time +"초");
                 // 평균속도
-                String avg_speed = meanSpeedTextView.getText().toString();
+//                String avg_speed = meanSpeedTextView.getText().toString();
                 // 이동거리
                 String total_distance = totalDistanceTextView.getText().toString();
+
+
                 // 평균BPM
                 String avg_bpm = String.valueOf(bpm_avg);
                 // 소모 칼로리
                 String kcal = kcalTextview.getText().toString();
+                String avg_speed = meanSpeedTextView.getText().toString();
+
 //            Log.d(TAG, "평균쇽도 = " + avg_speed);
 //            Log.d(TAG, "이동거리 = " + total_distance);
 //            Log.d(TAG, "평균심박 = " + avg_bpm);
@@ -574,15 +511,17 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
                 // [2] : max bpm
                 // [3] : 중강도 시간
 
+
                 // AAA[3]
                 Intent intent = new Intent(IndoorBikeRealTimeActivity.this, IndoorBikeResultActivity.class);
                 intent.putExtra("before_bloodsugar", before_bloodsugar);
                 intent.putExtra("after_bloodsugar", after_bloodsugar);
                 intent.putExtra("result_time", time);
-                intent.putExtra("result_extra", avg_speed + "&" + total_distance + "&" + avg_bpm + "&" + kcal);
+                intent.putExtra("result_extra", avg_speed + "&" + total_distance + "&" + bpm_avg + "&" + kcal);
+
+
 
                 startActivity(intent);
-
                 finish();
             })
                     .setView(et1)
@@ -600,32 +539,76 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
             Log.d(TAG, "onChronometerTick: seconds = " + seconds);
 
 //                int timetimetime = seekbar_data_convert(Integer.parseInt(AAA[3]));
+            if (seconds >= def_num && seconds < 600 && flag == 0) {
+                // 고강도 1번
+
+                text_stage.setText("고강도 1번");
+
+                tts.speak("고강도 시작", TextToSpeech.QUEUE_FLUSH, null, null);
+                flag = 1;
+
+            } else if (seconds >= 600 && seconds < (600 + def_num) && flag == 1) {
+                // 중강도 2번
+                text_stage.setText("중강도 2번");
+
+                tts.speak("중강도 2번째 시작", TextToSpeech.QUEUE_FLUSH, null, null);
+                flag = 0;
+
+            } else if (seconds >= (600 + def_num) && seconds < 1200 && flag == 0) {
+                // 고강도 1번
+                text_stage.setText("고강도 2번");
+
+
+                tts.speak("고강도 2번째 시작", TextToSpeech.QUEUE_FLUSH, null, null);
+                flag = 1;
+
+            } else if (seconds >= 1200 && seconds < (1200 + def_num) && flag == 1) {
+                // 중강도 2번
+                text_stage.setText("중강도 3번");
+
+                tts.speak("중강도 3번째 시작", TextToSpeech.QUEUE_FLUSH, null, null);
+                flag = 0;
+
+            } else if (seconds >= (1200 + def_num) && seconds <= 1800 && flag == 0) {
+                // 고강도 3번
+                text_stage.setText("고강도 3번");
+
+                tts.speak("고강도 3번째 시작", TextToSpeech.QUEUE_FLUSH, null, null);
+                flag = 1;
+
+            }
+
             if ((seconds % 10) == 0) {
-                if (seconds >= def_num && seconds < 600) {
-                    // 고강도 1번
-                    flag = 1;
-                    textView11.setText("고강도 1번 : " + AAAA);
-                    tts.speak("고강도 시작", TextToSpeech.QUEUE_FLUSH, null, null);
-                } else if (seconds >= 600 && seconds < (600 + def_num)) {
-                    // 중강도 2번
-                    flag = 0;
-                    textView11.setText("중강도 2번 : " + AAAA);
-                    tts.speak("중강도 2번째 시작", TextToSpeech.QUEUE_FLUSH, null, null);
-                } else if (seconds >= (600 + def_num) && seconds < 1200) {
-                    // 고강도 1번
-                    flag = 1;
-                    textView11.setText("고강도 2번 : " + AAAA);
-                    tts.speak("고강도 2번째 시작", TextToSpeech.QUEUE_FLUSH, null, null);
-                } else if (seconds >= 1200 && seconds < (1200 + def_num)) {
-                    // 중강도 2번
-                    flag = 0;
-                    textView11.setText("중강도 3번 : " + AAAA);
-                    tts.speak("중강도 3번째 시작", TextToSpeech.QUEUE_FLUSH, null, null);
-                } else if (seconds >= (1200 + def_num) && seconds <= 1800) {
-                    // 고강도 3번
-                    flag = 1;
-                    textView11.setText("고강도 3번 : " + AAAA);
-                    tts.speak("고강도 3번째 시작", TextToSpeech.QUEUE_FLUSH, null, null);
+                float userHR = (float) hr[cnt1 % 5];
+                // 중강도
+                if (flag == 0) {
+                    if (userHR > 0.0f && userHR < min_bpm) {
+                        String msg = "운동강도를 올릴 필요가 있습니다.";
+                        layout.setBackgroundResource(R.color.weaker_red);
+                        tts.speak("속도가 낮습니다", TextToSpeech.QUEUE_FLUSH, null, null);
+                    } else if (userHR >= min_bpm && userHR < max_bpm) {
+                        String msg = "적절한 운동강도로 운동중입니다.";
+
+                        layout.setBackgroundResource(R.color.weaker_green);
+
+                        tts.speak("적당혀", TextToSpeech.QUEUE_FLUSH, null, null);
+
+                    } else if (userHR >= max_bpm) {
+                        String msg = "운동강도가 초과됬습니다. 속도를 낮추고나 W를 낮춰주세요";
+                        layout.setBackgroundResource(R.color.weaker_blue);
+
+                        tts.speak("속도가 빠릅니다. 속도를 낮춰주세요", TextToSpeech.QUEUE_FLUSH, null, null);
+                    }
+
+                    // 고강도
+                } else {
+                    if (userHR > 0.0f && userHR < max_bpm) {
+                        String msg = "운동강도를 올릴 필요가 있습니다.";
+                        tts.speak("속도가 낮습니다. 속도를 올려주세요", TextToSpeech.QUEUE_FLUSH, null, null);
+                    }
+                }
+                if (userHR == 0.0f) {
+                    tts.speak("심박센서 위치를 확인해주세요", TextToSpeech.QUEUE_FLUSH, null, null);
                 }
             }
         });
@@ -646,5 +629,15 @@ public class IndoorBikeRealTimeActivity extends AppCompatActivity {
         } else {
             return num / 2 + "분";
         }
+    }
+
+    @Override
+    public void bindView() {
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initSetting() {
+        bindView();
     }
 }

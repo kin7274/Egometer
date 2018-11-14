@@ -13,15 +13,19 @@ import android.widget.TextView;
 import com.example.elab_yang.egometer.R;
 import com.example.elab_yang.egometer.model.CardItem2;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 public class MyRecyclerAdapter2 extends RecyclerView.Adapter<MyRecyclerAdapter2.ViewHolder> implements OnLongClickListener {
     Context mContext;
     private final List<CardItem2> mDataList;
+    EventBus bus;
 
     // Adapter 초기화 및 생성자로 받은 데이터기반으로 Adapter 내 데이터 세팅
     public MyRecyclerAdapter2(List<CardItem2> dataList) {
         mDataList = dataList;
+        bus = EventBus.getDefault();
     }
 
     // ViewHolder가 초기화 될 때 혹은 ViewHolder를 초기화 할 때 실행되는 메서드

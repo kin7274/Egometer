@@ -189,7 +189,7 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
                 // 10초에 한번씩 방송
                 if (cnt1 % 10 == 1) {
                     tts_flag = true;
-                    Toast.makeText(getApplicationContext(), "개꿀", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "시작", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -197,7 +197,7 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
                     // 속도가 느려..
                     layout.setBackgroundResource(R.color.weaker_red);
                     if (tts_flag) {
-                        tts.speak("느려요", TextToSpeech.QUEUE_FLUSH, null, null);
+                        tts.speak("속도가 낮습니다. 속도를 올려주세요", TextToSpeech.QUEUE_ADD, null, null);
                         tts_flag = false;
                     }
                     if (Float.parseFloat(nowSpeed) == 0) {
@@ -214,7 +214,7 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
 
                 } else if (Float.parseFloat(nowSpeed) > ((int) aimSpeed) + 5) {
                     if (tts_flag) {
-                        tts.speak("빨라요", TextToSpeech.QUEUE_FLUSH, null, null);
+                        tts.speak("속도가 빠릅니다. 속도를 낮춰주세요", TextToSpeech.QUEUE_ADD, null, null);
                         tts_flag = false;
                     }
                     layout.setBackgroundResource(R.color.weaker_blue);
@@ -311,7 +311,7 @@ public class LoadTestActivity extends AppCompatActivity implements IActivityBasi
                 tts.setPitch(1.0f);
                 tts.setSpeechRate(0.8f);
             }
-            tts.speak("가즈아ㅏㅏㅏ", TextToSpeech.QUEUE_FLUSH, null, null);
+            tts.speak("운동부하검사를 시작하겠습니다", TextToSpeech.QUEUE_FLUSH, null, null);
         });
     }
 
